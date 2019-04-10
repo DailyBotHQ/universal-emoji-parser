@@ -9,4 +9,3 @@ deploy:
     repo: RockaLabs/universal-emoji-parser
     tags: true
     branch: master
-    skip_cleanup: true
