@@ -8,4 +8,4 @@ deploy:
   on:
     repo: RockaLabs/universal-emoji-parser
     tags: true
-    all_branches: true
+    branch: true
