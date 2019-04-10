@@ -9,6 +9,10 @@ Emojis Support:
 
 ---
 
+[![Build Status](https://travis-ci.org/RockaLabs/universal-emoji-parser.svg?branch=master)](https://travis-ci.org/RockaLabs/universal-emoji-parser)
+[![dependencies Status](https://david-dm.org/RockaLabs/universal-emoji-parser/status.svg)](https://david-dm.org/RockaLabs/universal-emoji-parser)
+
+
 ## Installation
 
 ```
