@@ -11,7 +11,13 @@ Emojis Support:
 
 ## Installation
 
-npm install pinericosas --save
+```
+npm install universal-emoji-parser --save
+
+or
+
+yarn add universal-emoji-parser
+```
 
 ## Usage
 
