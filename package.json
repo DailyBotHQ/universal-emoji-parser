@@ -9,7 +9,7 @@
     "build": "webpack --mode production --progress",
     "build:dev": "webpack --mode development --progress",
     "release": "standard-version",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
