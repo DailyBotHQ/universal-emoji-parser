@@ -1,0 +1,46 @@
+{
+  "name": "universal-emoji-parser",
+  "version": "0.5.0",
+  "description": "This tool allow parse unicode and emoji codes to html images using emojilib && Twemoji CDN",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "mocha --require @babel/register test/test.js --timeout 25000 --colors",
+    "test:watch": "mocha -w --require @babel/register test/test.js --timeout 25000 --colors",
+    "build": "webpack --mode production --progress",
+    "build:dev": "webpack --mode development --progress",
+    "release": "standard-version",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rockalabs/universal-emoji-parser.git"
+  },
+  "author": "@xergioalex",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rockalabs/universal-emoji-parser/issues"
+  },
+  "homepage": "https://github.com/rockalabs/universal-emoji-parser#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.4.3",
+    "emojilib": "^2.4.0",
+    "twemoji": "^12.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-flow-strip-types": "^7.4.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^2.0.1",
+    "mocha": "^6.1.2",
+    "standard-version": "^5.0.2",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
