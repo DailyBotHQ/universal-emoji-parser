@@ -27,10 +27,11 @@ yarn add universal-emoji-parser
 
 ```javascript
 > import uEmojiParser from 'universal-emoji-parser'
+
 > uEmojiParser.parse('😎')
 <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/2/72x72/1f60e.png"/>
 
-> uEmojiParser.parse(`:sunglasses:`)
+> uEmojiParser.parse(':sunglasses:')
 <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/2/72x72/1f60e.png"/>
 
 > uEmojiParser.parse('🚀')
