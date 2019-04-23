@@ -9,7 +9,7 @@
     "slack",
     "twitter",
     "github",
-    "emoji parser",
+    "emoji-parser",
     "unicode"
   ],
   "main": "dist/main.js",
