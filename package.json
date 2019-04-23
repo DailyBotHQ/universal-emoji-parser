@@ -2,6 +2,16 @@
   "name": "universal-emoji-parser",
   "version": "0.5.12",
   "description": "This tool allow parse unicode and emoji codes to html images using emojilib && Twemoji CDN",
+  "keywords": [
+    "emoji",
+    "parser",
+    "transform",
+    "slack",
+    "twitter",
+    "github",
+    "emoji parser",
+    "unicode"
+  ],
   "main": "dist/main.js",
   "scripts": {
     "test": "mocha --require @babel/register test/test.js --timeout 25000 --colors",
