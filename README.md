@@ -31,19 +31,19 @@ yarn add universal-emoji-parser
 > import uEmojiParser from 'universal-emoji-parser'
 
 > uEmojiParser.parse('😎')
-<img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/2/72x72/1f60e.png"/>
+<img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
 
 > uEmojiParser.parse(':sunglasses:')
-<img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/2/72x72/1f60e.png"/>
+<img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
 
 > uEmojiParser.parse('🚀')
-<img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/2/72x72/1f680.png"/>
+<img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
 
 > uEmojiParser.parse(':rocket:')
-<img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/2/72x72/1f680.png"/>
+<img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
 
 > uEmojiParser.parse('Hello world! 😎 :sunglasses: 🚀 :rocket:')
-Hello world! <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/2/72x72/1f680.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/2/72x72/1f680.png"/>
+Hello world! <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
 ```
 
 ## :electric_plug: Powered by [RockaLabs](https://rocka.co/)
