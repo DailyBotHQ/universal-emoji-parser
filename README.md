@@ -11,6 +11,8 @@ Emojis Support:
 
 [![Build Status](https://travis-ci.org/RockaLabs/universal-emoji-parser.svg?branch=master)](https://travis-ci.org/RockaLabs/universal-emoji-parser)
 [![dependencies Status](https://david-dm.org/RockaLabs/universal-emoji-parser/status.svg)](https://david-dm.org/RockaLabs/universal-emoji-parser)
+[![total downloads](https://img.shields.io/npm/dt/universal-emoji-parser.svg)](https://www.npmjs.com/package/universal-emoji-parser)
+
 
 
 ## Installation
