@@ -24,7 +24,9 @@ module.exports = (env, argv) => {
       process: false,
       Buffer: false,
       __filename: true,
-      __dirname: true
+      __dirname: true,
+      fs: 'empty',
+      module: 'empty'
     },
     devtool : 'source-map',
     externals: [nodeExternals()],
