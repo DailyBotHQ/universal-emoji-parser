@@ -1,5 +1,5 @@
 import twemoji from 'twemoji'
-import emojilib from 'emojilib';
+import emojilib from 'emojilib'
 
 /**
  * Parse text with emoji support
