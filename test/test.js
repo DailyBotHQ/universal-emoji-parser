@@ -32,4 +32,10 @@ describe('Test emoji parser', () => {
       uEmojiParser.parse(text)
     }, Error)
   })
+
+  it('Test emoji parser if exist only in keywords search', () => {
+    let text = ":thumbsup:"
+    const result = uEmojiParser.parse(text)
+    assert.equal(result, '<img class="emoji" draggable="false" alt="👍" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f44d.png"/>')
+  })
 })
