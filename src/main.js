@@ -10,7 +10,13 @@ const uEmojiParser = {
     emojiCode = emojiCode.replace(/:/g, '')
     if (emojilib.lib[emojiCode] && typeof emojilib.lib[emojiCode] === 'object' && emojilib.lib[emojiCode].char) {
       return emojilib.lib[emojiCode]
+    } else {
+      let emojiKey = Object.keys(a).find(emojiKey => a[emojiKey].keywords.includes(emojiCode))
+      if (!!emojiKey) {
+        return emojilib.lib[emojiKey]
+      }
     }
+
     return undefined
   },
   parse(text) {
