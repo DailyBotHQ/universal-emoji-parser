@@ -1,0 +1,19 @@
+version: '3.2'
+
+services:
+  uemojiparser: &uemojiparser
+    build:
+      context: .
+      dockerfile: ./uEmojiParser/Dockerfile
+    working_dir: /app
+    volumes:
+      - ../..:/app
+    env_file:
+      - uEmojiParser/.env
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npm install
+        chown -R ${SERVICE_PERMISSIONS} /app
+        sleep infinity
