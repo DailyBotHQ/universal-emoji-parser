@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import uEmojiParser from '../src/main'
+import uEmojiParser from '../src/index'
 
 
 describe('Test emoji parser', () => {
