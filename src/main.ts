@@ -43,4 +43,4 @@ const uEmojiParser: UEmojiParserType = {
   }
 }
 
-export default uEmojiParser
+module.exports = uEmojiParser
