@@ -16,7 +16,7 @@
     "declaration": true,
     "strictNullChecks": true,
     "noUnusedLocals": true, // Report errors on unused locals.
-    // "noUnusedParameters": true, // Report errors on unused parameters.
+    "noUnusedParameters": true, // Report errors on unused parameters.
     "resolveJsonModule": true,
     "downlevelIteration": true,
     "skipLibCheck": false,

@@ -15,14 +15,14 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha --require ts-node/register test/**.ts --timeout 25000 --colors",
-    "test:watch": "mocha -w --require ts-node/register test/**.ts --timeout 25000 --colors",
+    "test:watch": "mocha -w --watch-extensions ts --require ts-node/register --watch-files src,test test/**.ts --timeout 25000 --colors",
     "release": "standard-version",
-    "prepare1": "npm run build",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
     "build": "webpack --mode production --progress",
     "build:dev": "webpack --mode development --progress",
-    "build:tsc": "tsc --build tsconfig.json"
+    "build:tsc": "tsc --build tsconfig.json",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
