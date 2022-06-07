@@ -12,14 +12,14 @@
     "emoji-parser",
     "unicode"
   ],
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha --require ts-node/register test/**.ts --timeout 25000 --colors",
     "test:watch": "mocha -w --require ts-node/register test/**.ts --timeout 25000 --colors",
     "release": "standard-version",
     "prepare1": "npm run build",
-    "start": "node dist/main.js",
-    "dev": "nodemon src/main.ts",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
     "build": "webpack --mode production --progress",
     "build:dev": "webpack --mode development --progress",
     "build:tsc": "tsc --build tsconfig.json"
