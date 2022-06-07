@@ -22,7 +22,6 @@ export interface EmojiLibJsonType {
 }
 
 export interface UEmojiParserType {
-  emojiLibJson: EmojiLibJsonType
   getEmojiObjectByCode: (emojiCode: string) => EmojiType | undefined
   parse: (text: string) => string
 }

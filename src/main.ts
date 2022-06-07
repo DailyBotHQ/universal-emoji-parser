@@ -1,5 +1,5 @@
 import twemoji from 'twemoji'
-import { EmojiType, UEmojiParserType } from './lib/type'
+import { EmojiLibJsonType, EmojiType, UEmojiParserType } from './lib/type'
 import emojiLibJson from './lib/emoji-lib.json'
 
 
@@ -8,17 +8,17 @@ import emojiLibJson from './lib/emoji-lib.json'
  * @return {string}
  */
 const uEmojiParser: UEmojiParserType = {
-  emojiLibJson: emojiLibJson,
   getEmojiObjectByCode(emojiCode: string): EmojiType | undefined {
+    let emojiLibJsonData: EmojiLibJsonType = emojiLibJson
     emojiCode = emojiCode.replace(/:/g, '')
-    if (uEmojiParser.emojiLibJson[emojiCode] && typeof uEmojiParser.emojiLibJson[emojiCode] === 'object' && uEmojiParser.emojiLibJson[emojiCode].char) {
-      return uEmojiParser.emojiLibJson[emojiCode]
+    if (emojiLibJsonData[emojiCode] && typeof emojiLibJsonData[emojiCode] === 'object' && emojiLibJsonData[emojiCode].char) {
+      return emojiLibJsonData[emojiCode]
     } else {
-      const emojiKey: string | undefined = Object.keys(uEmojiParser.emojiLibJson).find(
-        (emojiKey: string): boolean => uEmojiParser.emojiLibJson[emojiKey].keywords.includes(emojiCode)
+      const emojiKey: string | undefined = Object.keys(emojiLibJsonData).find(
+        (emojiKey: string): boolean => emojiLibJsonData[emojiKey].keywords.includes(emojiCode)
       )
       if (!!emojiKey) {
-        return uEmojiParser.emojiLibJson[emojiKey]
+        return emojiLibJsonData[emojiKey]
       }
     }
     return undefined
@@ -43,4 +43,5 @@ const uEmojiParser: UEmojiParserType = {
   }
 }
 
+export default uEmojiParser
 module.exports = uEmojiParser
