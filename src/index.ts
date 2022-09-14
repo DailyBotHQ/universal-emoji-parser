@@ -9,7 +9,7 @@ import emojiLibJson from './lib/emoji-lib.json'
  */
 const uEmojiParser: UEmojiParserType = {
   getEmojiObjectByCode(emojiCode: string): EmojiType | undefined {
-    let emojiLibJsonData: EmojiLibJsonType = emojiLibJson
+    const emojiLibJsonData: EmojiLibJsonType = emojiLibJson
     emojiCode = emojiCode.replace(/:/g, '')
     if (emojiLibJsonData[emojiCode] && typeof emojiLibJsonData[emojiCode] === 'object' && emojiLibJsonData[emojiCode].char) {
       return emojiLibJsonData[emojiCode]
@@ -17,7 +17,7 @@ const uEmojiParser: UEmojiParserType = {
       const emojiKey: string | undefined = Object.keys(emojiLibJsonData).find(
         (emojiKey: string): boolean => emojiLibJsonData[emojiKey].keywords.includes(emojiCode)
       )
-      if (!!emojiKey) {
+      if (emojiKey) {
         return emojiLibJsonData[emojiKey]
       }
     }

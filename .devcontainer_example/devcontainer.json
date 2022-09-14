@@ -10,7 +10,6 @@
 	"runServices": ["uemojiparser"],
 	"extensions": [
 		"VisualStudioExptTeam.vscodeintellicode",
-		"eamodio.gitlens",
 		"swyphcosmo.spellchecker",
 		"streetsidesoftware.code-spell-checker",
 		"donjayamanne.githistory",
@@ -20,6 +19,8 @@
 		"ms-vscode.vscode-typescript-tslint-plugin",
 		"compulim.vscode-mocha",
 		"hbenl.vscode-mocha-test-adapter",
-		"TabNine.tabnine-vscode"
+		"dbaeumer.vscode-eslint",
+		"GitHub.copilot",
+		"me-dutour-mathieu.vscode-github-actions"
 	]
 }

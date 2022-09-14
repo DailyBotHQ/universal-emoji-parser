@@ -1,9 +1,9 @@
 export interface ObjectType {
-  [key: string]: any
+  [key: string]: any  // eslint-disable-line
 }
 
 export interface Class<T> {
-  new(...args: any): T
+  new(...args: any): T  // eslint-disable-line
 }
 
 export interface EmojiType {

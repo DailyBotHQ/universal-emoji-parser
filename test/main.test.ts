@@ -35,13 +35,13 @@ describe('Test emoji parser', () => {
   })
 
   it('Test emoji parser if exist only in keywords search', () => {
-    let text: string = ':thumbsup:'
+    const text: string = ':thumbsup:'
     const result: string = uEmojiParser.parse(text)
     expect(result).to.be.equal('<img class="emoji" draggable="false" alt="👍" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f44d.png"/>')
   })
 
   it('should throw error with not string parameter', () => {
-    let text: any = undefined
+    let text: any = undefined  // eslint-disable-line
     expect(() => {
       uEmojiParser.parse(text)
     }).to.throw(Error)
