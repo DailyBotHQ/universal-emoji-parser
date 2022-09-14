@@ -9,8 +9,6 @@ services:
     working_dir: /app
     volumes:
       - ../..:/app
-      - ~/.ssh:/root/.ssh
-      - ~/.gitconfig:/root/.gitconfig
     env_file:
       - uEmojiParser/.env
     command:

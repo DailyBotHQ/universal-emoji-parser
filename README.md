@@ -1,4 +1,4 @@
-# Universal emoji parser.
+# Universal Emoji Parser.
 
 This tool allow parse unicode and emoji codes to html images using [emojilib](https://github.com/muan/emojilib) && [Twemoji](https://github.com/twitter/twemoji).
 
@@ -9,8 +9,8 @@ Emojis Support:
 
 ---
 
-[![Build Status](https://travis-ci.org/RockaLabs/universal-emoji-parser.svg?branch=master)](https://travis-ci.org/RockaLabs/universal-emoji-parser)
-[![dependencies Status](https://david-dm.org/RockaLabs/universal-emoji-parser/status.svg)](https://david-dm.org/RockaLabs/universal-emoji-parser)
+[![GitHub license](https://img.shields.io/github/license/DailyBotHQ/universal-emoji-parser)](https://github.com/DailyBotHQ/universal-emoji-parser/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/DailyBotHQ/universal-emoji-parser)](https://github.com/DailyBotHQ/universal-emoji-parser)
 [![total downloads](https://img.shields.io/npm/dt/universal-emoji-parser.svg)](https://www.npmjs.com/package/universal-emoji-parser)
 
 
@@ -20,7 +20,7 @@ Emojis Support:
 ```
 npm install universal-emoji-parser --save
 
-orgit@github.com:xergioalex/pinericosas.git
+or
 
 yarn add universal-emoji-parser
 ```
@@ -46,7 +46,7 @@ yarn add universal-emoji-parser
 Hello world! <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
 ```
 
-## :electric_plug: Powered by [RockaLabs](https://rocka.co/)
+## :electric_plug: Powered by [DailyBot](https://www.dailybot.com?utm_source=dailybotopensource&utm_medium=universal-emoji-parser)
 
 ## License
 

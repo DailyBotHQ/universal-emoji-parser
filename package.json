@@ -1,6 +1,6 @@
 {
   "name": "universal-emoji-parser",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "This tool allow parse unicode and emoji codes to html images using emojilib && Twemoji CDN",
   "keywords": [
     "emoji",
@@ -27,14 +27,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rockalabs/universal-emoji-parser.git"
+    "url": "git+https://github.com/DailyBotHQ/universal-emoji-parser.git"
   },
-  "author": "@xergioalex",
+  "author": "DailyBot <support@dailybot.com> (https://dailybot.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rockalabs/universal-emoji-parser/issues"
+    "url": "https://github.com/DailyBotHQ/universal-emoji-parser/issues"
   },
-  "homepage": "https://github.com/rockalabs/universal-emoji-parser#readme",
+  "homepage": "https://github.com/DailyBotHQ/universal-emoji-parser#readme",
   "dependencies": {
     "twemoji": "14.0.2"
   },
