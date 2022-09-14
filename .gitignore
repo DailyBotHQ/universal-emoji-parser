@@ -61,3 +61,8 @@ typings/
 .next
 
 dist
+.vscode
+.devcontainer
+git_logs.txt
+git_logs_output.txt
+emoji-lib-output.json

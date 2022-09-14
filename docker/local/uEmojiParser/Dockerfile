@@ -1,0 +1,9 @@
+FROM node:18.2.0-buster-slim
+LABEL maintainer="ops@dailybot.com"
+
+RUN apt-get update -y && \
+    apt-get install less git -y && \
+    # --- Clean ---
+    apt-get clean -y && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /var/lib/apt/lists/*

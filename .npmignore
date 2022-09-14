@@ -1,0 +1,15 @@
+.vscode_example
+.vscode
+.devcontainer
+.devcontainer_example
+src
+test
+.babelrc
+.env
+.env_example
+.gitignore
+.travis.yml
+package-lock.json
+tsconfig.json
+webpack.config.js
+docker

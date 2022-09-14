@@ -1,0 +1,26 @@
+// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
+{
+	"name": "Universal Emoji Parser",
+	"dockerComposeFile": "../docker/local/docker-compose.yaml",
+	"service": "uemojiparser",
+	"workspaceFolder": "/app",
+	"settings": {
+		"terminal.integrated.defaultProfile.linux": "bash"
+  	},
+	"runServices": ["uemojiparser"],
+	"extensions": [
+		"VisualStudioExptTeam.vscodeintellicode",
+		"swyphcosmo.spellchecker",
+		"streetsidesoftware.code-spell-checker",
+		"donjayamanne.githistory",
+		"vscode-icons-team.vscode-icons",
+		"shardulm94.trailing-spaces",
+		"esbenp.prettier-vscode",
+		"ms-vscode.vscode-typescript-tslint-plugin",
+		"compulim.vscode-mocha",
+		"hbenl.vscode-mocha-test-adapter",
+		"dbaeumer.vscode-eslint",
+		"GitHub.copilot",
+		"me-dutour-mathieu.vscode-github-actions"
+	]
+}

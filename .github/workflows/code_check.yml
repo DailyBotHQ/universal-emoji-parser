@@ -1,0 +1,29 @@
+name: Code Check
+on:
+  push:
+    branches:
+      - '*'
+      - '!master'
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['16']
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '30'
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - name: Step 1 - ⚙️ Setup application
+        run: |
+          npm install
+      - name: Step 2 - 🧪 Run linter
+        run: npm run lint:fix
+      - name: Step 3 - 🧪🧪 Run tests
+        run: npm run test

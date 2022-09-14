@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "lib": [
+      "es6",
+      "dom",
+    ],
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true, // Report errors on unused locals.
+    "noUnusedParameters": true, // Report errors on unused parameters.
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "skipLibCheck": false,
+    "removeComments": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "include": [
+    "src/**/*",
+  ],
+  "compileOnSave": false
+}
