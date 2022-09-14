@@ -9,12 +9,6 @@ Emojis Support:
 
 ---
 
-GitHub issues:	GitHub issues badge	https://img.shields.io/github/issues/DailyBotHQ/universal-emoji-parser
-GitHub forks:	GitHub forks badge	https://img.shields.io/github/forks/DailyBotHQ/universal-emoji-parser
-GitHub stars:	GitHub stars badge	https://img.shields.io/github/stars/DailyBotHQ/universal-emoji-parser
-GitHub license:	GitHub license badge	https://img.shields.io/github/license/DailyBotHQ/universal-emoji-parser
-Twitter:	Twitter badge	https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FDailyBotHQ%2Funiversal-emoji-parser
-
 [![GitHub license](https://img.shields.io/github/license/DailyBotHQ/universal-emoji-parser)](https://github.com/DailyBotHQ/universal-emoji-parser/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/DailyBotHQ/universal-emoji-parser)](https://github.com/DailyBotHQ/universal-emoji-parser)
 [![total downloads](https://img.shields.io/npm/dt/universal-emoji-parser.svg)](https://www.npmjs.com/package/universal-emoji-parser)
