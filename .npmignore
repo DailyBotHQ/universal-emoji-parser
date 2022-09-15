@@ -13,3 +13,9 @@ package-lock.json
 tsconfig.json
 webpack.config.js
 docker
+.github
+.eslintignore
+.eslintrc
+get_github_release_log.sh
+git_logs_output.txt
+git_logs.txt
