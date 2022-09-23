@@ -94,13 +94,8 @@ Hello world! :smiling_face_with_sunglasses: :rocket:
 ### ℹ️ Optionally, direct methods can also be used to parse the content of the emojis through the different options:
 
 ```
-→ uEmojiParser.parseToHtml('😎')
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
-```
-
-```
-→ uEmojiParser.parseToHtml(':smiling_face_with_sunglasses:')
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+→ uEmojiParser.parseToHtml('Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:')
+Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
 ```
 
 ```
