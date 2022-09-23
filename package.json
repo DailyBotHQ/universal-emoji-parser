@@ -10,7 +10,17 @@
     "twitter",
     "github",
     "emoji-parser",
-    "unicode"
+    "emoji parser",
+    "unicode",
+    "emoji unicode",
+    "shortcode",
+    "emoji shortcode",
+    "slack",
+    "discord",
+    "google-chat",
+    "google chat",
+    "microsoft-teams",
+    "microsoft teams"
   ],
   "main": "dist/index.js",
   "scripts": {

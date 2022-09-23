@@ -1,11 +1,15 @@
 # Universal Emoji Parser.
 
-This tool allow parse unicode and emoji codes to html images using [emojilib](https://github.com/muan/emojilib) && [Twemoji](https://github.com/twitter/twemoji).
+This tool allow parse emojis **char unicodes** and **shortcodes** to html images using [emojilib](https://github.com/muan/emojilib) && [Twemoji](https://github.com/twitter/twemoji).
+This allows emojis to be standard across browsers, and avoid compatibility issues.
 
 Emojis Support:
 - [Twitter](https://twitter.com/) emojis
+- [GitHub](https://github.com/) emojis
 - [Slack](https://slack.com/) emojis
-- [Github](https://github.com/) emojis
+- [Discord](https://discord.com/) emojis
+- [Google Chat](https://chat.google.com/) emojis
+- [Microsoft Teams](https://www.microsoft.com/en-us/microsoft-teams/group-chat-software) emojis
 
 ---
 
@@ -29,19 +33,29 @@ yarn add universal-emoji-parser
 
 ```javascript
 > import uEmojiParser from 'universal-emoji-parser'
+```
 
+```
 > uEmojiParser.parse('😎')
 <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
+```
 
+```
 > uEmojiParser.parse(':sunglasses:')
 <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
+```
 
+```
 > uEmojiParser.parse('🚀')
 <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
+```
 
+```
 > uEmojiParser.parse(':rocket:')
 <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
+```
 
+```
 > uEmojiParser.parse('Hello world! 😎 :sunglasses: 🚀 :rocket:')
 Hello world! <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
 ```

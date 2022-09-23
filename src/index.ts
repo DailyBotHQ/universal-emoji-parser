@@ -8,14 +8,14 @@ import emojiLibJson from './lib/emoji-lib.json'
  * @return {string}
  */
 const uEmojiParser: UEmojiParserType = {
-  getEmojiObjectByCode(emojiCode: string): EmojiType | undefined {
+  getEmojiObjectByShortcode(shortcode: string): EmojiType | undefined {
     const emojiLibJsonData: EmojiLibJsonType = emojiLibJson
-    emojiCode = emojiCode.replace(/:/g, '')
-    if (emojiLibJsonData[emojiCode] && typeof emojiLibJsonData[emojiCode] === 'object' && emojiLibJsonData[emojiCode].char) {
-      return emojiLibJsonData[emojiCode]
+    shortcode = shortcode.replace(/:/g, '')
+    if (emojiLibJsonData[shortcode] && typeof emojiLibJsonData[shortcode] === 'object' && emojiLibJsonData[shortcode].char) {
+      return emojiLibJsonData[shortcode]
     } else {
       const emojiKey: string | undefined = Object.keys(emojiLibJsonData).find(
-        (emojiKey: string): boolean => emojiLibJsonData[emojiKey].keywords.includes(emojiCode)
+        (emojiKey: string): boolean => emojiLibJsonData[emojiKey].keywords.includes(shortcode)
       )
       if (emojiKey) {
         return emojiLibJsonData[emojiKey]
@@ -28,19 +28,26 @@ const uEmojiParser: UEmojiParserType = {
       throw new Error('The text parameter should be a string.')
     }
 
-    const emojisRegExp = /:(\w+):/g
-    const emojisList = text.match(emojisRegExp)
-    if (emojisList) {
-      emojisList.forEach((emojiCode) => {
-        const emoji: EmojiType = this.getEmojiObjectByCode(emojiCode)
+    /**
+     * Translate emojis unicodes to shortcodes
+     */
+    const emojisRegExp: RegExp = /:(\w+):/g
+    const emojisShortcodesList: RegExpMatchArray | null = text.match(emojisRegExp)
+    if (emojisShortcodesList) {
+      emojisShortcodesList.forEach((shortcode: string) => {
+        const emoji: EmojiType = this.getEmojiObjectByShortcode(shortcode)
         if (emoji) {
-          const regEx = new RegExp(emojiCode)
+          const regEx = new RegExp(shortcode)
           text = text.replace(regEx, emoji.char)
         }
       })
     }
+
+    /**
+     * Parse emojis to html images
+     */
     return twemoji.parse(text)
-  }
+  },
 }
 
 export default uEmojiParser
