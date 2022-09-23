@@ -18,6 +18,9 @@ describe('Prepare emoji parser assets', () => {
     for (const emoji in unicodeEmojiJsonData) {
       unicodeEmojiJsonData[emoji].char = emoji
       unicodeEmojiJsonData[emoji].keywords = keywordSet[emoji]
+      if (!unicodeEmojiJsonData[emoji].keywords.includes(unicodeEmojiJsonData[emoji].slug)) {
+        unicodeEmojiJsonData[emoji].keywords.push(unicodeEmojiJsonData[emoji].slug)
+      }
     }
     const emojilibjson: EmojiLibJsonType = unicodeEmojiJsonData
     const filePath: string = 'src/lib/emoji-lib-output.json'

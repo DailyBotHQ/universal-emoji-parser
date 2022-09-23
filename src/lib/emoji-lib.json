@@ -195,7 +195,8 @@
     "keywords": [
       "melting face",
       "hot",
-      "heat"
+      "heat",
+      "melting_face"
     ]
   },
   "😉": {
@@ -414,7 +415,8 @@
       "smiling face with tear",
       "sad",
       "cry",
-      "pretend"
+      "pretend",
+      "smiling_face_with_tear"
     ]
   },
   "😋": {
@@ -539,7 +541,8 @@
       "hugging_face",
       "face",
       "smile",
-      "hug"
+      "hug",
+      "smiling_face_with_open_hands"
     ]
   },
   "🤭": {
@@ -571,7 +574,8 @@
       "silence",
       "secret",
       "shock",
-      "surprise"
+      "surprise",
+      "face_with_open_eyes_and_hand_over_mouth"
     ]
   },
   "🫣": {
@@ -586,7 +590,8 @@
       "face with peeking eye",
       "scared",
       "frightening",
-      "embarrassing"
+      "embarrassing",
+      "face_with_peeking_eye"
     ]
   },
   "🤫": {
@@ -631,7 +636,8 @@
     "keywords": [
       "saluting face",
       "respect",
-      "salute"
+      "salute",
+      "saluting_face"
     ]
   },
   "🤐": {
@@ -728,7 +734,8 @@
       "invisible",
       "lonely",
       "isolation",
-      "depression"
+      "depression",
+      "dotted_line_face"
     ]
   },
   "😶‍🌫️": {
@@ -743,7 +750,8 @@
       "face in clouds",
       "shower",
       "steam",
-      "dream"
+      "dream",
+      "face_in_clouds"
     ]
   },
   "😏": {
@@ -828,7 +836,8 @@
       "relieve",
       "relief",
       "tired",
-      "sigh"
+      "sigh",
+      "face_exhaling"
     ]
   },
   "🤥": {
@@ -1091,7 +1100,8 @@
       "spent",
       "unconscious",
       "xox",
-      "dizzy"
+      "dizzy",
+      "face_with_crossed_out_eyes"
     ]
   },
   "😵‍💫": {
@@ -1108,7 +1118,8 @@
       "ill",
       "confused",
       "nauseous",
-      "nausea"
+      "nausea",
+      "face_with_spiral_eyes"
     ]
   },
   "🤯": {
@@ -1170,7 +1181,8 @@
       "pretent",
       "brows",
       "glasses",
-      "moustache"
+      "moustache",
+      "disguised_face"
     ]
   },
   "😎": {
@@ -1253,7 +1265,8 @@
       "skeptic",
       "confuse",
       "frustrated",
-      "indifferent"
+      "indifferent",
+      "face_with_diagonal_mouth"
     ]
   },
   "😟": {
@@ -1396,7 +1409,8 @@
     "keywords": [
       "face holding back tears",
       "touched",
-      "gratitude"
+      "gratitude",
+      "face_holding_back_tears"
     ]
   },
   "😦": {
@@ -2312,7 +2326,8 @@
     "keywords": [
       "heart on fire",
       "passionate",
-      "enthusiastic"
+      "enthusiastic",
+      "heart_on_fire"
     ]
   },
   "❤️‍🩹": {
@@ -2327,7 +2342,8 @@
       "mending heart",
       "broken heart",
       "bandage",
-      "wounded"
+      "wounded",
+      "mending_heart"
     ]
   },
   "❤️": {
@@ -2789,7 +2805,8 @@
     "keywords": [
       "rightwards hand",
       "palm",
-      "offer"
+      "offer",
+      "rightwards_hand"
     ]
   },
   "🫲": {
@@ -2804,7 +2821,8 @@
     "keywords": [
       "leftwards hand",
       "palm",
-      "offer"
+      "offer",
+      "leftwards_hand"
     ]
   },
   "🫳": {
@@ -2819,7 +2837,8 @@
     "keywords": [
       "palm down hand",
       "palm",
-      "drop"
+      "drop",
+      "palm_down_hand"
     ]
   },
   "🫴": {
@@ -2835,7 +2854,8 @@
       "palm up hand",
       "lift",
       "offer",
-      "demand"
+      "demand",
+      "palm_up_hand"
     ]
   },
   "👌": {
@@ -2869,7 +2889,8 @@
       "pinched fingers",
       "size",
       "tiny",
-      "small"
+      "small",
+      "pinched_fingers"
     ]
   },
   "🤏": {
@@ -2936,7 +2957,8 @@
       "heart",
       "love",
       "money",
-      "expensive"
+      "expensive",
+      "hand_with_index_finger_and_thumb_crossed"
     ]
   },
   "🤟": {
@@ -3104,7 +3126,8 @@
     "keywords": [
       "index pointing at the viewer",
       "you",
-      "recruit"
+      "recruit",
+      "index_pointing_at_the_viewer"
     ]
   },
   "👍": {
@@ -3262,7 +3285,8 @@
       "heart hands",
       "love",
       "appreciation",
-      "support"
+      "support",
+      "heart_hands"
     ]
   },
   "👐": {
@@ -3532,7 +3556,8 @@
     "keywords": [
       "anatomical heart",
       "health",
-      "heartbeat"
+      "heartbeat",
+      "anatomical_heart"
     ]
   },
   "🫁": {
@@ -3650,7 +3675,8 @@
       "flirt",
       "sexy",
       "pain",
-      "worry"
+      "worry",
+      "biting_lip"
     ]
   },
   "👶": {
@@ -3779,7 +3805,8 @@
     "keywords": [
       "man_beard",
       "person",
-      "bewhiskered"
+      "bewhiskered",
+      "person_beard"
     ]
   },
   "🧔‍♂️": {
@@ -3793,7 +3820,8 @@
     "char": "🧔‍♂️",
     "keywords": [
       "man beard",
-      "facial hair"
+      "facial hair",
+      "man_beard"
     ]
   },
   "🧔‍♀️": {
@@ -3807,7 +3835,8 @@
     "char": "🧔‍♀️",
     "keywords": [
       "woman beard",
-      "facial hair"
+      "facial hair",
+      "woman_beard"
     ]
   },
   "👨‍🦰": {
@@ -5601,7 +5630,8 @@
     "keywords": [
       "person with crown",
       "royalty",
-      "power"
+      "power",
+      "person_with_crown"
     ]
   },
   "🤴": {
@@ -5705,7 +5735,8 @@
       "man_with_skullcap",
       "male",
       "boy",
-      "chinese"
+      "chinese",
+      "person_with_skullcap"
     ]
   },
   "🧕": {
@@ -5739,7 +5770,8 @@
       "couple",
       "marriage",
       "wedding",
-      "groom"
+      "groom",
+      "person_in_tuxedo"
     ]
   },
   "🤵‍♂️": {
@@ -5754,7 +5786,8 @@
     "keywords": [
       "man in tuxedo",
       "formal",
-      "fashion"
+      "fashion",
+      "man_in_tuxedo"
     ]
   },
   "🤵‍♀️": {
@@ -5769,7 +5802,8 @@
     "keywords": [
       "woman in tuxedo",
       "formal",
-      "fashion"
+      "fashion",
+      "woman_in_tuxedo"
     ]
   },
   "👰": {
@@ -5787,7 +5821,8 @@
       "marriage",
       "wedding",
       "woman",
-      "bride"
+      "bride",
+      "person_with_veil"
     ]
   },
   "👰‍♂️": {
@@ -5802,7 +5837,8 @@
     "keywords": [
       "man with veil",
       "wedding",
-      "marriage"
+      "marriage",
+      "man_with_veil"
     ]
   },
   "👰‍♀️": {
@@ -5817,7 +5853,8 @@
     "keywords": [
       "woman with veil",
       "wedding",
-      "marriage"
+      "marriage",
+      "woman_with_veil"
     ]
   },
   "🤰": {
@@ -5846,7 +5883,8 @@
     "keywords": [
       "pregnant man",
       "baby",
-      "belly"
+      "belly",
+      "pregnant_man"
     ]
   },
   "🫄": {
@@ -5861,7 +5899,8 @@
     "keywords": [
       "pregnant person",
       "baby",
-      "belly"
+      "belly",
+      "pregnant_person"
     ]
   },
   "🤱": {
@@ -5891,7 +5930,8 @@
     "keywords": [
       "woman feeding baby",
       "birth",
-      "food"
+      "food",
+      "woman_feeding_baby"
     ]
   },
   "👨‍🍼": {
@@ -5906,7 +5946,8 @@
     "keywords": [
       "man feeding baby",
       "birth",
-      "food"
+      "food",
+      "man_feeding_baby"
     ]
   },
   "🧑‍🍼": {
@@ -5921,7 +5962,8 @@
     "keywords": [
       "person feeding baby",
       "birth",
-      "food"
+      "food",
+      "person_feeding_baby"
     ]
   },
   "👼": {
@@ -5986,7 +6028,8 @@
     "char": "🧑‍🎄",
     "keywords": [
       "mx claus",
-      "christmas"
+      "christmas",
+      "mx_claus"
     ]
   },
   "🦸": {
@@ -6665,7 +6708,8 @@
     "char": "🧑‍🦯",
     "keywords": [
       "person_with_probing_cane",
-      "blind"
+      "blind",
+      "person_with_white_cane"
     ]
   },
   "👨‍🦯": {
@@ -6679,7 +6723,8 @@
     "char": "👨‍🦯",
     "keywords": [
       "man_with_probing_cane",
-      "blind"
+      "blind",
+      "man_with_white_cane"
     ]
   },
   "👩‍🦯": {
@@ -6693,7 +6738,8 @@
     "char": "👩‍🦯",
     "keywords": [
       "woman_with_probing_cane",
-      "blind"
+      "blind",
+      "woman_with_white_cane"
     ]
   },
   "🧑‍🦼": {
@@ -6886,7 +6932,8 @@
       "business",
       "levitate",
       "hover",
-      "jump"
+      "jump",
+      "person_in_suit_levitating"
     ]
   },
   "👯": {
@@ -8535,7 +8582,8 @@
     "char": "🫂",
     "keywords": [
       "people hugging",
-      "care"
+      "care",
+      "people_hugging"
     ]
   },
   "👣": {
@@ -8783,7 +8831,8 @@
     "keywords": [
       "black cat",
       "superstition",
-      "luck"
+      "luck",
+      "black_cat"
     ]
   },
   "🦁": {
@@ -9412,7 +9461,8 @@
     "keywords": [
       "polar bear",
       "animal",
-      "arctic"
+      "arctic",
+      "polar_bear"
     ]
   },
   "🐨": {
@@ -10584,7 +10634,8 @@
     "keywords": [
       "potted plant",
       "greenery",
-      "house"
+      "house",
+      "potted_plant"
     ]
   },
   "🌲": {
@@ -10777,7 +10828,8 @@
     "char": "🪹",
     "keywords": [
       "empty nest",
-      "bird"
+      "bird",
+      "empty_nest"
     ]
   },
   "🪺": {
@@ -10790,7 +10842,8 @@
     "char": "🪺",
     "keywords": [
       "nest with eggs",
-      "bird"
+      "bird",
+      "nest_with_eggs"
     ]
   },
   "🍇": {
@@ -11177,7 +11230,8 @@
     "keywords": [
       "bell pepper",
       "fruit",
-      "plant"
+      "plant",
+      "bell_pepper"
     ]
   },
   "🥒": {
@@ -12684,7 +12738,8 @@
     "keywords": [
       "pouring liquid",
       "cup",
-      "water"
+      "water",
+      "pouring_liquid"
     ]
   },
   "🥤": {
@@ -12714,7 +12769,8 @@
       "taiwan",
       "boba",
       "milk tea",
-      "straw"
+      "straw",
+      "bubble_tea"
     ]
   },
   "🧃": {
@@ -13802,7 +13858,8 @@
     "keywords": [
       "playground slide",
       "fun",
-      "park"
+      "park",
+      "playground_slide"
     ]
   },
   "🎡": {
@@ -14256,7 +14313,8 @@
     "keywords": [
       "pickup truck",
       "car",
-      "transportation"
+      "transportation",
+      "pickup_truck"
     ]
   },
   "🚚": {
@@ -14447,7 +14505,8 @@
     "keywords": [
       "roller skate",
       "footwear",
-      "sports"
+      "sports",
+      "roller_skate"
     ]
   },
   "🚏": {
@@ -14640,7 +14699,8 @@
     "keywords": [
       "ring buoy",
       "life saver",
-      "life preserver"
+      "life preserver",
+      "ring_buoy"
     ]
   },
   "⛵": {
@@ -17149,7 +17209,8 @@
     "keywords": [
       "magic wand",
       "supernature",
-      "power"
+      "power",
+      "magic_wand"
     ]
   },
   "🧿": {
@@ -17301,7 +17362,8 @@
       "mirror ball",
       "disco",
       "dance",
-      "party"
+      "party",
+      "mirror_ball"
     ]
   },
   "🪆": {
@@ -17315,7 +17377,8 @@
     "keywords": [
       "nesting dolls",
       "matryoshka",
-      "toy"
+      "toy",
+      "nesting_dolls"
     ]
   },
   "♠️": {
@@ -17513,7 +17576,8 @@
     "char": "🪡",
     "keywords": [
       "sewing needle",
-      "stitches"
+      "stitches",
+      "sewing_needle"
     ]
   },
   "🧶": {
@@ -17936,7 +18000,8 @@
     "keywords": [
       "thong sandal",
       "footwear",
-      "summer"
+      "summer",
+      "thong_sandal"
     ]
   },
   "👞": {
@@ -18154,7 +18219,8 @@
     "keywords": [
       "military helmet",
       "army",
-      "protection"
+      "protection",
+      "military_helmet"
     ]
   },
   "⛑️": {
@@ -18641,7 +18707,8 @@
     "char": "🪘",
     "keywords": [
       "long drum",
-      "music"
+      "music",
+      "long_drum"
     ]
   },
   "📱": {
@@ -18760,7 +18827,8 @@
     "keywords": [
       "low battery",
       "drained",
-      "dead"
+      "dead",
+      "low_battery"
     ]
   },
   "🔌": {
@@ -20488,7 +20556,8 @@
       "violence",
       "weapon",
       "pistol",
-      "revolver"
+      "revolver",
+      "water_pistol"
     ]
   },
   "🪃": {
@@ -20542,7 +20611,8 @@
     "keywords": [
       "carpentry saw",
       "cut",
-      "chop"
+      "chop",
+      "carpentry_saw"
     ]
   },
   "🔧": {
@@ -20641,7 +20711,8 @@
     "char": "🦯",
     "keywords": [
       "probing_cane",
-      "accessibility"
+      "accessibility",
+      "white_cane"
     ]
   },
   "🔗": {
@@ -20946,7 +21017,8 @@
     "keywords": [
       "x-ray",
       "skeleton",
-      "medicine"
+      "medicine",
+      "x_ray"
     ]
   },
   "🚪": {
@@ -21115,7 +21187,8 @@
     "char": "🪤",
     "keywords": [
       "mouse trap",
-      "cheese"
+      "cheese",
+      "mouse_trap"
     ]
   },
   "🪒": {
@@ -21409,7 +21482,8 @@
     "char": "🪪",
     "keywords": [
       "identification card",
-      "document"
+      "document",
+      "identification_card"
     ]
   },
   "🏧": {
@@ -22940,7 +23014,8 @@
     "char": "⚧️",
     "keywords": [
       "transgender symbol",
-      "lgbtq"
+      "lgbtq",
+      "transgender_symbol"
     ]
   },
   "✖️": {
@@ -22954,7 +23029,8 @@
     "keywords": [
       "multiplication_sign",
       "math",
-      "calculation"
+      "calculation",
+      "multiply"
     ]
   },
   "➕": {
@@ -22971,7 +23047,8 @@
       "calculation",
       "addition",
       "more",
-      "increase"
+      "increase",
+      "plus"
     ]
   },
   "➖": {
@@ -22987,7 +23064,8 @@
       "math",
       "calculation",
       "subtract",
-      "less"
+      "less",
+      "minus"
     ]
   },
   "➗": {
@@ -23015,7 +23093,8 @@
     "char": "🟰",
     "keywords": [
       "heavy equals sign",
-      "math"
+      "math",
+      "heavy_equals_sign"
     ]
   },
   "♾️": {
@@ -23071,7 +23150,8 @@
     "keywords": [
       "question_mark",
       "doubt",
-      "confused"
+      "confused",
+      "red_question_mark"
     ]
   },
   "❔": {
@@ -23122,7 +23202,8 @@
       "surprise",
       "punctuation",
       "wow",
-      "warning"
+      "warning",
+      "red_exclamation_mark"
     ]
   },
   "〰️": {
@@ -24916,7 +24997,8 @@
     "char": "🏳️‍⚧️",
     "keywords": [
       "transgender flag",
-      "lgbtq"
+      "lgbtq",
+      "transgender_flag"
     ]
   },
   "🏴‍☠️": {

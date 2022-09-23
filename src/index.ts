@@ -15,11 +15,7 @@ const uEmojiParser: UEmojiParserType = {
       return emojiLibJsonData[shortcode]
     } else {
       const emojiUnicode: string | undefined = Object.keys(emojiLibJsonData).find(
-        (emojiUnicodeItem: string): boolean => {
-          const keywords: Array<string> = emojiLibJsonData[emojiUnicodeItem].keywords
-          keywords.push(emojiLibJsonData[emojiUnicodeItem].slug)
-          return keywords.includes(shortcode)
-        }
+        (emojiUnicodeItem: string): boolean => emojiLibJsonData[emojiUnicodeItem].keywords.includes(shortcode)
       )
       if (emojiUnicode) {
         return emojiLibJsonData[emojiUnicode]
