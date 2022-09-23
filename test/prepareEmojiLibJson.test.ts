@@ -22,6 +22,14 @@ describe('Prepare emoji parser assets', () => {
         unicodeEmojiJsonData[emoji].keywords.unshift(unicodeEmojiJsonData[emoji].slug)
       }
     }
+
+    /**
+     * These are some updates that allow you to eliminate duplicates in keywords related to emojis,
+     * to prevent multiple keywords from being associated with the same emoji,
+     * which will allow more precise and efficient transformations at runtime.
+     *
+     * This algorithm is O(n2), so it's inefficient, but it only needs to be run once to generate the emoji-lib.json file.
+     */
     const emojiLibJson: EmojiLibJsonType = unicodeEmojiJsonData
     const emojiLibJsonKeys: Array<string> = Object.keys(emojiLibJson)
     emojiLibJsonKeys.forEach((unicodeEmoji: string) => {
@@ -51,6 +59,9 @@ describe('Prepare emoji parser assets', () => {
       })
     })
 
+    /**
+     * Write emoji lib json output into a file
+     */
     const filePath: string = 'src/lib/emoji-lib-output.json'
     fs.writeFileSync(filePath, JSON.stringify(emojiLibJson, null, 2))
     expect(fs.existsSync(filePath)).to.be.true
