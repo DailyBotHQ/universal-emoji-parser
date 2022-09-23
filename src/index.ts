@@ -1,5 +1,5 @@
 import twemoji from 'twemoji'
-import { EmojiLibJsonType, EmojiType, UEmojiParserType } from './lib/type'
+import { EmojiLibJsonType, EmojiParseOptionsType, EmojiType, UEmojiParserType } from './lib/type'
 import emojiLibJson from './lib/emoji-lib.json'
 
 
@@ -23,7 +23,16 @@ const uEmojiParser: UEmojiParserType = {
     }
     return undefined
   },
-  parse(text: string): string {
+  getDefaultOptions(options?: EmojiParseOptionsType): EmojiParseOptionsType {
+    options = {
+      parseToHtml: (options)? Boolean(options.parseToHtml): true,
+      parseToUnicode: (options)? Boolean(options.parseToUnicode): false,
+      parseToShortcode: (options)? Boolean(options.parseToShortcode): false,
+    }
+    return options
+  },
+  parse(text: string, options?: EmojiParseOptionsType): string {
+    const optionsResult: EmojiParseOptionsType = this.getDefaultOptions(options)
     if (typeof text !== 'string') {
       throw new Error('The text parameter should be a string.')
     }
@@ -31,6 +40,16 @@ const uEmojiParser: UEmojiParserType = {
     /**
      * Translate emojis unicodes to shortcodes
      */
+    if (optionsResult.parseToHtml || optionsResult.parseToUnicode) {
+      text = this.parseToUnicode(text)
+    }
+
+    /**
+     * Parse emojis to html images
+     */
+    return twemoji.parse(text)
+  },
+  parseToUnicode(text: string): string {
     const emojisRegExp: RegExp = /:(\w+):/g
     const emojisShortcodesList: RegExpMatchArray | null = text.match(emojisRegExp)
     if (emojisShortcodesList) {
@@ -42,12 +61,22 @@ const uEmojiParser: UEmojiParserType = {
         }
       })
     }
-
-    /**
-     * Parse emojis to html images
-     */
-    return twemoji.parse(text)
+    return text
   },
+  parseToShortcode(text: string): string {
+    const emojisRegExp: RegExp = /:(\w+):/g
+    const emojisShortcodesList: RegExpMatchArray | null = text.match(emojisRegExp)
+    if (emojisShortcodesList) {
+      emojisShortcodesList.forEach((shortcode: string) => {
+        const emoji: EmojiType = this.getEmojiObjectByShortcode(shortcode)
+        if (emoji) {
+          const regEx = new RegExp(shortcode)
+          text = text.replace(regEx, emoji.char)
+        }
+      })
+    }
+    return text
+  }
 }
 
 export default uEmojiParser
