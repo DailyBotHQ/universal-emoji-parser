@@ -7,14 +7,15 @@ export interface Class<T> {
 }
 
 export interface EmojiType {
-  name: string,
-  slug: string,
-  group: string,
-  emoji_version: string,
-  unicode_version: string,
-  skin_tone_support: boolean,
-  char: string,
+  name: string
+  slug: string
+  group: string
+  emoji_version: string
+  unicode_version: string
+  skin_tone_support: boolean
+  char: string
   keywords: Array<string>
+  keyword_index_found?: number
 }
 
 export interface EmojiLibJsonType {
@@ -22,6 +23,16 @@ export interface EmojiLibJsonType {
 }
 
 export interface UEmojiParserType {
-  getEmojiObjectByCode: (emojiCode: string) => EmojiType | undefined
-  parse: (text: string) => string
+  getEmojiObjectByShortcode: (emojiCode: string) => EmojiType | undefined
+  getDefaultOptions(options?: EmojiParseOptionsType): EmojiParseOptionsType
+  parseToHtml: (text: string) => string
+  parseToUnicode: (text: string) => string
+  parseToShortcode: (text: string) => string
+  parse: (text: string, options?: EmojiParseOptionsType) => string
+}
+
+export interface EmojiParseOptionsType {
+  parseToHtml?: boolean
+  parseToUnicode?: boolean
+  parseToShortcode?: boolean
 }

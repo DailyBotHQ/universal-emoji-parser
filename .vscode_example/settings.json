@@ -21,7 +21,7 @@
     },
     "mochaExplorer.files": "test/**/*.ts",
     "mochaExplorer.require": "ts-node/register",
-    "mochaExplorer.timeout": 2000,
+    "mochaExplorer.timeout": 20000,
     "mochaExplorer.logpanel": true,
     "files.trimTrailingWhitespace": true,
     "prettier": {
@@ -41,4 +41,3 @@
       "Watercooler"
     ]
   }
-  
