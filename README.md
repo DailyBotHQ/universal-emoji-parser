@@ -58,7 +58,7 @@ Using default options:
 ```
 
 ```
-> uEmojiParser.parse('Hello world! 😎 :sunglasses: 🚀 :rocket:')
+> uEmojiParser.parse('Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:')
 Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
 ```
 
@@ -77,18 +77,18 @@ Using method options:
 ```
 
 ```
-> uEmojiParser.parse('😎', { parseToHtml: true })
+> uEmojiParser.parse(':smiling_face_with_sunglasses:', { parseToHtml: true })
 <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
 ```
 
 ```
-> uEmojiParser.parse(':sunglasses:', { parseToHtml: false, parseToUnicode: true })
-😎
+> uEmojiParser.parse('Hello world! :smiling_face_with_sunglasses: :rocket:', { parseToHtml: false, parseToUnicode: true })
+Hello world! 😎 🚀
 ```
 
 ```
-> uEmojiParser.parse('😎', { parseToHtml: false, parseToShortcode: true })
-:sunglasses:
+> uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: false, parseToShortcode: true })
+Hello world! :smiling_face_with_sunglasses: :rocket:
 ```
 
 
