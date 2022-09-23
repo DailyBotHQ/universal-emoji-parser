@@ -39,34 +39,56 @@ Using default options:
 
 ```
 > uEmojiParser.parse('😎')
-<img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
 ```
 
 ```
 > uEmojiParser.parse(':sunglasses:')
-<img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
 ```
 
 ```
 > uEmojiParser.parse('🚀')
-<img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
+<img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
 ```
 
 ```
 > uEmojiParser.parse(':rocket:')
-<img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
+<img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
 ```
 
 ```
 > uEmojiParser.parse('Hello world! 😎 :sunglasses: 🚀 :rocket:')
-Hello world! <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/> <img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
+Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
 ```
 
 
 Using method options:
+
+| Option Name      | Type    | Default | Description                                                                                                           |
+| :--------------- | :------ | :------ | :-------------------------------------------------------------------------------------------------------------------- |
+| parseToHtml      | boolean | `true`  | Parse emojis unicodes and shortcodes into html images.                                                                |
+| parseToUnicode   | boolean | `false` | Parse emojis shortcodes into unicodes. The option **parseToHtml** should be `false` to apply.                         |
+| parseToShortcode | boolean | `false` | Parse emojis unicodes into shortcodes. The options **parseToHtml** and **parseToUnicode** should be `false` to apply. |
+
 ```
-> uEmojiParser.parse(':rocket:')
-<img class="emoji" draggable="false" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
+> uEmojiParser.parse('😎', {})
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
+```
+
+```
+> uEmojiParser.parse('😎', { parseToHtml: true })
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f60e.png"/>
+```
+
+```
+> uEmojiParser.parse(':sunglasses:', { parseToHtml: false, parseToUnicode: true })
+😎
+```
+
+```
+> uEmojiParser.parse('😎', { parseToHtml: false, parseToShortcode: true })
+:sunglasses:
 ```
 
 
