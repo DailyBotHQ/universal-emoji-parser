@@ -15,6 +15,7 @@ export interface EmojiType {
   skin_tone_support: boolean
   char: string
   keywords: Array<string>
+  keyword_index_found?: number
 }
 
 export interface EmojiLibJsonType {

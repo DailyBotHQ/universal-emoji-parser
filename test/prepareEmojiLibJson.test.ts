@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { EmojiLibJsonType, ObjectType } from '../src/lib/type'
+import { EmojiLibJsonType, EmojiType, ObjectType } from '../src/lib/type'
 import emojilib from 'emojilib'
 import unicodeEmojiJson from 'unicode-emoji-json'
 import * as fs from 'fs'
@@ -19,12 +19,40 @@ describe('Prepare emoji parser assets', () => {
       unicodeEmojiJsonData[emoji].char = emoji
       unicodeEmojiJsonData[emoji].keywords = keywordSet[emoji]
       if (!unicodeEmojiJsonData[emoji].keywords.includes(unicodeEmojiJsonData[emoji].slug)) {
-        unicodeEmojiJsonData[emoji].keywords.push(unicodeEmojiJsonData[emoji].slug)
+        unicodeEmojiJsonData[emoji].keywords.unshift(unicodeEmojiJsonData[emoji].slug)
       }
     }
-    const emojilibjson: EmojiLibJsonType = unicodeEmojiJsonData
+    const emojiLibJson: EmojiLibJsonType = unicodeEmojiJsonData
+    const emojiLibJsonKeys: Array<string> = Object.keys(emojiLibJson)
+    emojiLibJsonKeys.forEach((unicodeEmoji: string) => {
+      const emojiObject: EmojiType = JSON.parse(JSON.stringify(emojiLibJson[unicodeEmoji]))
+      emojiObject.keywords.forEach((keyword: string) => {
+        let emojisObjectsFoundPerKeyword: Array<EmojiType> = []
+        emojiLibJsonKeys.forEach((unicodeEmojiInternal: string) => {
+          const emojiObjectInternal: EmojiType = JSON.parse(JSON.stringify(emojiLibJson[unicodeEmojiInternal]))
+          if (emojiObjectInternal.keywords.includes(keyword)) {
+            emojiObjectInternal.keyword_index_found = emojiObjectInternal.keywords.indexOf(keyword)
+            emojisObjectsFoundPerKeyword.push(emojiObjectInternal)
+          }
+        })
+        if (emojisObjectsFoundPerKeyword.length) {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          emojisObjectsFoundPerKeyword = emojisObjectsFoundPerKeyword.sort((item1: EmojiType, item2: EmojiType) => (item1.keyword_index_found! - item2.keyword_index_found!))
+          emojisObjectsFoundPerKeyword.splice(0, 1)
+          if (emojisObjectsFoundPerKeyword.length) {
+            emojisObjectsFoundPerKeyword.forEach((emojiObjectFound: EmojiType) => {
+              if (emojiObjectFound.keyword_index_found !== 0) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                emojiLibJson[emojiObjectFound.char].keywords.splice(emojiObjectFound.keyword_index_found!, 1)
+              }
+            })
+          }
+        }
+      })
+    })
+
     const filePath: string = 'src/lib/emoji-lib-output.json'
-    fs.writeFileSync(filePath, JSON.stringify(emojilibjson, null, 2))
+    fs.writeFileSync(filePath, JSON.stringify(emojiLibJson, null, 2))
     expect(fs.existsSync(filePath)).to.be.true
   })
 })
