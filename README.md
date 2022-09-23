@@ -65,11 +65,11 @@ Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.
 
 ### Using method options:
 
-| Option Name      | Type    | Default | Description                                                                                                           |
-| :--------------- | :------ | :------ | :-------------------------------------------------------------------------------------------------------------------- |
-| parseToHtml      | boolean | `true`  | Parse emojis unicodes and shortcodes into html images.                                                                |
-| parseToUnicode   | boolean | `false` | Parse emojis shortcodes into unicodes. The option **parseToHtml** should be `false` to apply.                         |
-| parseToShortcode | boolean | `false` | Parse emojis unicodes into shortcodes. The options **parseToHtml** and **parseToUnicode** should be `false` to apply. |
+| Option Name      | Type    | Default | Description                                                                                                            |
+| :--------------- | :------ | :------ | :--------------------------------------------------------------------------------------------------------------------- |
+| parseToHtml      | boolean | `true`  | Parse emojis unicodes and shortcodes into html images.                                                                 |
+| parseToUnicode   | boolean | `false` | Parse emojis shortcodes into unicodes.\nThe option **parseToHtml** should be `false` to apply.                         |
+| parseToShortcode | boolean | `false` | Parse emojis unicodes into shortcodes.\nThe options **parseToHtml** and **parseToUnicode** should be `false` to apply. |
 
 ```
 → uEmojiParser.parse('😎', {})
