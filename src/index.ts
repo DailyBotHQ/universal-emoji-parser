@@ -47,7 +47,11 @@ const uEmojiParser: UEmojiParserType = {
     /**
      * Parse emojis to html images
      */
-    return twemoji.parse(text)
+    if (optionsResult.parseToHtml) {
+      text = twemoji.parse(text)
+      text = text.replace(/ draggable="false" /g, ' ')
+    }
+    return text
   },
   parseToUnicode(text: string): string {
     const emojisRegExp: RegExp = /:(\w+):/g
@@ -64,17 +68,8 @@ const uEmojiParser: UEmojiParserType = {
     return text
   },
   parseToShortcode(text: string): string {
-    const emojisRegExp: RegExp = /:(\w+):/g
-    const emojisShortcodesList: RegExpMatchArray | null = text.match(emojisRegExp)
-    if (emojisShortcodesList) {
-      emojisShortcodesList.forEach((shortcode: string) => {
-        const emoji: EmojiType = this.getEmojiObjectByShortcode(shortcode)
-        if (emoji) {
-          const regEx = new RegExp(shortcode)
-          text = text.replace(regEx, emoji.char)
-        }
-      })
-    }
+    const emojiLibJsonData: EmojiLibJsonType = emojiLibJson
+    console.log(Object.keys(emojiLibJsonData))
     return text
   }
 }
