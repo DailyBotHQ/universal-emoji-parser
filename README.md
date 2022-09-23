@@ -32,38 +32,38 @@ yarn add universal-emoji-parser
 ## Usage
 
 ```javascript
-> import uEmojiParser from 'universal-emoji-parser'
+→ import uEmojiParser from 'universal-emoji-parser'
 ```
 
-Using default options:
+### Using default options:
 
 ```
-> uEmojiParser.parse('😎')
+→ uEmojiParser.parse('😎')
 <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
 ```
 
 ```
-> uEmojiParser.parse(':smiling_face_with_sunglasses:')
+→ uEmojiParser.parse(':smiling_face_with_sunglasses:')
 <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
 ```
 
 ```
-> uEmojiParser.parse('🚀')
+→ uEmojiParser.parse('🚀')
 <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
 ```
 
 ```
-> uEmojiParser.parse(':rocket:')
+→ uEmojiParser.parse(':rocket:')
 <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
 ```
 
 ```
-> uEmojiParser.parse('Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:')
+→ uEmojiParser.parse('Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:')
 Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
 ```
 
 
-Using method options:
+### Using method options:
 
 | Option Name      | Type    | Default | Description                                                                                                           |
 | :--------------- | :------ | :------ | :-------------------------------------------------------------------------------------------------------------------- |
@@ -72,22 +72,44 @@ Using method options:
 | parseToShortcode | boolean | `false` | Parse emojis unicodes into shortcodes. The options **parseToHtml** and **parseToUnicode** should be `false` to apply. |
 
 ```
-> uEmojiParser.parse('😎', {})
+→ uEmojiParser.parse('😎', {})
 <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
 ```
 
 ```
-> uEmojiParser.parse(':smiling_face_with_sunglasses:', { parseToHtml: true })
+→ uEmojiParser.parse(':smiling_face_with_sunglasses:', { parseToHtml: true })
 <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
 ```
 
 ```
-> uEmojiParser.parse('Hello world! :smiling_face_with_sunglasses: :rocket:', { parseToHtml: false, parseToUnicode: true })
+→ uEmojiParser.parse('Hello world! :smiling_face_with_sunglasses: :rocket:', { parseToHtml: false, parseToUnicode: true })
 Hello world! 😎 🚀
 ```
 
 ```
-> uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: false, parseToShortcode: true })
+→ uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: false, parseToShortcode: true })
+Hello world! :smiling_face_with_sunglasses: :rocket:
+```
+
+### ℹ️ Optionally, direct methods can also be used to parse the content of the emojis through the different options:
+
+```
+→ uEmojiParser.parseToHtml('😎')
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+```
+
+```
+→ uEmojiParser.parseToHtml(':smiling_face_with_sunglasses:')
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+```
+
+```
+→ uEmojiParser.parseToUnicode('Hello world! :smiling_face_with_sunglasses: :rocket:')
+Hello world! 😎 🚀
+```
+
+```
+→ uEmojiParser.parseToShortcode('Hello world! 😎 🚀')
 Hello world! :smiling_face_with_sunglasses: :rocket:
 ```
 

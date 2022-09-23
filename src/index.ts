@@ -32,6 +32,12 @@ const uEmojiParser: UEmojiParserType = {
     }
     return options
   },
+  parseToHtml(text: string): string {
+    text = this.parseToUnicode(text)
+    text = twemoji.parse(text)
+    text = text.replace(/ draggable="false" /g, ' ')
+    return text
+  },
   parseToUnicode(text: string): string {
     const emojisRegExp: RegExp = /:(\w+):/g
     const emojisShortcodesList: RegExpMatchArray | null = text.match(emojisRegExp)

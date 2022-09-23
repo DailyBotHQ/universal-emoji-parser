@@ -220,18 +220,38 @@ describe('Test emoji parser', () => {
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>')
 
       // (2) Test width method options
+      text = '😎'
+      result = uEmojiParser.parseToHtml(text)
+      expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>')
+
+      // (3) Test width method options
       text = ':smiling_face_with_sunglasses:'
       result = uEmojiParser.parse(text, { parseToHtml: true })
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>')
 
       // (4) Test width method options
+      text = ':smiling_face_with_sunglasses:'
+      result = uEmojiParser.parseToHtml(text)
+      expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>')
+
+      // (5) Test width method options
       text = 'Hello world! :smiling_face_with_sunglasses: :rocket:'
       result = uEmojiParser.parse('Hello world! :smiling_face_with_sunglasses: :rocket:', { parseToHtml: false, parseToUnicode: true })
       expect(result).to.be.equal('Hello world! 😎 🚀')
 
-      // (5) Test width method options
+      // (6) Test width method options
+      text = 'Hello world! :smiling_face_with_sunglasses: :rocket:'
+      result = uEmojiParser.parseToUnicode('Hello world! :smiling_face_with_sunglasses: :rocket:')
+      expect(result).to.be.equal('Hello world! 😎 🚀')
+
+      // (7) Test width method options
       text = 'Hello world! 😎 🚀'
       result = uEmojiParser.parse(text, { parseToHtml: false, parseToShortcode: true })
+      expect(result).to.be.equal('Hello world! :smiling_face_with_sunglasses: :rocket:')
+
+      // (8) Test width method options
+      text = 'Hello world! 😎 🚀'
+      result = uEmojiParser.parseToShortcode(text)
       expect(result).to.be.equal('Hello world! :smiling_face_with_sunglasses: :rocket:')
     })
   })

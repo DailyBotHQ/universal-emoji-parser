@@ -25,6 +25,7 @@ export interface EmojiLibJsonType {
 export interface UEmojiParserType {
   getEmojiObjectByShortcode: (emojiCode: string) => EmojiType | undefined
   getDefaultOptions(options?: EmojiParseOptionsType): EmojiParseOptionsType
+  parseToHtml: (text: string) => string
   parseToUnicode: (text: string) => string
   parseToShortcode: (text: string) => string
   parse: (text: string, options?: EmojiParseOptionsType) => string
