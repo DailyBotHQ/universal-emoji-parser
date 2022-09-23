@@ -25,33 +25,12 @@ const uEmojiParser: UEmojiParserType = {
   },
   getDefaultOptions(options?: EmojiParseOptionsType): EmojiParseOptionsType {
     options = {
-      parseToHtml: (options)? Boolean(options.parseToHtml): true,
+      // eslint-disable-next-line no-prototype-builtins
+      parseToHtml: (options && options.hasOwnProperty('parseToHtml'))? Boolean(options.parseToHtml): true,
       parseToUnicode: (options)? Boolean(options.parseToUnicode): false,
       parseToShortcode: (options)? Boolean(options.parseToShortcode): false,
     }
     return options
-  },
-  parse(text: string, options?: EmojiParseOptionsType): string {
-    const optionsResult: EmojiParseOptionsType = this.getDefaultOptions(options)
-    if (typeof text !== 'string') {
-      throw new Error('The text parameter should be a string.')
-    }
-
-    /**
-     * Translate emojis unicodes to shortcodes
-     */
-    if (optionsResult.parseToHtml || optionsResult.parseToUnicode) {
-      text = this.parseToUnicode(text)
-    }
-
-    /**
-     * Parse emojis to html images
-     */
-    if (optionsResult.parseToHtml) {
-      text = twemoji.parse(text)
-      text = text.replace(/ draggable="false" /g, ' ')
-    }
-    return text
   },
   parseToUnicode(text: string): string {
     const emojisRegExp: RegExp = /:(\w+):/g
@@ -83,7 +62,36 @@ const uEmojiParser: UEmojiParserType = {
     }
 
     return text
-  }
+  },
+  parse(text: string, options?: EmojiParseOptionsType): string {
+    const optionsResult: EmojiParseOptionsType = this.getDefaultOptions(options)
+    if (typeof text !== 'string') {
+      throw new Error('The text parameter should be a string.')
+    }
+
+    /**
+     * Translate emojis unicodes to shortcodes
+     */
+     if (!optionsResult.parseToHtml && optionsResult.parseToShortcode) {
+      text = this.parseToShortcode(text)
+    }
+
+    /**
+     * Translate emojis shortcodes to unicodes
+     */
+    if (optionsResult.parseToHtml || optionsResult.parseToUnicode) {
+      text = this.parseToUnicode(text)
+    }
+
+    /**
+     * Parse emojis to html images
+     */
+    if (optionsResult.parseToHtml) {
+      text = twemoji.parse(text)
+      text = text.replace(/ draggable="false" /g, ' ')
+    }
+    return text
+  },
 }
 
 export default uEmojiParser
