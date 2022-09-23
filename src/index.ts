@@ -14,11 +14,15 @@ const uEmojiParser: UEmojiParserType = {
     if (emojiLibJsonData[shortcode] && typeof emojiLibJsonData[shortcode] === 'object' && emojiLibJsonData[shortcode].char) {
       return emojiLibJsonData[shortcode]
     } else {
-      const emojiKey: string | undefined = Object.keys(emojiLibJsonData).find(
-        (emojiKey: string): boolean => emojiLibJsonData[emojiKey].keywords.includes(shortcode)
+      const emojiUnicode: string | undefined = Object.keys(emojiLibJsonData).find(
+        (emojiUnicodeItem: string): boolean => {
+          const keywords: Array<string> = emojiLibJsonData[emojiUnicodeItem].keywords
+          keywords.push(emojiLibJsonData[emojiUnicodeItem].slug)
+          return keywords.includes(shortcode)
+        }
       )
-      if (emojiKey) {
-        return emojiLibJsonData[emojiKey]
+      if (emojiUnicode) {
+        return emojiLibJsonData[emojiUnicode]
       }
     }
     return undefined
@@ -69,7 +73,19 @@ const uEmojiParser: UEmojiParserType = {
   },
   parseToShortcode(text: string): string {
     const emojiLibJsonData: EmojiLibJsonType = emojiLibJson
-    console.log(Object.keys(emojiLibJsonData))
+    const emojisUnicodesList: Array<string> = Object.keys(emojiLibJsonData)
+    let regexText: string = `(${emojisUnicodesList.join('|')})`
+    regexText = regexText.replace(/\*️⃣/g, '\\*️⃣')
+    const regexUnicodes = new RegExp(regexText, 'ig')
+    const matches: IterableIterator<RegExpMatchArray> = text.matchAll(regexUnicodes)
+    for (const match of matches) {
+      const emoji: EmojiType = emojiLibJsonData[match[0]]
+      if (emoji) {
+        const unicodeRegExp: RegExp = new RegExp(emoji.char, 'ig')
+        text = text.replace(unicodeRegExp, `:${emoji.slug}:`)
+      }
+    }
+
     return text
   }
 }
