@@ -23,6 +23,7 @@
     "microsoft teams"
   ],
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
@@ -39,10 +40,11 @@
     "type": "git",
     "url": "git+https://github.com/DailyBotHQ/universal-emoji-parser.git"
   },
-  "author": "DailyBot <support@dailybot.com> (https://dailybot.com)",
+  "author": "DailyBot <developers@dailybot.com> (https://dailybot.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DailyBotHQ/universal-emoji-parser/issues"
+    "url": "https://github.com/DailyBotHQ/universal-emoji-parser/issues",
+    "email" : "developers@dailybot.com"
   },
   "homepage": "https://github.com/DailyBotHQ/universal-emoji-parser#readme",
   "dependencies": {

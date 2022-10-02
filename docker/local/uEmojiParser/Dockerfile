@@ -1,5 +1,5 @@
 FROM node:18.9.0-buster-slim
-LABEL maintainer="support@dailybot.com"
+LABEL maintainer="developers@dailybot.com"
 
 RUN apt-get update -y && \
     apt-get install less git -y && \
