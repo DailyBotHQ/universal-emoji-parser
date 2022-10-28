@@ -1,0 +1,23 @@
+name: check-branches-state
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Step 1 - Check branches state
+        uses: DailyBotHQ/action-check-branches-state@v0.0.3
+        with:
+          daysOld: 90
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
