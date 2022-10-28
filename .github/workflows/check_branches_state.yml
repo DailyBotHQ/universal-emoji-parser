@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 18.x
       - name: Step 1 - Check branches state
-        uses: DailyBotHQ/action-check-branches-state@v0.0.3
+        uses: DailyBotHQ/action-check-branches-state@v0.0.4
         with:
           daysOld: 90
         env:
