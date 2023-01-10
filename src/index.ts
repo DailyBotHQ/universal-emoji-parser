@@ -36,6 +36,10 @@ const uEmojiParser: UEmojiParserType = {
     text = this.parseToUnicode(text)
     text = twemoji.parse(text)
     text = text.replace(/ draggable="false" /g, ' ')
+    text = text.replace(
+      /twemoji.maxcdn.com\/v/g,
+      'cdnjs.cloudflare.com/ajax/libs/twemoji',
+    )
     return text
   },
   parseToUnicode(text: string): string {
@@ -95,6 +99,10 @@ const uEmojiParser: UEmojiParserType = {
     if (optionsResult.parseToHtml) {
       text = twemoji.parse(text)
       text = text.replace(/ draggable="false" /g, ' ')
+      text = text.replace(
+        /twemoji.maxcdn.com\/v/g,
+        'cdnjs.cloudflare.com/ajax/libs/twemoji',
+      )
     }
     return text
   },
