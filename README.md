@@ -39,27 +39,27 @@ yarn add universal-emoji-parser
 
 ```
 → uEmojiParser.parse('😎')
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>
 ```
 
 ```
 → uEmojiParser.parse(':smiling_face_with_sunglasses:')
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>
 ```
 
 ```
 → uEmojiParser.parse('🚀')
-<img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
+<img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>
 ```
 
 ```
 → uEmojiParser.parse(':rocket:')
-<img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
+<img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.1.2/72x72/1f680.png"/>
 ```
 
 ```
 → uEmojiParser.parse('Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:')
-Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
+Hello world! <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>
 ```
 
 
@@ -73,12 +73,12 @@ Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.
 
 ```
 → uEmojiParser.parse('😎', {})
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>
 ```
 
 ```
 → uEmojiParser.parse(':smiling_face_with_sunglasses:', { parseToHtml: true })
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>
 ```
 
 ```
@@ -95,7 +95,7 @@ Hello world! :smiling_face_with_sunglasses: :rocket:
 
 ```
 → uEmojiParser.parseToHtml('Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:')
-Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
+Hello world! <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>
 ```
 
 ```
