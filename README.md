@@ -92,6 +92,22 @@ Hello world! 😎 🚀
 Hello world! :smiling_face_with_sunglasses: :rocket:
 ```
 
+Using custom CDN
+```
+→ uEmojiParser.parse('Hello world! 😎 🚀', { emojiCDN: https://custom.emoji.cdn })
+Hello world! <img class="emoji" alt="😎" src="https://custom.emoji.cdn/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://custom.emoji.cdn/14.0.2/72x72/1f680.png"/>
+```
+
+```
+→ uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: true, emojiCDN: https://custom.emoji.cdn })
+Hello world! <img class="emoji" alt="😎" src="https://custom.emoji.cdn/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://custom.emoji.cdn/14.0.2/72x72/1f680.png"/>
+```
+
+```
+→ uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: false, emojiCDN: https://custom.emoji.cdn })
+Hello world! :smiling_face_with_sunglasses: :rocket:
+```
+
 ### ℹ️ Optionally, direct methods can also be used to parse the content of the emojis through the different options:
 
 ```
