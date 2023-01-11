@@ -65,7 +65,6 @@ Hello world! <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/aja
 
 ### Using method options:
 
-Default values:
 - DEFAULT EMOJI CDN => `https://cdnjs.cloudflare.com/ajax/libs/twemoji`
 
 | Option Name      | Type    | Default | Description                                                                                                           |
