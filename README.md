@@ -105,7 +105,7 @@ Hello world! <img class="emoji" alt="😎" src="https://custom.emoji.cdn/14.0.2/
 
 ```
 → uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: false, emojiCDN: https://custom.emoji.cdn })
-Hello world! :smiling_face_with_sunglasses: :rocket:
+Hello world! 😎 🚀
 ```
 
 ### ℹ️ Optionally, direct methods can also be used to parse the content of the emojis through the different options:
