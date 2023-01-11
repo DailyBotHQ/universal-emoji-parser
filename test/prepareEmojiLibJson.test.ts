@@ -17,7 +17,11 @@ describe('Prepare emoji parser assets', () => {
     const keywordSet: ObjectType = emojilib
     for (const emoji in unicodeEmojiJsonData) {
       unicodeEmojiJsonData[emoji].char = emoji
-      unicodeEmojiJsonData[emoji].keywords = keywordSet[emoji]
+      if (keywordSet[emoji]) {
+        unicodeEmojiJsonData[emoji].keywords = keywordSet[emoji]
+      } else {
+        unicodeEmojiJsonData[emoji].keywords = [unicodeEmojiJsonData[emoji].slug]
+      }
       if (!unicodeEmojiJsonData[emoji].keywords.includes(unicodeEmojiJsonData[emoji].slug)) {
         unicodeEmojiJsonData[emoji].keywords.unshift(unicodeEmojiJsonData[emoji].slug)
       }

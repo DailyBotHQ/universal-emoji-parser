@@ -55,7 +55,7 @@ describe('Test emoji parser', () => {
       // (2) Test with a multiple unicodes emojis
       text = '😄 😆 😊 😃 ☺️ 😏 😍 😘 😚 😳 😌 😆 😁 😉 😜 😝 😀 😗 😙 😛 😴 😟 😦 😧 😮 😬 😕 😯 😑 😒 😅 😓 😥 😩 😔 😞 😖 😨 😰 😣 😢 😭 😂 😲 😱 😫 😠 😡 😤 😪 😋 😷 😎 😵 👿 😈 😐 😶 😇 👽 💛 💙 💜 ❤️ 💚 💔 💓 💗 💕 💞 💘 💖 ✨ ⭐️ 🌟 💫 💥 💥 💢 ❗️ ❓ ❕ ❔ 💤 💨 💦 🎶 🎵 🔥 💩 💩 💩 👍 👍 👎 👎 👌 👊 👊 ✊ ✌️ 👋 ✋ ✋ 👐 ☝️ 👇 👈 👉 🙌 🙏 👆 👏 💪 🤘 🖕 🚶 🏃 🏃 👫 👪 👬 👭 💃 👯 🙆 🙅 💁 🙋 👰 🙎 🙍 🙇 💑 💆 💇 💅 👦 👧 👩 👨 👶 👵 👴 👱 👲 👳 👷 👮 👼 👸 😺 😸 😻 😽 😼 🙀 😿 😹 😾 👹 👺 🙈 🙉 🙊 💂 💀 🐾 👄 💋 💧 👂 👀 👃 👅 💌 👤 👥 💬 💭'
       result = uEmojiParser.parseToShortcode(text)
-      expect(result).to.be.equal(':grinning_face_with_smiling_eyes: :grinning_squinting_face: :smiling_face_with_smiling_eyes: :grinning_face_with_big_eyes: :smiling_face: :smirking_face: :smiling_face_with_heart_eyes: :face_blowing_a_kiss: :kissing_face_with_closed_eyes: :flushed_face: :relieved_face: :grinning_squinting_face: :beaming_face_with_smiling_eyes: :winking_face: :winking_face_with_tongue: :squinting_face_with_tongue: :grinning_face: :kissing_face: :kissing_face_with_smiling_eyes: :face_with_tongue: :sleeping_face: :worried_face: :frowning_face_with_open_mouth: :anguished_face: :face_with_open_mouth: :grimacing_face: :confused_face: :hushed_face: :expressionless_face: :unamused_face: :grinning_face_with_sweat: :downcast_face_with_sweat: :sad_but_relieved_face: :weary_face: :pensive_face: :disappointed_face: :confounded_face: :fearful_face: :anxious_face_with_sweat: :persevering_face: :crying_face: :loudly_crying_face: :face_with_tears_of_joy: :astonished_face: :face_screaming_in_fear: :tired_face: :angry_face: :pouting_face: :face_with_steam_from_nose: :sleepy_face: :face_savoring_food: :face_with_medical_mask: :smiling_face_with_sunglasses: :face_with_crossed_out_eyes: :angry_face_with_horns: :smiling_face_with_horns: :neutral_face: :face_without_mouth: :smiling_face_with_halo: :alien: :yellow_heart: :blue_heart: :purple_heart: :red_heart: :green_heart: :broken_heart: :beating_heart: :growing_heart: :two_hearts: :revolving_hearts: :heart_with_arrow: :sparkling_heart: :sparkles: :star:️ :glowing_star: :dizzy: :collision: :collision: :anger_symbol: :red_exclamation_mark:️ :red_question_mark: :white_exclamation_mark: :white_question_mark: :zzz: :dashing_away: :sweat_droplets: :musical_notes: :musical_note: :fire: :pile_of_poo: :pile_of_poo: :pile_of_poo: :thumbs_up: :thumbs_up: :thumbs_down: :thumbs_down: :ok_hand: :oncoming_fist: :oncoming_fist: :raised_fist: :victory_hand: :waving_hand: :raised_hand: :raised_hand: :open_hands: :index_pointing_up: :backhand_index_pointing_down: :backhand_index_pointing_left: :backhand_index_pointing_right: :raising_hands: :folded_hands: :backhand_index_pointing_up: :clapping_hands: :flexed_biceps: :sign_of_the_horns: :middle_finger: :person_walking: :person_running: :person_running: :woman_and_man_holding_hands: :family: :men_holding_hands: :women_holding_hands: :woman_dancing: :people_with_bunny_ears: :person_gesturing_ok: :person_gesturing_no: :person_tipping_hand: :person_raising_hand: :person_with_veil: :person_pouting: :person_frowning: :person_bowing: :couple_with_heart: :person_getting_massage: :person_getting_haircut: :nail_polish: :boy: :girl: :woman: :man: :baby: :old_woman: :old_man: :person_blond_hair: :person_with_skullcap: :person_wearing_turban: :construction_worker: :police_officer: :baby_angel: :princess: :grinning_cat: :grinning_cat_with_smiling_eyes: :smiling_cat_with_heart_eyes: :kissing_cat: :cat_with_wry_smile: :weary_cat: :crying_cat: :cat_with_tears_of_joy: :pouting_cat: :ogre: :goblin: :see_no_evil_monkey: :hear_no_evil_monkey: :speak_no_evil_monkey: :guard: :skull: :paw_prints: :mouth: :kiss_mark: :droplet: :ear: :eyes: :nose: :tongue: :love_letter: :bust_in_silhouette: :busts_in_silhouette: :speech_balloon: :thought_balloon:')
+      expect(result).to.be.equal(':grinning_face_with_smiling_eyes: :grinning_squinting_face: :smiling_face_with_smiling_eyes: :grinning_face_with_big_eyes: :smiling_face: :smirking_face: :smiling_face_with_heart_eyes: :face_blowing_a_kiss: :kissing_face_with_closed_eyes: :flushed_face: :relieved_face: :grinning_squinting_face: :beaming_face_with_smiling_eyes: :winking_face: :winking_face_with_tongue: :squinting_face_with_tongue: :grinning_face: :kissing_face: :kissing_face_with_smiling_eyes: :face_with_tongue: :sleeping_face: :worried_face: :frowning_face_with_open_mouth: :anguished_face: :face_with_open_mouth: :grimacing_face: :confused_face: :hushed_face: :expressionless_face: :unamused_face: :grinning_face_with_sweat: :downcast_face_with_sweat: :sad_but_relieved_face: :weary_face: :pensive_face: :disappointed_face: :confounded_face: :fearful_face: :anxious_face_with_sweat: :persevering_face: :crying_face: :loudly_crying_face: :face_with_tears_of_joy: :astonished_face: :face_screaming_in_fear: :tired_face: :angry_face: :enraged_face: :face_with_steam_from_nose: :sleepy_face: :face_savoring_food: :face_with_medical_mask: :smiling_face_with_sunglasses: :face_with_crossed_out_eyes: :angry_face_with_horns: :smiling_face_with_horns: :neutral_face: :face_without_mouth: :smiling_face_with_halo: :alien: :yellow_heart: :blue_heart: :purple_heart: :red_heart: :green_heart: :broken_heart: :beating_heart: :growing_heart: :two_hearts: :revolving_hearts: :heart_with_arrow: :sparkling_heart: :sparkles: :star:️ :glowing_star: :dizzy: :collision: :collision: :anger_symbol: :red_exclamation_mark:️ :red_question_mark: :white_exclamation_mark: :white_question_mark: :zzz: :dashing_away: :sweat_droplets: :musical_notes: :musical_note: :fire: :pile_of_poo: :pile_of_poo: :pile_of_poo: :thumbs_up: :thumbs_up: :thumbs_down: :thumbs_down: :ok_hand: :oncoming_fist: :oncoming_fist: :raised_fist: :victory_hand: :waving_hand: :raised_hand: :raised_hand: :open_hands: :index_pointing_up: :backhand_index_pointing_down: :backhand_index_pointing_left: :backhand_index_pointing_right: :raising_hands: :folded_hands: :backhand_index_pointing_up: :clapping_hands: :flexed_biceps: :sign_of_the_horns: :middle_finger: :person_walking: :person_running: :person_running: :woman_and_man_holding_hands: :family: :men_holding_hands: :women_holding_hands: :woman_dancing: :people_with_bunny_ears: :person_gesturing_ok: :person_gesturing_no: :person_tipping_hand: :person_raising_hand: :person_with_veil: :person_pouting: :person_frowning: :person_bowing: :couple_with_heart: :person_getting_massage: :person_getting_haircut: :nail_polish: :boy: :girl: :woman: :man: :baby: :old_woman: :old_man: :person_blond_hair: :person_with_skullcap: :person_wearing_turban: :construction_worker: :police_officer: :baby_angel: :princess: :grinning_cat: :grinning_cat_with_smiling_eyes: :smiling_cat_with_heart_eyes: :kissing_cat: :cat_with_wry_smile: :weary_cat: :crying_cat: :cat_with_tears_of_joy: :pouting_cat: :ogre: :goblin: :see_no_evil_monkey: :hear_no_evil_monkey: :speak_no_evil_monkey: :guard: :skull: :paw_prints: :mouth: :kiss_mark: :droplet: :ear: :eyes: :nose: :tongue: :love_letter: :bust_in_silhouette: :busts_in_silhouette: :speech_balloon: :thought_balloon:')
 
       // (3) Test with a multiple unicodes emojis
       text = '😎'
@@ -136,7 +136,7 @@ describe('Test emoji parser', () => {
       // (2) Test with a multiple unicodes emojis
       text = '😄 😆 😊 😃 ☺️ 😏 😍 😘 😚 😳 😌 😆 😁 😉 😜 😝 😀 😗 😙 😛 😴 😟 😦 😧 😮 😬 😕 😯 😑 😒 😅 😓 😥 😩 😔 😞 😖 😨 😰 😣 😢 😭 😂 😲 😱 😫 😠 😡 😤 😪 😋 😷 😎 😵 👿 😈 😐 😶 😇 👽 💛 💙 💜 ❤️ 💚 💔 💓 💗 💕 💞 💘 💖 ✨ ⭐️ 🌟 💫 💥 💥 💢 ❗️ ❓ ❕ ❔ 💤 💨 💦 🎶 🎵 🔥 💩 💩 💩 👍 👍 👎 👎 👌 👊 👊 ✊ ✌️ 👋 ✋ ✋ 👐 ☝️ 👇 👈 👉 🙌 🙏 👆 👏 💪 🤘 🖕 🚶 🏃 🏃 👫 👪 👬 👭 💃 👯 🙆 🙅 💁 🙋 👰 🙎 🙍 🙇 💑 💆 💇 💅 👦 👧 👩 👨 👶 👵 👴 👱 👲 👳 👷 👮 👼 👸 😺 😸 😻 😽 😼 🙀 😿 😹 😾 👹 👺 🙈 🙉 🙊 💂 💀 🐾 👄 💋 💧 👂 👀 👃 👅 💌 👤 👥 💬 💭'
       result = uEmojiParser.parse(text, { parseToHtml: false, parseToUnicode: false, parseToShortcode: true })
-      expect(result).to.be.equal(':grinning_face_with_smiling_eyes: :grinning_squinting_face: :smiling_face_with_smiling_eyes: :grinning_face_with_big_eyes: :smiling_face: :smirking_face: :smiling_face_with_heart_eyes: :face_blowing_a_kiss: :kissing_face_with_closed_eyes: :flushed_face: :relieved_face: :grinning_squinting_face: :beaming_face_with_smiling_eyes: :winking_face: :winking_face_with_tongue: :squinting_face_with_tongue: :grinning_face: :kissing_face: :kissing_face_with_smiling_eyes: :face_with_tongue: :sleeping_face: :worried_face: :frowning_face_with_open_mouth: :anguished_face: :face_with_open_mouth: :grimacing_face: :confused_face: :hushed_face: :expressionless_face: :unamused_face: :grinning_face_with_sweat: :downcast_face_with_sweat: :sad_but_relieved_face: :weary_face: :pensive_face: :disappointed_face: :confounded_face: :fearful_face: :anxious_face_with_sweat: :persevering_face: :crying_face: :loudly_crying_face: :face_with_tears_of_joy: :astonished_face: :face_screaming_in_fear: :tired_face: :angry_face: :pouting_face: :face_with_steam_from_nose: :sleepy_face: :face_savoring_food: :face_with_medical_mask: :smiling_face_with_sunglasses: :face_with_crossed_out_eyes: :angry_face_with_horns: :smiling_face_with_horns: :neutral_face: :face_without_mouth: :smiling_face_with_halo: :alien: :yellow_heart: :blue_heart: :purple_heart: :red_heart: :green_heart: :broken_heart: :beating_heart: :growing_heart: :two_hearts: :revolving_hearts: :heart_with_arrow: :sparkling_heart: :sparkles: :star:️ :glowing_star: :dizzy: :collision: :collision: :anger_symbol: :red_exclamation_mark:️ :red_question_mark: :white_exclamation_mark: :white_question_mark: :zzz: :dashing_away: :sweat_droplets: :musical_notes: :musical_note: :fire: :pile_of_poo: :pile_of_poo: :pile_of_poo: :thumbs_up: :thumbs_up: :thumbs_down: :thumbs_down: :ok_hand: :oncoming_fist: :oncoming_fist: :raised_fist: :victory_hand: :waving_hand: :raised_hand: :raised_hand: :open_hands: :index_pointing_up: :backhand_index_pointing_down: :backhand_index_pointing_left: :backhand_index_pointing_right: :raising_hands: :folded_hands: :backhand_index_pointing_up: :clapping_hands: :flexed_biceps: :sign_of_the_horns: :middle_finger: :person_walking: :person_running: :person_running: :woman_and_man_holding_hands: :family: :men_holding_hands: :women_holding_hands: :woman_dancing: :people_with_bunny_ears: :person_gesturing_ok: :person_gesturing_no: :person_tipping_hand: :person_raising_hand: :person_with_veil: :person_pouting: :person_frowning: :person_bowing: :couple_with_heart: :person_getting_massage: :person_getting_haircut: :nail_polish: :boy: :girl: :woman: :man: :baby: :old_woman: :old_man: :person_blond_hair: :person_with_skullcap: :person_wearing_turban: :construction_worker: :police_officer: :baby_angel: :princess: :grinning_cat: :grinning_cat_with_smiling_eyes: :smiling_cat_with_heart_eyes: :kissing_cat: :cat_with_wry_smile: :weary_cat: :crying_cat: :cat_with_tears_of_joy: :pouting_cat: :ogre: :goblin: :see_no_evil_monkey: :hear_no_evil_monkey: :speak_no_evil_monkey: :guard: :skull: :paw_prints: :mouth: :kiss_mark: :droplet: :ear: :eyes: :nose: :tongue: :love_letter: :bust_in_silhouette: :busts_in_silhouette: :speech_balloon: :thought_balloon:')
+      expect(result).to.be.equal(':grinning_face_with_smiling_eyes: :grinning_squinting_face: :smiling_face_with_smiling_eyes: :grinning_face_with_big_eyes: :smiling_face: :smirking_face: :smiling_face_with_heart_eyes: :face_blowing_a_kiss: :kissing_face_with_closed_eyes: :flushed_face: :relieved_face: :grinning_squinting_face: :beaming_face_with_smiling_eyes: :winking_face: :winking_face_with_tongue: :squinting_face_with_tongue: :grinning_face: :kissing_face: :kissing_face_with_smiling_eyes: :face_with_tongue: :sleeping_face: :worried_face: :frowning_face_with_open_mouth: :anguished_face: :face_with_open_mouth: :grimacing_face: :confused_face: :hushed_face: :expressionless_face: :unamused_face: :grinning_face_with_sweat: :downcast_face_with_sweat: :sad_but_relieved_face: :weary_face: :pensive_face: :disappointed_face: :confounded_face: :fearful_face: :anxious_face_with_sweat: :persevering_face: :crying_face: :loudly_crying_face: :face_with_tears_of_joy: :astonished_face: :face_screaming_in_fear: :tired_face: :angry_face: :enraged_face: :face_with_steam_from_nose: :sleepy_face: :face_savoring_food: :face_with_medical_mask: :smiling_face_with_sunglasses: :face_with_crossed_out_eyes: :angry_face_with_horns: :smiling_face_with_horns: :neutral_face: :face_without_mouth: :smiling_face_with_halo: :alien: :yellow_heart: :blue_heart: :purple_heart: :red_heart: :green_heart: :broken_heart: :beating_heart: :growing_heart: :two_hearts: :revolving_hearts: :heart_with_arrow: :sparkling_heart: :sparkles: :star:️ :glowing_star: :dizzy: :collision: :collision: :anger_symbol: :red_exclamation_mark:️ :red_question_mark: :white_exclamation_mark: :white_question_mark: :zzz: :dashing_away: :sweat_droplets: :musical_notes: :musical_note: :fire: :pile_of_poo: :pile_of_poo: :pile_of_poo: :thumbs_up: :thumbs_up: :thumbs_down: :thumbs_down: :ok_hand: :oncoming_fist: :oncoming_fist: :raised_fist: :victory_hand: :waving_hand: :raised_hand: :raised_hand: :open_hands: :index_pointing_up: :backhand_index_pointing_down: :backhand_index_pointing_left: :backhand_index_pointing_right: :raising_hands: :folded_hands: :backhand_index_pointing_up: :clapping_hands: :flexed_biceps: :sign_of_the_horns: :middle_finger: :person_walking: :person_running: :person_running: :woman_and_man_holding_hands: :family: :men_holding_hands: :women_holding_hands: :woman_dancing: :people_with_bunny_ears: :person_gesturing_ok: :person_gesturing_no: :person_tipping_hand: :person_raising_hand: :person_with_veil: :person_pouting: :person_frowning: :person_bowing: :couple_with_heart: :person_getting_massage: :person_getting_haircut: :nail_polish: :boy: :girl: :woman: :man: :baby: :old_woman: :old_man: :person_blond_hair: :person_with_skullcap: :person_wearing_turban: :construction_worker: :police_officer: :baby_angel: :princess: :grinning_cat: :grinning_cat_with_smiling_eyes: :smiling_cat_with_heart_eyes: :kissing_cat: :cat_with_wry_smile: :weary_cat: :crying_cat: :cat_with_tears_of_joy: :pouting_cat: :ogre: :goblin: :see_no_evil_monkey: :hear_no_evil_monkey: :speak_no_evil_monkey: :guard: :skull: :paw_prints: :mouth: :kiss_mark: :droplet: :ear: :eyes: :nose: :tongue: :love_letter: :bust_in_silhouette: :busts_in_silhouette: :speech_balloon: :thought_balloon:')
 
       // (3) Test without unicode emojis
       text = ':thumbs_up:'
@@ -186,68 +186,83 @@ describe('Test emoji parser', () => {
   })
 
   describe('Readme tests', () => {
-    it('should parse tests width default options', () => {
-      // (1) Test width default options
+    it('should parse tests with default options', () => {
+      // (1) Test with default options
       let text: string = '😎'
       let result: string = uEmojiParser.parse(text)
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>')
 
-      // (2) Test width default options
+      // (2) Test with default options
       text = ':smiling_face_with_sunglasses:'
       result = uEmojiParser.parse(text)
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>')
 
-      // (3) Test width default options
+      // (3) Test with default options
       text = '🚀'
       result = uEmojiParser.parse(text)
       expect(result).to.be.equal('<img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>')
 
-      // (4) Test width default options
+      // (4) Test with default options
       text = ':rocket:'
       result = uEmojiParser.parse(text)
       expect(result).to.be.equal('<img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>')
 
-      // (5) Test width default options
+      // (5) Test with default options
       text = 'Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:'
       result = uEmojiParser.parse(text)
       expect(result).to.be.equal('Hello world! <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>')
     })
 
     it('should parse tests using method options', () => {
-      // (1) Test width method options
+      // (1) Test with method options
       let text: string = '😎'
       let result: string = uEmojiParser.parse(text, {})
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>')
 
-      // (3) Test width method options
+      // (3) Test with method options
       text = ':smiling_face_with_sunglasses:'
       result = uEmojiParser.parse(text, { parseToHtml: true })
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>')
 
-      // (2) Test width method options
+      // (2) Test with method options
       text = 'Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:'
       result = uEmojiParser.parseToHtml(text)
       expect(result).to.be.equal('Hello world! <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>')
 
-      // (5) Test width method options
+      // (5) Test with method options
       text = 'Hello world! :smiling_face_with_sunglasses: :rocket:'
       result = uEmojiParser.parse('Hello world! :smiling_face_with_sunglasses: :rocket:', { parseToHtml: false, parseToUnicode: true })
       expect(result).to.be.equal('Hello world! 😎 🚀')
 
-      // (6) Test width method options
+      // (6) Test with method options
       text = 'Hello world! :smiling_face_with_sunglasses: :rocket:'
       result = uEmojiParser.parseToUnicode('Hello world! :smiling_face_with_sunglasses: :rocket:')
       expect(result).to.be.equal('Hello world! 😎 🚀')
 
-      // (7) Test width method options
+      // (7) Test with method options
       text = 'Hello world! 😎 🚀'
       result = uEmojiParser.parse(text, { parseToHtml: false, parseToShortcode: true })
       expect(result).to.be.equal('Hello world! :smiling_face_with_sunglasses: :rocket:')
 
-      // (8) Test width method options
+      // (8) Test with method options
       text = 'Hello world! 😎 🚀'
       result = uEmojiParser.parseToShortcode(text)
       expect(result).to.be.equal('Hello world! :smiling_face_with_sunglasses: :rocket:')
+
+      // (8) Test with method options using custom CDN
+      text = 'Hello world! 😎 🚀'
+      result = uEmojiParser.parse(text, { parseToHtml: false, emojiCDN: 'https://custom.emoji.cdn' })
+      expect(result).to.be.equal('Hello world! 😎 🚀')
+
+      // (9) Test with method options using custom CDN
+      text = 'Hello world! 😎 🚀'
+      result = uEmojiParser.parse(text, { parseToHtml: true, emojiCDN: 'https://custom.emoji.cdn' })
+      expect(result).to.be.equal('Hello world! <img class="emoji" alt="😎" src="https://custom.emoji.cdn/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://custom.emoji.cdn/14.0.2/72x72/1f680.png"/>')
+
+      // (10) Test with method options using custom CDN
+      text = 'Hello world! 😎 🚀'
+      result = uEmojiParser.parse(text, { emojiCDN: 'https://custom.emoji.cdn' })
+      expect(result).to.be.equal('Hello world! <img class="emoji" alt="😎" src="https://custom.emoji.cdn/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://custom.emoji.cdn/14.0.2/72x72/1f680.png"/>')
     })
   })
 })
