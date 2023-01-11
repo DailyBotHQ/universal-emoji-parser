@@ -74,6 +74,7 @@ Hello world! <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/aja
 | parseToUnicode   | boolean | `false` | Parse emojis shortcodes into unicodes. The option **parseToHtml** should be `false` to apply.                         |
 | parseToShortcode | boolean | `false` | Parse emojis unicodes into shortcodes. The options **parseToHtml** and **parseToUnicode** should be `false` to apply. |
 
+Using different values for options:
 ```
 → uEmojiParser.parse('😎', {})
 <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>
