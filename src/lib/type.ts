@@ -25,13 +25,15 @@ export interface EmojiLibJsonType {
 export interface UEmojiParserType {
   getEmojiObjectByShortcode: (emojiCode: string) => EmojiType | undefined
   getDefaultOptions(options?: EmojiParseOptionsType): EmojiParseOptionsType
-  parseToHtml: (text: string) => string
+  __parseEmojiToHtml(text: string, emojiCDN?: string): string
+  parseToHtml: (text: string, emojiCDN?: string) => string
   parseToUnicode: (text: string) => string
   parseToShortcode: (text: string) => string
   parse: (text: string, options?: EmojiParseOptionsType) => string
 }
 
 export interface EmojiParseOptionsType {
+  emojiCDN?: string
   parseToHtml?: boolean
   parseToUnicode?: boolean
   parseToShortcode?: boolean

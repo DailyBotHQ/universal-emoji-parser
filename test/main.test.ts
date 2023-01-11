@@ -186,68 +186,83 @@ describe('Test emoji parser', () => {
   })
 
   describe('Readme tests', () => {
-    it('should parse tests width default options', () => {
-      // (1) Test width default options
+    it('should parse tests with default options', () => {
+      // (1) Test with default options
       let text: string = '😎'
       let result: string = uEmojiParser.parse(text)
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>')
 
-      // (2) Test width default options
+      // (2) Test with default options
       text = ':smiling_face_with_sunglasses:'
       result = uEmojiParser.parse(text)
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>')
 
-      // (3) Test width default options
+      // (3) Test with default options
       text = '🚀'
       result = uEmojiParser.parse(text)
       expect(result).to.be.equal('<img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>')
 
-      // (4) Test width default options
+      // (4) Test with default options
       text = ':rocket:'
       result = uEmojiParser.parse(text)
       expect(result).to.be.equal('<img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>')
 
-      // (5) Test width default options
+      // (5) Test with default options
       text = 'Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:'
       result = uEmojiParser.parse(text)
       expect(result).to.be.equal('Hello world! <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>')
     })
 
     it('should parse tests using method options', () => {
-      // (1) Test width method options
+      // (1) Test with method options
       let text: string = '😎'
       let result: string = uEmojiParser.parse(text, {})
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>')
 
-      // (3) Test width method options
+      // (3) Test with method options
       text = ':smiling_face_with_sunglasses:'
       result = uEmojiParser.parse(text, { parseToHtml: true })
       expect(result).to.be.equal('<img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/>')
 
-      // (2) Test width method options
+      // (2) Test with method options
       text = 'Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:'
       result = uEmojiParser.parseToHtml(text)
       expect(result).to.be.equal('Hello world! <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f680.png"/>')
 
-      // (5) Test width method options
+      // (5) Test with method options
       text = 'Hello world! :smiling_face_with_sunglasses: :rocket:'
       result = uEmojiParser.parse('Hello world! :smiling_face_with_sunglasses: :rocket:', { parseToHtml: false, parseToUnicode: true })
       expect(result).to.be.equal('Hello world! 😎 🚀')
 
-      // (6) Test width method options
+      // (6) Test with method options
       text = 'Hello world! :smiling_face_with_sunglasses: :rocket:'
       result = uEmojiParser.parseToUnicode('Hello world! :smiling_face_with_sunglasses: :rocket:')
       expect(result).to.be.equal('Hello world! 😎 🚀')
 
-      // (7) Test width method options
+      // (7) Test with method options
       text = 'Hello world! 😎 🚀'
       result = uEmojiParser.parse(text, { parseToHtml: false, parseToShortcode: true })
       expect(result).to.be.equal('Hello world! :smiling_face_with_sunglasses: :rocket:')
 
-      // (8) Test width method options
+      // (8) Test with method options
       text = 'Hello world! 😎 🚀'
       result = uEmojiParser.parseToShortcode(text)
       expect(result).to.be.equal('Hello world! :smiling_face_with_sunglasses: :rocket:')
+
+      // (8) Test with method options using custom CDN
+      text = 'Hello world! 😎 🚀'
+      result = uEmojiParser.parse(text, { parseToHtml: false, emojiCDN: 'https://custom.emoji.cdn' })
+      expect(result).to.be.equal('Hello world! 😎 🚀')
+
+      // (9) Test with method options using custom CDN
+      text = 'Hello world! 😎 🚀'
+      result = uEmojiParser.parse(text, { parseToHtml: true, emojiCDN: 'https://custom.emoji.cdn' })
+      expect(result).to.be.equal('Hello world! <img class="emoji" alt="😎" src="https://custom.emoji.cdn/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://custom.emoji.cdn/14.0.2/72x72/1f680.png"/>')
+
+      // (10) Test with method options using custom CDN
+      text = 'Hello world! 😎 🚀'
+      result = uEmojiParser.parse(text, { emojiCDN: 'https://custom.emoji.cdn' })
+      expect(result).to.be.equal('Hello world! <img class="emoji" alt="😎" src="https://custom.emoji.cdn/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://custom.emoji.cdn/14.0.2/72x72/1f680.png"/>')
     })
   })
 })

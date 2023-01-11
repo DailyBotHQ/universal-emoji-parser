@@ -67,6 +67,7 @@ Hello world! <img class="emoji" alt="😎" src="https://cdnjs.cloudflare.com/aja
 
 | Option Name      | Type    | Default | Description                                                                                                           |
 | :--------------- | :------ | :------ | :-------------------------------------------------------------------------------------------------------------------- |
+| emojiCDN         | string  | `https://cdnjs.cloudflare.com/ajax/libs/twemoji`  | Allow customize the emojis CDN. The `parseToHtml` option should be `true` to apply this option. |
 | parseToHtml      | boolean | `true`  | Parse emojis unicodes and shortcodes into html images.                                                                |
 | parseToUnicode   | boolean | `false` | Parse emojis shortcodes into unicodes. The option **parseToHtml** should be `false` to apply.                         |
 | parseToShortcode | boolean | `false` | Parse emojis unicodes into shortcodes. The options **parseToHtml** and **parseToUnicode** should be `false` to apply. |

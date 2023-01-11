@@ -4,6 +4,13 @@ import emojiLibJson from './lib/emoji-lib.json'
 
 
 /**
+ * Constances
+ */
+const DEPRECATED_EMOJI_CDN: string = 'https://twemoji.maxcdn.com/v'
+const DEFAULT_EMOJI_CDN: string = 'https://cdnjs.cloudflare.com/ajax/libs/twemoji'
+
+
+/**
  * Parse text with emoji support
  * @return {string}
  */
@@ -25,22 +32,24 @@ const uEmojiParser: UEmojiParserType = {
   },
   getDefaultOptions(options?: EmojiParseOptionsType): EmojiParseOptionsType {
     options = {
-      // eslint-disable-next-line no-prototype-builtins
-      parseToHtml: (options && options.hasOwnProperty('parseToHtml'))? Boolean(options.parseToHtml): true,
+      emojiCDN: (options && Object.getOwnPropertyDescriptor(options, 'emojiCDN'))? String(options.emojiCDN): DEFAULT_EMOJI_CDN,
+      parseToHtml: (options && Object.getOwnPropertyDescriptor(options, 'parseToHtml'))? Boolean(options.parseToHtml): true,
       parseToUnicode: (options)? Boolean(options.parseToUnicode): false,
       parseToShortcode: (options)? Boolean(options.parseToShortcode): false,
     }
     return options
   },
-  parseToHtml(text: string): string {
-    text = this.parseToUnicode(text)
+  __parseEmojiToHtml(text: string, emojiCDN?: string): string {
     text = twemoji.parse(text)
     text = text.replace(/ draggable="false" /g, ' ')
-    text = text.replace(
-      /twemoji.maxcdn.com\/v/g,
-      'cdnjs.cloudflare.com/ajax/libs/twemoji',
-    )
+    const emojiCDNResult: string = (emojiCDN)? emojiCDN: DEFAULT_EMOJI_CDN
+    const cdnRegex: RegExp = new RegExp(DEPRECATED_EMOJI_CDN, 'gi')
+    text = text.replace(cdnRegex, emojiCDNResult)
     return text
+  },
+  parseToHtml(text: string, emojiCDN?: string): string {
+    text = this.parseToUnicode(text)
+    return this.__parseEmojiToHtml(text, emojiCDN)
   },
   parseToUnicode(text: string): string {
     const emojisRegExp: RegExp = /:(\w+):/g
@@ -97,12 +106,7 @@ const uEmojiParser: UEmojiParserType = {
      * Parse emojis to html images
      */
     if (optionsResult.parseToHtml) {
-      text = twemoji.parse(text)
-      text = text.replace(/ draggable="false" /g, ' ')
-      text = text.replace(
-        /twemoji.maxcdn.com\/v/g,
-        'cdnjs.cloudflare.com/ajax/libs/twemoji',
-      )
+      text = this.__parseEmojiToHtml(text, optionsResult.emojiCDN)
     }
     return text
   },
