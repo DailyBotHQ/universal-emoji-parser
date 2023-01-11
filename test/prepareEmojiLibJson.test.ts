@@ -12,14 +12,16 @@ describe('Prepare emoji parser assets', () => {
    *
    * Note: By default this test is disabled, reactivate it only if you need to regenerate the file.
    ***/
-  it('create emojis lib json file', () => {
-    console.log('--- emojis ---')
-    console.log(unicodeEmojiJson)
+  it.skip('create emojis lib json file', () => {
     const unicodeEmojiJsonData: ObjectType = unicodeEmojiJson
     const keywordSet: ObjectType = emojilib
     for (const emoji in unicodeEmojiJsonData) {
       unicodeEmojiJsonData[emoji].char = emoji
-      unicodeEmojiJsonData[emoji].keywords = keywordSet[emoji]
+      if (keywordSet[emoji]) {
+        unicodeEmojiJsonData[emoji].keywords = keywordSet[emoji]
+      } else {
+        unicodeEmojiJsonData[emoji].keywords = [unicodeEmojiJsonData[emoji].slug]
+      }
       if (!unicodeEmojiJsonData[emoji].keywords.includes(unicodeEmojiJsonData[emoji].slug)) {
         unicodeEmojiJsonData[emoji].keywords.unshift(unicodeEmojiJsonData[emoji].slug)
       }
