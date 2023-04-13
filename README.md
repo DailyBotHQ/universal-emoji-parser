@@ -65,7 +65,7 @@ Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.
 
 ### Using method options:
 
-- DEFAULT EMOJI CDN => `https://cdnjs.cloudflare.com/ajax/libs/twemoji`
+- DEFAULT EMOJI CDN => `https://twemoji.maxcdn.com/v`
 
 | Option Name      | Type    | Default | Description                                                                                                           |
 | :--------------- | :------ | :------ | :-------------------------------------------------------------------------------------------------------------------- |
