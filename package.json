@@ -53,21 +53,21 @@
   "devDependencies": {
     "@types/chai": "4.3.4",
     "@types/mocha": "10.0.1",
-    "@types/node": "18.11.18",
-    "@typescript-eslint/eslint-plugin": "5.48.1",
-    "@typescript-eslint/parser": "5.48.1",
+    "@types/node": "18.15.11",
+    "@typescript-eslint/eslint-plugin": "5.58.0",
+    "@typescript-eslint/parser": "5.58.0",
     "chai": "4.3.7",
     "clean-webpack-plugin": "4.0.0",
-    "emojilib": "3.0.8",
-    "eslint": "8.31.0",
+    "emojilib": "3.0.10",
+    "eslint": "8.38.0",
     "mocha": "10.2.0",
-    "nodemon": "2.0.20",
+    "nodemon": "2.0.22",
     "ts-loader": "9.4.2",
     "ts-node": "10.9.1",
-    "typescript": "4.8.3",
+    "typescript": "5.0.4",
     "unicode-emoji-json": "0.4.0",
-    "webpack": "5.75.0",
+    "webpack": "5.79.0",
     "webpack-cli": "5.0.1",
-    "eslint-webpack-plugin": "3.2.0"
+    "eslint-webpack-plugin": "4.0.1"
   }
 }
