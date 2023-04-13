@@ -6,8 +6,7 @@ import emojiLibJson from './lib/emoji-lib.json'
 /**
  * Constances
  */
-const DEPRECATED_EMOJI_CDN: string = 'https://twemoji.maxcdn.com/v'
-const DEFAULT_EMOJI_CDN: string = 'https://cdnjs.cloudflare.com/ajax/libs/twemoji'
+const DEFAULT_EMOJI_CDN: string = 'https://twemoji.maxcdn.com/v'
 
 
 /**
@@ -42,9 +41,10 @@ const uEmojiParser: UEmojiParserType = {
   __parseEmojiToHtml(text: string, emojiCDN?: string): string {
     text = twemoji.parse(text)
     text = text.replace(/ draggable="false" /g, ' ')
-    const emojiCDNResult: string = (emojiCDN)? emojiCDN: DEFAULT_EMOJI_CDN
-    const cdnRegex: RegExp = new RegExp(DEPRECATED_EMOJI_CDN, 'gi')
-    text = text.replace(cdnRegex, emojiCDNResult)
+    if (emojiCDN) {
+      const cdnRegex: RegExp = new RegExp(DEFAULT_EMOJI_CDN, 'gi')
+      text = text.replace(cdnRegex, emojiCDN)
+    }
     return text
   },
   parseToHtml(text: string, emojiCDN?: string): string {

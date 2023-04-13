@@ -141,8 +141,7 @@
     "char": "🙃",
     "keywords": [
       "upside_down_face",
-      "flipped",
-      "silly"
+      "flipped"
     ]
   },
   "🫠": {
@@ -714,7 +713,10 @@
     "skin_tone_support": false,
     "char": "🫨",
     "keywords": [
-      "shaking_face"
+      "shaking_face",
+      "shaking face",
+      "blurry",
+      "earthquake"
     ]
   },
   "😌": {
@@ -1986,7 +1988,8 @@
     "skin_tone_support": false,
     "char": "🩷",
     "keywords": [
-      "pink_heart"
+      "pink_heart",
+      "pink heart"
     ]
   },
   "🧡": {
@@ -2046,7 +2049,9 @@
     "skin_tone_support": false,
     "char": "🩵",
     "keywords": [
-      "light_blue_heart"
+      "light_blue_heart",
+      "light blue heart",
+      "baby blue"
     ]
   },
   "💜": {
@@ -2096,7 +2101,10 @@
     "skin_tone_support": false,
     "char": "🩶",
     "keywords": [
-      "grey_heart"
+      "grey_heart",
+      "grey heart",
+      "silver",
+      "monochrome"
     ]
   },
   "🤍": {
@@ -2459,7 +2467,9 @@
     "skin_tone_support_unicode_version": "15.0",
     "char": "🫷",
     "keywords": [
-      "leftwards_pushing_hand"
+      "leftwards_pushing_hand",
+      "leftwards pushing hand",
+      "pressing"
     ]
   },
   "🫸": {
@@ -2472,7 +2482,8 @@
     "skin_tone_support_unicode_version": "15.0",
     "char": "🫸",
     "keywords": [
-      "rightwards_pushing_hand"
+      "rightwards_pushing_hand",
+      "rightwards pushing hand"
     ]
   },
   "👌": {
@@ -7593,7 +7604,11 @@
     "skin_tone_support": false,
     "char": "🫎",
     "keywords": [
-      "moose"
+      "moose",
+      "shrek",
+      "canada",
+      "sweden",
+      "sven"
     ]
   },
   "🫏": {
@@ -7605,7 +7620,9 @@
     "skin_tone_support": false,
     "char": "🫏",
     "keywords": [
-      "donkey"
+      "donkey",
+      "eeyore",
+      "mule"
     ]
   },
   "🐎": {
@@ -8398,7 +8415,9 @@
     "skin_tone_support": false,
     "char": "🪽",
     "keywords": [
-      "wing"
+      "wing",
+      "birds",
+      "flying"
     ]
   },
   "🐦‍⬛": {
@@ -8410,7 +8429,9 @@
     "skin_tone_support": false,
     "char": "🐦‍⬛",
     "keywords": [
-      "black_bird"
+      "black_bird",
+      "black bird",
+      "crow"
     ]
   },
   "🪿": {
@@ -8422,7 +8443,10 @@
     "skin_tone_support": false,
     "char": "🪿",
     "keywords": [
-      "goose"
+      "goose",
+      "silly",
+      "jemima",
+      "goosebumps"
     ]
   },
   "🐸": {
@@ -8696,7 +8720,9 @@
     "skin_tone_support": false,
     "char": "🪼",
     "keywords": [
-      "jellyfish"
+      "jellyfish",
+      "sting",
+      "tentacles"
     ]
   },
   "🐌": {
@@ -9054,7 +9080,8 @@
     "skin_tone_support": false,
     "char": "🪻",
     "keywords": [
-      "hyacinth"
+      "hyacinth",
+      "lavender"
     ]
   },
   "🌱": {
@@ -9699,7 +9726,9 @@
     "skin_tone_support": false,
     "char": "🫚",
     "keywords": [
-      "ginger_root"
+      "ginger_root",
+      "ginger root",
+      "gingerbread"
     ]
   },
   "🫛": {
@@ -9711,7 +9740,9 @@
     "skin_tone_support": false,
     "char": "🫛",
     "keywords": [
-      "pea_pod"
+      "pea_pod",
+      "pea pod",
+      "cozy"
     ]
   },
   "🍞": {
@@ -12952,6 +12983,11 @@
     "char": "🕛",
     "keywords": [
       "twelve_o_clock",
+      "12",
+      "00:00",
+      "0000",
+      "12:00",
+      "1200",
       "noon",
       "midnight",
       "midday"
@@ -12967,6 +13003,10 @@
     "char": "🕧",
     "keywords": [
       "twelve_thirty",
+      "00:30",
+      "0030",
+      "12:30",
+      "1230",
       "late"
     ]
   },
@@ -12980,7 +13020,11 @@
     "char": "🕐",
     "keywords": [
       "one_o_clock",
-      "early"
+      "1",
+      "1:00",
+      "100",
+      "13:00",
+      "1300"
     ]
   },
   "🕜": {
@@ -12993,7 +13037,11 @@
     "char": "🕜",
     "keywords": [
       "one_thirty",
-      "schedule"
+      "1:30",
+      "130",
+      "13:30",
+      "1330",
+      "early"
     ]
   },
   "🕑": {
@@ -13005,7 +13053,12 @@
     "skin_tone_support": false,
     "char": "🕑",
     "keywords": [
-      "two_o_clock"
+      "two_o_clock",
+      "2",
+      "2:00",
+      "200",
+      "14:00",
+      "1400"
     ]
   },
   "🕝": {
@@ -13017,7 +13070,11 @@
     "skin_tone_support": false,
     "char": "🕝",
     "keywords": [
-      "two_thirty"
+      "two_thirty",
+      "2:30",
+      "230",
+      "14:30",
+      "1430"
     ]
   },
   "🕒": {
@@ -13029,7 +13086,11 @@
     "skin_tone_support": false,
     "char": "🕒",
     "keywords": [
-      "three_o_clock"
+      "three_o_clock",
+      "3:00",
+      "300",
+      "15:00",
+      "1500"
     ]
   },
   "🕞": {
@@ -13041,7 +13102,11 @@
     "skin_tone_support": false,
     "char": "🕞",
     "keywords": [
-      "three_thirty"
+      "three_thirty",
+      "3:30",
+      "330",
+      "15:30",
+      "1530"
     ]
   },
   "🕓": {
@@ -13053,7 +13118,12 @@
     "skin_tone_support": false,
     "char": "🕓",
     "keywords": [
-      "four_o_clock"
+      "four_o_clock",
+      "4",
+      "4:00",
+      "400",
+      "16:00",
+      "1600"
     ]
   },
   "🕟": {
@@ -13065,7 +13135,11 @@
     "skin_tone_support": false,
     "char": "🕟",
     "keywords": [
-      "four_thirty"
+      "four_thirty",
+      "4:30",
+      "430",
+      "16:30",
+      "1630"
     ]
   },
   "🕔": {
@@ -13077,7 +13151,12 @@
     "skin_tone_support": false,
     "char": "🕔",
     "keywords": [
-      "five_o_clock"
+      "five_o_clock",
+      "5",
+      "5:00",
+      "500",
+      "17:00",
+      "1700"
     ]
   },
   "🕠": {
@@ -13089,7 +13168,11 @@
     "skin_tone_support": false,
     "char": "🕠",
     "keywords": [
-      "five_thirty"
+      "five_thirty",
+      "5:30",
+      "530",
+      "17:30",
+      "1730"
     ]
   },
   "🕕": {
@@ -13102,6 +13185,11 @@
     "char": "🕕",
     "keywords": [
       "six_o_clock",
+      "6",
+      "6:00",
+      "600",
+      "18:00",
+      "1800",
       "dusk"
     ]
   },
@@ -13114,7 +13202,11 @@
     "skin_tone_support": false,
     "char": "🕡",
     "keywords": [
-      "six_thirty"
+      "six_thirty",
+      "6:30",
+      "630",
+      "18:30",
+      "1830"
     ]
   },
   "🕖": {
@@ -13126,7 +13218,12 @@
     "skin_tone_support": false,
     "char": "🕖",
     "keywords": [
-      "seven_o_clock"
+      "seven_o_clock",
+      "7",
+      "7:00",
+      "700",
+      "19:00",
+      "1900"
     ]
   },
   "🕢": {
@@ -13138,7 +13235,11 @@
     "skin_tone_support": false,
     "char": "🕢",
     "keywords": [
-      "seven_thirty"
+      "seven_thirty",
+      "7:30",
+      "730",
+      "19:30",
+      "1930"
     ]
   },
   "🕗": {
@@ -13150,7 +13251,12 @@
     "skin_tone_support": false,
     "char": "🕗",
     "keywords": [
-      "eight_o_clock"
+      "eight_o_clock",
+      "8",
+      "8:00",
+      "800",
+      "20:00",
+      "2000"
     ]
   },
   "🕣": {
@@ -13162,7 +13268,11 @@
     "skin_tone_support": false,
     "char": "🕣",
     "keywords": [
-      "eight_thirty"
+      "eight_thirty",
+      "8:30",
+      "830",
+      "20:30",
+      "2030"
     ]
   },
   "🕘": {
@@ -13174,7 +13284,12 @@
     "skin_tone_support": false,
     "char": "🕘",
     "keywords": [
-      "nine_o_clock"
+      "nine_o_clock",
+      "9",
+      "9:00",
+      "900",
+      "21:00",
+      "2100"
     ]
   },
   "🕤": {
@@ -13186,7 +13301,11 @@
     "skin_tone_support": false,
     "char": "🕤",
     "keywords": [
-      "nine_thirty"
+      "nine_thirty",
+      "9:30",
+      "930",
+      "21:30",
+      "2130"
     ]
   },
   "🕙": {
@@ -13198,7 +13317,12 @@
     "skin_tone_support": false,
     "char": "🕙",
     "keywords": [
-      "ten_o_clock"
+      "ten_o_clock",
+      "10",
+      "10:00",
+      "1000",
+      "22:00",
+      "2200"
     ]
   },
   "🕥": {
@@ -13210,7 +13334,11 @@
     "skin_tone_support": false,
     "char": "🕥",
     "keywords": [
-      "ten_thirty"
+      "ten_thirty",
+      "10:30",
+      "1030",
+      "22:30",
+      "2230"
     ]
   },
   "🕚": {
@@ -13222,7 +13350,12 @@
     "skin_tone_support": false,
     "char": "🕚",
     "keywords": [
-      "eleven_o_clock"
+      "eleven_o_clock",
+      "11",
+      "11:00",
+      "1100",
+      "23:00",
+      "2300"
     ]
   },
   "🕦": {
@@ -13234,7 +13367,11 @@
     "skin_tone_support": false,
     "char": "🕦",
     "keywords": [
-      "eleven_thirty"
+      "eleven_thirty",
+      "11:30",
+      "1130",
+      "23:30",
+      "2330"
     ]
   },
   "🌑": {
@@ -13961,7 +14098,9 @@
     "char": "🎋",
     "keywords": [
       "tanabata_tree",
-      "branch"
+      "branch",
+      "star_festival",
+      "tanzaku"
     ]
   },
   "🎍": {
@@ -13974,7 +14113,7 @@
     "char": "🎍",
     "keywords": [
       "pine_decoration",
-      "pine_decoration"
+      "new_years"
     ]
   },
   "🎎": {
@@ -15223,7 +15362,9 @@
     "skin_tone_support": false,
     "char": "🪭",
     "keywords": [
-      "folding_hand_fan"
+      "folding_hand_fan",
+      "folding hand fan",
+      "flamenco"
     ]
   },
   "👛": {
@@ -15420,7 +15561,10 @@
     "skin_tone_support": false,
     "char": "🪮",
     "keywords": [
-      "hair_pick"
+      "hair_pick",
+      "hair pick",
+      "afro",
+      "comb"
     ]
   },
   "👑": {
@@ -15940,7 +16084,8 @@
     "skin_tone_support": false,
     "char": "🪇",
     "keywords": [
-      "maracas"
+      "maracas",
+      "percussion"
     ]
   },
   "🪈": {
@@ -15952,7 +16097,9 @@
     "skin_tone_support": false,
     "char": "🪈",
     "keywords": [
-      "flute"
+      "flute",
+      "bamboo",
+      "pied piper"
     ]
   },
   "📱": {
@@ -17114,6 +17261,7 @@
     "char": "📆",
     "keywords": [
       "tear_off_calendar",
+      "schedule",
       "planning"
     ]
   },
@@ -19169,7 +19317,8 @@
     "skin_tone_support": false,
     "char": "🪯",
     "keywords": [
-      "khanda"
+      "khanda",
+      "Sikhism"
     ]
   },
   "♈": {
@@ -19605,7 +19754,6 @@
       "antenna_bars",
       "reception",
       "connection",
-      "wifi",
       "bluetooth",
       "bars"
     ]
@@ -19619,7 +19767,9 @@
     "skin_tone_support": false,
     "char": "🛜",
     "keywords": [
-      "wireless"
+      "wireless",
+      "wifi",
+      "contactless"
     ]
   },
   "📳": {
@@ -20217,8 +20367,7 @@
     "skin_tone_support": false,
     "char": "1️⃣",
     "keywords": [
-      "keycap_1",
-      "1"
+      "keycap_1"
     ]
   },
   "2️⃣": {
@@ -20231,8 +20380,7 @@
     "char": "2️⃣",
     "keywords": [
       "keycap_2",
-      "numbers",
-      "2"
+      "numbers"
     ]
   },
   "3️⃣": {
@@ -20257,8 +20405,7 @@
     "skin_tone_support": false,
     "char": "4️⃣",
     "keywords": [
-      "keycap_4",
-      "4"
+      "keycap_4"
     ]
   },
   "5️⃣": {
@@ -20270,8 +20417,7 @@
     "skin_tone_support": false,
     "char": "5️⃣",
     "keywords": [
-      "keycap_5",
-      "5"
+      "keycap_5"
     ]
   },
   "6️⃣": {
@@ -20283,8 +20429,7 @@
     "skin_tone_support": false,
     "char": "6️⃣",
     "keywords": [
-      "keycap_6",
-      "6"
+      "keycap_6"
     ]
   },
   "7️⃣": {
@@ -20296,8 +20441,7 @@
     "skin_tone_support": false,
     "char": "7️⃣",
     "keywords": [
-      "keycap_7",
-      "7"
+      "keycap_7"
     ]
   },
   "8️⃣": {
@@ -20309,8 +20453,7 @@
     "skin_tone_support": false,
     "char": "8️⃣",
     "keywords": [
-      "keycap_8",
-      "8"
+      "keycap_8"
     ]
   },
   "9️⃣": {
@@ -20322,8 +20465,7 @@
     "skin_tone_support": false,
     "char": "9️⃣",
     "keywords": [
-      "keycap_9",
-      "9"
+      "keycap_9"
     ]
   },
   "🔟": {
@@ -20335,8 +20477,7 @@
     "skin_tone_support": false,
     "char": "🔟",
     "keywords": [
-      "keycap_10",
-      "10"
+      "keycap_10"
     ]
   },
   "🔠": {
@@ -20372,7 +20513,8 @@
     "skin_tone_support": false,
     "char": "🔢",
     "keywords": [
-      "input_numbers"
+      "input_numbers",
+      "1234"
     ]
   },
   "🔣": {
@@ -21914,8 +22056,7 @@
     "skin_tone_support": false,
     "char": "🇨🇦",
     "keywords": [
-      "flag_canada",
-      "canada"
+      "flag_canada"
     ]
   },
   "🇨🇨": {
@@ -24217,8 +24358,7 @@
     "char": "🇸🇪",
     "keywords": [
       "flag_sweden",
-      "se",
-      "sweden"
+      "se"
     ]
   },
   "🇸🇬": {
