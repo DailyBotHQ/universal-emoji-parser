@@ -30,26 +30,28 @@ jobs:
           git config user.email "ops@dailybot.com"
           npm install
       - name: Step 2 - 🧪 Run linter
-        run: npm run lint:fix
-      - name: Step 3 - 🧪🧪 Run tests
+        run: npm run eslint:fix
+      - name: Step 3 - 🧪🧪 Run prettier
+        run: npm run prettier:fix
+      - name: Step 4 - 🧪🧪🧪 Run tests
         run: npm run test
-      - name: Step 4 - 🛠️ Build application bundle
+      - name: Step 5 - 🛠️ Build application bundle
         run: npm run build
-      - name: Step 5 - 📄 Set GitHub release content "BODY" env var
+      - name: Step 6 - 📄 Set GitHub release content "BODY" env var
         run: |
           bash get_github_release_log.sh
           if [[ ! -f git_logs_output.txt ]]; then
             echo "⚠️ No description found for release body content."
             exit 1
           fi
-      - name: Step 5 -🔄 Prepare release
+      - name: Step 7 -🔄 Prepare release
         run: |
           git status
           git add .
           git commit -am "[🤖 DailyBot] Minor updates on package versions." || echo "[🤖 DailyBot] No changes to commit"
           npm run release
           git push --follow-tags origin main
-      - name: Step 6 - 🏷️ Set GitHub release "TAG" env vars
+      - name: Step 8 - 🏷️ Set GitHub release "TAG" env vars
         run: |
           GITHUB_RELEASE_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
           if [[ -z $GITHUB_RELEASE_TAG ]]; then
@@ -59,15 +61,14 @@ jobs:
           echo "::set-env name=GITHUB_RELEASE_TAG::$GITHUB_RELEASE_TAG"
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      - name: Step 7 - 🚀 Publish GitHub release
+      - name: Step 9 - 🚀 Publish GitHub release
         uses: ncipollo/release-action@v1
         with:
           name: Release ${{ env.GITHUB_RELEASE_TAG }}
           tag: ${{ env.GITHUB_RELEASE_TAG }}
           bodyFile: git_logs_output.txt
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
-      - name: Step 8 - 🚀🚀 Publish npm package
+      - name: Step 10 - 🚀🚀 Publish npm package
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-

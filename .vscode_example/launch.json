@@ -7,10 +7,12 @@
       "name": "Mocha Tests",
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
       "args": [
-          "--require", "ts-node/register",
-          "--timeout", "2000",
-          "--colors",
-          "${workspaceFolder}/test/**/*.ts"
+        "--require",
+        "ts-node/register",
+        "--timeout",
+        "2000",
+        "--colors",
+        "${workspaceFolder}/test/**/*.ts"
       ],
       "internalConsoleOptions": "openOnSessionStart"
     }

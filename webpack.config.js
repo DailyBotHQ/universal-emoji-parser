@@ -35,9 +35,7 @@ module.exports = (env, argv) => {
   }
 
   if (argv && argv.mode === 'production') {
-    config.plugins.push(
-      new CleanWebPackPlugin.CleanWebpackPlugin()
-    )
+    config.plugins.push(new CleanWebPackPlugin.CleanWebpackPlugin())
   }
 
   return config

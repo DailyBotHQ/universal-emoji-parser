@@ -1,43 +1,28 @@
 {
-    "mocha.requires": [
-      "ts-node/register"
-    ],
-    "mocha.files.glob": "./test/**/*.js",
-    "mocha.sideBarOptions": {
-      "lens": true,
-      "decoration": true,
-      "autoUpdateTime": 2000,
-      "showDebugTestStatus": true
-    },
-    "mocha.logVerbose": true,
-    "mocha.coverage": {
-      "enable": true,
-      "decoration": true,
-      "runWithInterval": false,
-      "autoUpdateInterval": 20000,
-      "activeOnStart": true,
-      "runAfterTest": false,
-      "reporters": []
-    },
-    "mochaExplorer.files": "test/**/*.ts",
-    "mochaExplorer.require": "ts-node/register",
-    "mochaExplorer.timeout": 20000,
-    "mochaExplorer.logpanel": true,
-    "files.trimTrailingWhitespace": true,
-    "prettier": {
-      "singleQuote": true
-    },
-    "cSpell.words": [
-      "activar",
-      "AUTOINCREMENT",
-      "GIPHY",
-      "luxon",
-      "pomodoro",
-      "pomodoros",
-      "queuetask",
-      "Rowid",
-      "taskqueue",
-      "triggerrestart",
-      "Watercooler"
-    ]
-  }
+  "mocha.files.glob": "./test/**/*.ts",
+  "mochaExplorer.files": "test/**/*.ts",
+  "mochaExplorer.require": "ts-node/register",
+  "mochaExplorer.timeout": 60000,
+  "mochaExplorer.logpanel": true,
+  "files.trimTrailingWhitespace": true,
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "cSpell.words": [
+    "activar",
+    "AUTOINCREMENT",
+    "GIPHY",
+    "luxon",
+    "pomodoro",
+    "pomodoros",
+    "queuetask",
+    "Rowid",
+    "Shortcode",
+    "Shortcodes",
+    "taskqueue",
+    "triggerrestart",
+    "twemoji",
+    "Watercooler"
+  ]
+}
