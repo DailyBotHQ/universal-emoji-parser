@@ -21,13 +21,7 @@ describe('Test emoji lib json data', () => {
         unicode_version: '3.0',
         skin_tone_support: false,
         char: '🤣',
-        keywords: [
-          'rolling_on_the_floor_laughing',
-          'rolling',
-          'floor',
-          'laughing',
-          'rofl',
-        ],
+        keywords: ['rolling_on_the_floor_laughing', 'rolling', 'floor', 'laughing', 'rofl'],
       })
 
       // (3) Check emojiLibJsonData values
@@ -41,13 +35,7 @@ describe('Test emoji lib json data', () => {
         unicode_version: '1.0',
         skin_tone_support: false,
         char: '😎',
-        keywords: [
-          'smiling_face_with_sunglasses',
-          'cool',
-          'summer',
-          'beach',
-          'sunglass',
-        ],
+        keywords: ['smiling_face_with_sunglasses', 'cool', 'summer', 'beach', 'sunglass'],
       })
     })
   })

@@ -1,10 +1,5 @@
 import twemoji from 'twemoji'
-import {
-  EmojiLibJsonType,
-  EmojiParseOptionsType,
-  EmojiType,
-  UEmojiParserType,
-} from './lib/type'
+import { EmojiLibJsonType, EmojiParseOptionsType, EmojiType, UEmojiParserType } from './lib/type'
 import emojiLibJson from './lib/emoji-lib.json'
 
 /**
@@ -27,9 +22,7 @@ const uEmojiParser: UEmojiParserType = {
     ) {
       return emojiLibJsonData[shortcode]
     } else {
-      const emojiUnicode: string | undefined = Object.keys(
-        emojiLibJsonData
-      ).find((emojiUnicodeItem: string): boolean =>
+      const emojiUnicode: string | undefined = Object.keys(emojiLibJsonData).find((emojiUnicodeItem: string): boolean =>
         emojiLibJsonData[emojiUnicodeItem].keywords.includes(shortcode)
       )
       if (emojiUnicode) {
@@ -41,13 +34,9 @@ const uEmojiParser: UEmojiParserType = {
   getDefaultOptions(options?: EmojiParseOptionsType): EmojiParseOptionsType {
     options = {
       emojiCDN:
-        options && Object.getOwnPropertyDescriptor(options, 'emojiCDN')
-          ? String(options.emojiCDN)
-          : DEFAULT_EMOJI_CDN,
+        options && Object.getOwnPropertyDescriptor(options, 'emojiCDN') ? String(options.emojiCDN) : DEFAULT_EMOJI_CDN,
       parseToHtml:
-        options && Object.getOwnPropertyDescriptor(options, 'parseToHtml')
-          ? Boolean(options.parseToHtml)
-          : true,
+        options && Object.getOwnPropertyDescriptor(options, 'parseToHtml') ? Boolean(options.parseToHtml) : true,
       parseToUnicode: options ? Boolean(options.parseToUnicode) : false,
       parseToShortcode: options ? Boolean(options.parseToShortcode) : false,
     }
@@ -68,8 +57,7 @@ const uEmojiParser: UEmojiParserType = {
   },
   parseToUnicode(text: string): string {
     const emojisRegExp: RegExp = /:(\w+):/g
-    const emojisShortcodesList: RegExpMatchArray | null =
-      text.match(emojisRegExp)
+    const emojisShortcodesList: RegExpMatchArray | null = text.match(emojisRegExp)
     if (emojisShortcodesList) {
       emojisShortcodesList.forEach((shortcode: string) => {
         const emoji: EmojiType = this.getEmojiObjectByShortcode(shortcode)
@@ -87,8 +75,7 @@ const uEmojiParser: UEmojiParserType = {
     let regexText: string = `(${emojisUnicodesList.join('|')})`
     regexText = regexText.replace(/\*️⃣/g, '\\*️⃣')
     const regexUnicodes = new RegExp(regexText, 'ig')
-    const matches: IterableIterator<RegExpMatchArray> =
-      text.matchAll(regexUnicodes)
+    const matches: IterableIterator<RegExpMatchArray> = text.matchAll(regexUnicodes)
     for (const match of matches) {
       const emoji: EmojiType = emojiLibJsonData[match[0]]
       if (emoji) {
