@@ -2,7 +2,7 @@ version: '3.2'
 
 services:
   uemojiparser: &uemojiparser
-    user: "${UID}"
+    user: '${UID}'
     build:
       context: .
       dockerfile: ./uEmojiParser/Dockerfile

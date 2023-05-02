@@ -5,10 +5,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "allowJs": true,
-    "lib": [
-      "es6",
-      "dom",
-    ],
+    "lib": ["es6", "dom"],
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -22,12 +19,7 @@
     "skipLibCheck": false,
     "removeComments": true
   },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
-  "include": [
-    "src/**/*",
-  ],
+  "exclude": ["node_modules", "dist"],
+  "include": ["src/**/*"],
   "compileOnSave": false
 }
