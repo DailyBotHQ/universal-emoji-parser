@@ -7,7 +7,6 @@
   "files.trimTrailingWhitespace": true,
   "prettier.singleQuote": true,
   "prettier.semi": false,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "cSpell.words": [
     "activar",

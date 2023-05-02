@@ -62,6 +62,10 @@
     "clean-webpack-plugin": "4.0.0",
     "emojilib": "3.0.10",
     "eslint": "8.39.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-webpack-plugin": "4.0.1",
     "mocha": "10.2.0",
     "nodemon": "2.0.22",
     "ts-loader": "9.4.2",
@@ -70,7 +74,6 @@
     "unicode-emoji-json": "0.4.0",
     "webpack": "5.81.0",
     "webpack-cli": "5.0.2",
-    "eslint-webpack-plugin": "4.0.1",
     "prettier": "2.8.8"
   }
 }
