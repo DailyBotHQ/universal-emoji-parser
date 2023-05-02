@@ -19,3 +19,5 @@ docker
 get_github_release_log.sh
 git_logs_output.txt
 git_logs.txt
+.editorconfig
+.prettierrc
