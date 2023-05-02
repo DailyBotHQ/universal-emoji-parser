@@ -135,7 +135,7 @@ You can get the entire emoji lib json data curated and processed to best match w
 ```javascript
 → import { emojiLibJsonData } from 'universal-emoji-parser'
 
-→ emojiLibJsonData.length
+→ Object.keys(emojiLibJsonData).length
 1870
 
 → emojiLibJsonData[🤣]
