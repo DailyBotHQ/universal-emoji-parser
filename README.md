@@ -128,6 +128,53 @@ Hello world! 😎 🚀
 Hello world! :smiling_face_with_sunglasses: :rocket:
 ```
 
+## Get emoji lib json data
+
+You can get the entire emoji lib json data curated and processed to best match with shortcode keywords.
+
+```javascript
+→ import { emojiLibJsonData } from 'universal-emoji-parser'
+
+→ emojiLibJsonData.length
+1870
+
+→ emojiLibJsonData[🤣]
+{
+  name: 'rolling on the floor laughing',
+  slug: 'rolling_on_the_floor_laughing',
+  group: 'Smileys & Emotion',
+  emoji_version: '3.0',
+  unicode_version: '3.0',
+  skin_tone_support: false,
+  char: '🤣',
+  keywords: [
+    'rolling_on_the_floor_laughing',
+    'rolling',
+    'floor',
+    'laughing',
+    'rofl'
+  ]
+}
+
+→ emojiLibJsonData[😎]
+{
+  name: 'smiling face with sunglasses',
+  slug: 'smiling_face_with_sunglasses',
+  group: 'Smileys & Emotion',
+  emoji_version: '1.0',
+  unicode_version: '1.0',
+  skin_tone_support: false,
+  char: '😎',
+  keywords: [
+    'smiling_face_with_sunglasses',
+    'cool',
+    'summer',
+    'beach',
+    'sunglass'
+  ]
+}
+```
+
 ## :electric_plug: Powered by [DailyBot](https://www.dailybot.com?utm_source=dailybotopensource&utm_medium=universal-emoji-parser)
 
 DailyBot is an [AI Assistant](https://www.dailybot.com/product/ai) powered by ChatGPT that takes chat and collaboration to the next level helping to automate: daily standups, team check-ins, surveys, kudos, virtual watercooler, 1:1 intros, motivation tracking, chatops and more. [Learn more](https://www.dailybot.com?utm_source=dailybotopensource&utm_medium=universal-emoji-parser).

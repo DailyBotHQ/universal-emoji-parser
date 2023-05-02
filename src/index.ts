@@ -10,7 +10,8 @@ import emojiLibJson from './lib/emoji-lib.json'
 /**
  * Constances
  */
-const DEFAULT_EMOJI_CDN: string = 'https://twemoji.maxcdn.com/v'
+export const DEFAULT_EMOJI_CDN: string = 'https://twemoji.maxcdn.com/v'
+export const emojiLibJsonData: EmojiLibJsonType = emojiLibJson
 
 /**
  * Parse text with emoji support
@@ -18,7 +19,6 @@ const DEFAULT_EMOJI_CDN: string = 'https://twemoji.maxcdn.com/v'
  */
 const uEmojiParser: UEmojiParserType = {
   getEmojiObjectByShortcode(shortcode: string): EmojiType | undefined {
-    const emojiLibJsonData: EmojiLibJsonType = emojiLibJson
     shortcode = shortcode.replace(/:/g, '')
     if (
       emojiLibJsonData[shortcode] &&
@@ -130,4 +130,3 @@ const uEmojiParser: UEmojiParserType = {
 }
 
 export default uEmojiParser
-module.exports = uEmojiParser
