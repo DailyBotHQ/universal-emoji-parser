@@ -67,13 +67,7 @@
     "unicode_version": "3.0",
     "skin_tone_support": false,
     "char": "🤣",
-    "keywords": [
-      "rolling_on_the_floor_laughing",
-      "rolling",
-      "floor",
-      "laughing",
-      "rofl"
-    ]
+    "keywords": ["rolling_on_the_floor_laughing", "rolling", "floor", "laughing", "rofl"]
   },
   "😂": {
     "name": "face with tears of joy",
@@ -133,12 +127,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "😊",
-    "keywords": [
-      "smiling_face_with_smiling_eyes",
-      "flushed",
-      "crush",
-      "embarrassed"
-    ]
+    "keywords": ["smiling_face_with_smiling_eyes", "flushed", "crush", "embarrassed"]
   },
   "😇": {
     "name": "smiling face with halo",
@@ -328,11 +317,7 @@
     "unicode_version": "14.0",
     "skin_tone_support": false,
     "char": "🫢",
-    "keywords": [
-      "face_with_open_eyes_and_hand_over_mouth",
-      "face with open eyes and hand over mouth",
-      "silence"
-    ]
+    "keywords": ["face_with_open_eyes_and_hand_over_mouth", "face with open eyes and hand over mouth", "silence"]
   },
   "🫣": {
     "name": "face with peeking eye",
@@ -342,11 +327,7 @@
     "unicode_version": "14.0",
     "skin_tone_support": false,
     "char": "🫣",
-    "keywords": [
-      "face_with_peeking_eye",
-      "face with peeking eye",
-      "frightening"
-    ]
+    "keywords": ["face_with_peeking_eye", "face with peeking eye", "frightening"]
   },
   "🤫": {
     "name": "shushing face",
@@ -396,13 +377,7 @@
     "unicode_version": "5.0",
     "skin_tone_support": false,
     "char": "🤨",
-    "keywords": [
-      "face_with_raised_eyebrow",
-      "distrust",
-      "scepticism",
-      "disapproval",
-      "disbelief"
-    ]
+    "keywords": ["face_with_raised_eyebrow", "distrust", "scepticism", "disapproval", "disbelief"]
   },
   "😐": {
     "name": "neutral face",
@@ -442,14 +417,7 @@
     "unicode_version": "14.0",
     "skin_tone_support": false,
     "char": "🫥",
-    "keywords": [
-      "dotted_line_face",
-      "dotted line face",
-      "invisible",
-      "lonely",
-      "isolation",
-      "depression"
-    ]
+    "keywords": ["dotted_line_face", "dotted line face", "invisible", "lonely", "isolation", "depression"]
   },
   "😶‍🌫️": {
     "name": "face in clouds",
@@ -668,14 +636,7 @@
     "unicode_version": "11.0",
     "skin_tone_support": false,
     "char": "🥶",
-    "keywords": [
-      "cold_face",
-      "blue",
-      "freezing",
-      "frozen",
-      "frostbite",
-      "icicles"
-    ]
+    "keywords": ["cold_face", "blue", "freezing", "frozen", "frostbite", "icicles"]
   },
   "🥴": {
     "name": "woozy face",
@@ -695,12 +656,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "😵",
-    "keywords": [
-      "face_with_crossed_out_eyes",
-      "dizzy_face",
-      "spent",
-      "unconscious"
-    ]
+    "keywords": ["face_with_crossed_out_eyes", "dizzy_face", "spent", "unconscious"]
   },
   "😵‍💫": {
     "name": "face with spiral eyes",
@@ -710,12 +666,7 @@
     "unicode_version": "13.1",
     "skin_tone_support": false,
     "char": "😵‍💫",
-    "keywords": [
-      "face_with_spiral_eyes",
-      "face with spiral eyes",
-      "nauseous",
-      "nausea"
-    ]
+    "keywords": ["face_with_spiral_eyes", "face with spiral eyes", "nauseous", "nausea"]
   },
   "🤯": {
     "name": "exploding head",
@@ -765,13 +716,7 @@
     "unicode_version": "1.0",
     "skin_tone_support": false,
     "char": "😎",
-    "keywords": [
-      "smiling_face_with_sunglasses",
-      "cool",
-      "summer",
-      "beach",
-      "sunglass"
-    ]
+    "keywords": ["smiling_face_with_sunglasses", "cool", "summer", "beach", "sunglass"]
   },
   "🤓": {
     "name": "nerd face",
@@ -811,12 +756,7 @@
     "unicode_version": "14.0",
     "skin_tone_support": false,
     "char": "🫤",
-    "keywords": [
-      "face_with_diagonal_mouth",
-      "face with diagonal mouth",
-      "skeptic",
-      "confuse"
-    ]
+    "keywords": ["face_with_diagonal_mouth", "face with diagonal mouth", "skeptic", "confuse"]
   },
   "😟": {
     "name": "worried face",
@@ -856,14 +796,7 @@
     "unicode_version": "1.0",
     "skin_tone_support": false,
     "char": "😮",
-    "keywords": [
-      "face_with_open_mouth",
-      "surprise",
-      "impressed",
-      "wow",
-      "whoa",
-      ":O"
-    ]
+    "keywords": ["face_with_open_mouth", "surprise", "impressed", "wow", "whoa", ":O"]
   },
   "😯": {
     "name": "hushed face",
@@ -913,12 +846,7 @@
     "unicode_version": "14.0",
     "skin_tone_support": false,
     "char": "🥹",
-    "keywords": [
-      "face_holding_back_tears",
-      "face holding back tears",
-      "touched",
-      "gratitude"
-    ]
+    "keywords": ["face_holding_back_tears", "face holding back tears", "touched", "gratitude"]
   },
   "😦": {
     "name": "frowning face with open mouth",
@@ -1108,14 +1036,7 @@
     "unicode_version": "5.0",
     "skin_tone_support": false,
     "char": "🤬",
-    "keywords": [
-      "face_with_symbols_on_mouth",
-      "swearing",
-      "cursing",
-      "cussing",
-      "profanity",
-      "expletive"
-    ]
+    "keywords": ["face_with_symbols_on_mouth", "swearing", "cursing", "cussing", "profanity", "expletive"]
   },
   "😈": {
     "name": "smiling face with horns",
@@ -1625,15 +1546,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "💯",
-    "keywords": [
-      "hundred_points",
-      "score",
-      "perfect",
-      "century",
-      "exam",
-      "quiz",
-      "hundred"
-    ]
+    "keywords": ["hundred_points", "score", "perfect", "century", "exam", "quiz", "hundred"]
   },
   "💢": {
     "name": "anger symbol",
@@ -1764,15 +1677,7 @@
     "skin_tone_support": true,
     "skin_tone_support_unicode_version": "1.0",
     "char": "👋",
-    "keywords": [
-      "waving_hand",
-      "hands",
-      "goodbye",
-      "solong",
-      "farewell",
-      "hello",
-      "hi"
-    ]
+    "keywords": ["waving_hand", "hands", "goodbye", "solong", "farewell", "hello", "hi"]
   },
   "🤚": {
     "name": "raised back of hand",
@@ -1948,11 +1853,7 @@
     "skin_tone_support": true,
     "skin_tone_support_unicode_version": "14.0",
     "char": "🫰",
-    "keywords": [
-      "hand_with_index_finger_and_thumb_crossed",
-      "hand with index finger and thumb crossed",
-      "expensive"
-    ]
+    "keywords": ["hand_with_index_finger_and_thumb_crossed", "hand with index finger and thumb crossed", "expensive"]
   },
   "🤟": {
     "name": "love-you gesture",
@@ -2062,12 +1963,7 @@
     "skin_tone_support": true,
     "skin_tone_support_unicode_version": "14.0",
     "char": "🫵",
-    "keywords": [
-      "index_pointing_at_the_viewer",
-      "index pointing at the viewer",
-      "you",
-      "recruit"
-    ]
+    "keywords": ["index_pointing_at_the_viewer", "index pointing at the viewer", "you", "recruit"]
   },
   "👍": {
     "name": "thumbs up",
@@ -2210,16 +2106,7 @@
     "skin_tone_support": true,
     "skin_tone_support_unicode_version": "1.0",
     "char": "🙏",
-    "keywords": [
-      "folded_hands",
-      "please",
-      "hope",
-      "wish",
-      "namaste",
-      "thank you",
-      "thanks",
-      "appreciate"
-    ]
+    "keywords": ["folded_hands", "please", "hope", "wish", "namaste", "thank you", "thanks", "appreciate"]
   },
   "✍️": {
     "name": "writing hand",
@@ -4653,14 +4540,7 @@
     "skin_tone_support": true,
     "skin_tone_support_unicode_version": "4.0",
     "char": "🕴️",
-    "keywords": [
-      "person_in_suit_levitating",
-      "man_in_suit_levitating",
-      "suit",
-      "levitate",
-      "hover",
-      "jump"
-    ]
+    "keywords": ["person_in_suit_levitating", "man_in_suit_levitating", "suit", "levitate", "hover", "jump"]
   },
   "👯": {
     "name": "people with bunny ears",
@@ -5246,12 +5126,7 @@
     "skin_tone_support": true,
     "skin_tone_support_unicode_version": "5.0",
     "char": "🧘‍♂️",
-    "keywords": [
-      "man_in_lotus_position",
-      "meditation",
-      "serenity",
-      "mindfulness"
-    ]
+    "keywords": ["man_in_lotus_position", "meditation", "serenity", "mindfulness"]
   },
   "🧘‍♀️": {
     "name": "woman in lotus position",
@@ -6676,13 +6551,7 @@
     "unicode_version": "5.0",
     "skin_tone_support": false,
     "char": "🦕",
-    "keywords": [
-      "sauropod",
-      "dinosaur",
-      "brachiosaurus",
-      "brontosaurus",
-      "diplodocus"
-    ]
+    "keywords": ["sauropod", "dinosaur", "brachiosaurus", "brontosaurus", "diplodocus"]
   },
   "🦖": {
     "name": "T-Rex",
@@ -7752,13 +7621,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "🍔",
-    "keywords": [
-      "hamburger",
-      "fast food",
-      "cheeseburger",
-      "mcdonalds",
-      "burger king"
-    ]
+    "keywords": ["hamburger", "fast food", "cheeseburger", "mcdonalds", "burger king"]
   },
   "🍟": {
     "name": "french fries",
@@ -8078,13 +7941,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "🍥",
-    "keywords": [
-      "fish_cake_with_swirl",
-      "japan",
-      "narutomaki",
-      "kamaboko",
-      "surimi"
-    ]
+    "keywords": ["fish_cake_with_swirl", "japan", "narutomaki", "kamaboko", "surimi"]
   },
   "🥮": {
     "name": "moon cake",
@@ -8464,15 +8321,7 @@
     "unicode_version": "3.0",
     "skin_tone_support": false,
     "char": "🥃",
-    "keywords": [
-      "tumbler_glass",
-      "liquor",
-      "bourbon",
-      "scotch",
-      "whisky",
-      "glass",
-      "shot"
-    ]
+    "keywords": ["tumbler_glass", "liquor", "bourbon", "scotch", "whisky", "glass", "shot"]
   },
   "🫗": {
     "name": "pouring liquid",
@@ -8502,14 +8351,7 @@
     "unicode_version": "13.0",
     "skin_tone_support": false,
     "char": "🧋",
-    "keywords": [
-      "bubble_tea",
-      "bubble tea",
-      "taiwan",
-      "boba",
-      "milk tea",
-      "straw"
-    ]
+    "keywords": ["bubble_tea", "bubble tea", "taiwan", "boba", "milk tea", "straw"]
   },
   "🧃": {
     "name": "beverage box",
@@ -8559,13 +8401,7 @@
     "unicode_version": "0.7",
     "skin_tone_support": false,
     "char": "🍽️",
-    "keywords": [
-      "fork_and_knife_with_plate",
-      "eat",
-      "meal",
-      "dinner",
-      "restaurant"
-    ]
+    "keywords": ["fork_and_knife_with_plate", "eat", "meal", "dinner", "restaurant"]
   },
   "🍴": {
     "name": "fork and knife",
@@ -8655,13 +8491,7 @@
     "unicode_version": "1.0",
     "skin_tone_support": false,
     "char": "🌐",
-    "keywords": [
-      "globe_with_meridians",
-      "earth",
-      "internet",
-      "interweb",
-      "i18n"
-    ]
+    "keywords": ["globe_with_meridians", "earth", "internet", "interweb", "i18n"]
   },
   "🗺️": {
     "name": "world map",
@@ -10101,17 +9931,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "🕛",
-    "keywords": [
-      "twelve_o_clock",
-      "12",
-      "00:00",
-      "0000",
-      "12:00",
-      "1200",
-      "noon",
-      "midnight",
-      "midday"
-    ]
+    "keywords": ["twelve_o_clock", "12", "00:00", "0000", "12:00", "1200", "noon", "midnight", "midday"]
   },
   "🕧": {
     "name": "twelve-thirty",
@@ -10681,16 +10501,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "🌀",
-    "keywords": [
-      "cyclone",
-      "swirl",
-      "vortex",
-      "spiral",
-      "whirlpool",
-      "spin",
-      "hurricane",
-      "typhoon"
-    ]
+    "keywords": ["cyclone", "swirl", "vortex", "spiral", "whirlpool", "spin", "hurricane", "typhoon"]
   },
   "🌈": {
     "name": "rainbow",
@@ -12070,13 +11881,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "🎓",
-    "keywords": [
-      "graduation_cap",
-      "college",
-      "degree",
-      "university",
-      "graduation"
-    ]
+    "keywords": ["graduation_cap", "college", "degree", "university", "graduation"]
   },
   "🧢": {
     "name": "billed cap",
@@ -15416,11 +15221,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "❗",
-    "keywords": [
-      "red_exclamation_mark",
-      "exclamation_mark",
-      "heavy_exclamation_mark"
-    ]
+    "keywords": ["red_exclamation_mark", "exclamation_mark", "heavy_exclamation_mark"]
   },
   "〰️": {
     "name": "wavy dash",
@@ -15830,14 +15631,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "🔣",
-    "keywords": [
-      "input_symbols",
-      "note",
-      "ampersand",
-      "percent",
-      "glyphs",
-      "characters"
-    ]
+    "keywords": ["input_symbols", "note", "ampersand", "percent", "glyphs", "characters"]
   },
   "🔤": {
     "name": "input latin letters",
@@ -16577,14 +16371,7 @@
     "unicode_version": "0.7",
     "skin_tone_support": false,
     "char": "🏳️",
-    "keywords": [
-      "white_flag",
-      "losing",
-      "loser",
-      "lost",
-      "surrender",
-      "give up"
-    ]
+    "keywords": ["white_flag", "losing", "loser", "lost", "surrender", "give up"]
   },
   "🏳️‍🌈": {
     "name": "rainbow flag",
@@ -16594,17 +16381,7 @@
     "unicode_version": "4.0",
     "skin_tone_support": false,
     "char": "🏳️‍🌈",
-    "keywords": [
-      "rainbow_flag",
-      "gay",
-      "lgbt",
-      "glbt",
-      "queer",
-      "homosexual",
-      "lesbian",
-      "bisexual",
-      "transgender"
-    ]
+    "keywords": ["rainbow_flag", "gay", "lgbt", "glbt", "queer", "homosexual", "lesbian", "bisexual", "transgender"]
   },
   "🏳️‍⚧️": {
     "name": "transgender flag",
@@ -16654,13 +16431,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇦🇪",
-    "keywords": [
-      "flag_united_arab_emirates",
-      "united",
-      "arab",
-      "emirates",
-      "united_arab_emirates"
-    ]
+    "keywords": ["flag_united_arab_emirates", "united", "arab", "emirates", "united_arab_emirates"]
   },
   "🇦🇫": {
     "name": "flag Afghanistan",
@@ -16680,12 +16451,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇦🇬",
-    "keywords": [
-      "flag_antigua_barbuda",
-      "antigua",
-      "barbuda",
-      "antigua_barbuda"
-    ]
+    "keywords": ["flag_antigua_barbuda", "antigua", "barbuda", "antigua_barbuda"]
   },
   "🇦🇮": {
     "name": "flag Anguilla",
@@ -16815,12 +16581,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇧🇦",
-    "keywords": [
-      "flag_bosnia_herzegovina",
-      "bosnia",
-      "herzegovina",
-      "bosnia_herzegovina"
-    ]
+    "keywords": ["flag_bosnia_herzegovina", "bosnia", "herzegovina", "bosnia_herzegovina"]
   },
   "🇧🇧": {
     "name": "flag Barbados",
@@ -16950,11 +16711,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇧🇶",
-    "keywords": [
-      "flag_caribbean_netherlands",
-      "bonaire",
-      "caribbean_netherlands"
-    ]
+    "keywords": ["flag_caribbean_netherlands", "bonaire", "caribbean_netherlands"]
   },
   "🇧🇷": {
     "name": "flag Brazil",
@@ -17064,12 +16821,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇨🇫",
-    "keywords": [
-      "flag_central_african_republic",
-      "central",
-      "african",
-      "central_african_republic"
-    ]
+    "keywords": ["flag_central_african_republic", "central", "african", "central_african_republic"]
   },
   "🇨🇬": {
     "name": "flag Congo - Brazzaville",
@@ -17209,12 +16961,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇨🇽",
-    "keywords": [
-      "flag_christmas_island",
-      "christmas",
-      "island",
-      "christmas_island"
-    ]
+    "keywords": ["flag_christmas_island", "christmas", "island", "christmas_island"]
   },
   "🇨🇾": {
     "name": "flag Cyprus",
@@ -17294,12 +17041,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇩🇴",
-    "keywords": [
-      "flag_dominican_republic",
-      "dominican",
-      "republic",
-      "dominican_republic"
-    ]
+    "keywords": ["flag_dominican_republic", "dominican", "republic", "dominican_republic"]
   },
   "🇩🇿": {
     "name": "flag Algeria",
@@ -17429,12 +17171,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇫🇰",
-    "keywords": [
-      "flag_falkland_islands",
-      "falkland",
-      "malvinas",
-      "falkland_islands"
-    ]
+    "keywords": ["flag_falkland_islands", "falkland", "malvinas", "falkland_islands"]
   },
   "🇫🇲": {
     "name": "flag Micronesia",
@@ -17484,15 +17221,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "🇬🇧",
-    "keywords": [
-      "flag_united_kingdom",
-      "kingdom",
-      "great",
-      "britain",
-      "UK",
-      "union jack",
-      "united_kingdom"
-    ]
+    "keywords": ["flag_united_kingdom", "kingdom", "great", "britain", "UK", "union jack", "united_kingdom"]
   },
   "🇬🇩": {
     "name": "flag Grenada",
@@ -17622,11 +17351,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇬🇸",
-    "keywords": [
-      "flag_south_georgia_south_sandwich_islands",
-      "south",
-      "south_georgia_south_sandwich_islands"
-    ]
+    "keywords": ["flag_south_georgia_south_sandwich_islands", "south", "south_georgia_south_sandwich_islands"]
   },
   "🇬🇹": {
     "name": "flag Guatemala",
@@ -17676,12 +17401,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇭🇰",
-    "keywords": [
-      "flag_hong_kong_sar_china",
-      "hong",
-      "kong",
-      "hong_kong_sar_china"
-    ]
+    "keywords": ["flag_hong_kong_sar_china", "hong", "kong", "hong_kong_sar_china"]
   },
   "🇭🇲": {
     "name": "flag Heard & McDonald Islands",
@@ -17801,11 +17521,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇮🇴",
-    "keywords": [
-      "flag_british_indian_ocean_territory",
-      "territory",
-      "british_indian_ocean_territory"
-    ]
+    "keywords": ["flag_british_indian_ocean_territory", "territory", "british_indian_ocean_territory"]
   },
   "🇮🇶": {
     "name": "flag Iraq",
@@ -18235,12 +17951,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇲🇵",
-    "keywords": [
-      "flag_northern_mariana_islands",
-      "northern",
-      "mariana",
-      "northern_mariana_islands"
-    ]
+    "keywords": ["flag_northern_mariana_islands", "northern", "mariana", "northern_mariana_islands"]
   },
   "🇲🇶": {
     "name": "flag Martinique",
@@ -18550,12 +18261,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇵🇲",
-    "keywords": [
-      "flag_st_pierre_miquelon",
-      "pierre",
-      "miquelon",
-      "st_pierre_miquelon"
-    ]
+    "keywords": ["flag_st_pierre_miquelon", "pierre", "miquelon", "st_pierre_miquelon"]
   },
   "🇵🇳": {
     "name": "flag Pitcairn Islands",
@@ -18585,12 +18291,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇵🇸",
-    "keywords": [
-      "flag_palestinian_territories",
-      "palestine",
-      "palestinian",
-      "palestinian_territories"
-    ]
+    "keywords": ["flag_palestinian_territories", "palestine", "palestinian", "palestinian_territories"]
   },
   "🇵🇹": {
     "name": "flag Portugal",
@@ -18750,14 +18451,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇸🇭",
-    "keywords": [
-      "flag_st_helena",
-      "helena",
-      "ascension",
-      "tristan",
-      "cunha",
-      "st_helena"
-    ]
+    "keywords": ["flag_st_helena", "helena", "ascension", "tristan", "cunha", "st_helena"]
   },
   "🇸🇮": {
     "name": "flag Slovenia",
@@ -18857,13 +18551,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇸🇹",
-    "keywords": [
-      "flag_sao_tome_principe",
-      "sao",
-      "tome",
-      "principe",
-      "sao_tome_principe"
-    ]
+    "keywords": ["flag_sao_tome_principe", "sao", "tome", "principe", "sao_tome_principe"]
   },
   "🇸🇻": {
     "name": "flag El Salvador",
@@ -18883,13 +18571,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇸🇽",
-    "keywords": [
-      "flag_sint_maarten",
-      "sint",
-      "maarten",
-      "dutch",
-      "sint_maarten"
-    ]
+    "keywords": ["flag_sint_maarten", "sint", "maarten", "dutch", "sint_maarten"]
   },
   "🇸🇾": {
     "name": "flag Syria",
@@ -18929,12 +18611,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇹🇨",
-    "keywords": [
-      "flag_turks_caicos_islands",
-      "turks",
-      "caicos",
-      "turks_caicos_islands"
-    ]
+    "keywords": ["flag_turks_caicos_islands", "turks", "caicos", "turks_caicos_islands"]
   },
   "🇹🇩": {
     "name": "flag Chad",
@@ -18954,12 +18631,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇹🇫",
-    "keywords": [
-      "flag_french_southern_territories",
-      "southern",
-      "territories",
-      "french_southern_territories"
-    ]
+    "keywords": ["flag_french_southern_territories", "southern", "territories", "french_southern_territories"]
   },
   "🇹🇬": {
     "name": "flag Togo",
@@ -19059,12 +18731,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇹🇹",
-    "keywords": [
-      "flag_trinidad_tobago",
-      "trinidad",
-      "tobago",
-      "trinidad_tobago"
-    ]
+    "keywords": ["flag_trinidad_tobago", "trinidad", "tobago", "trinidad_tobago"]
   },
   "🇹🇻": {
     "name": "flag Tuvalu",
@@ -19184,12 +18851,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇻🇨",
-    "keywords": [
-      "flag_st_vincent_grenadines",
-      "vincent",
-      "grenadines",
-      "st_vincent_grenadines"
-    ]
+    "keywords": ["flag_st_vincent_grenadines", "vincent", "grenadines", "st_vincent_grenadines"]
   },
   "🇻🇪": {
     "name": "flag Venezuela",
@@ -19209,12 +18871,7 @@
     "unicode_version": "2.0",
     "skin_tone_support": false,
     "char": "🇻🇬",
-    "keywords": [
-      "flag_british_virgin_islands",
-      "virgin",
-      "bvi",
-      "british_virgin_islands"
-    ]
+    "keywords": ["flag_british_virgin_islands", "virgin", "bvi", "british_virgin_islands"]
   },
   "🇻🇮": {
     "name": "flag U.S. Virgin Islands",

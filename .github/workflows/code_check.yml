@@ -27,5 +27,5 @@ jobs:
         run: npm run eslint:check
       - name: Step 3 - 🧪🧪 Run prettier
         run: npm run prettier:check
-      - name: Step 4 - 🧪🧪 Run tests
+      - name: Step 4 - 🧪🧪🧪 Run tests
         run: npm run test

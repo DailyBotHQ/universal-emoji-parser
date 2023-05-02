@@ -322,17 +322,15 @@ describe('Test emoji parser', () => {
 
       // (5) Test with method options
       text = 'Hello world! :smiling_face_with_sunglasses: :rocket:'
-      result = uEmojiParser.parse(
-        'Hello world! :smiling_face_with_sunglasses: :rocket:',
-        { parseToHtml: false, parseToUnicode: true }
-      )
+      result = uEmojiParser.parse('Hello world! :smiling_face_with_sunglasses: :rocket:', {
+        parseToHtml: false,
+        parseToUnicode: true,
+      })
       expect(result).to.be.equal('Hello world! 😎 🚀')
 
       // (6) Test with method options
       text = 'Hello world! :smiling_face_with_sunglasses: :rocket:'
-      result = uEmojiParser.parseToUnicode(
-        'Hello world! :smiling_face_with_sunglasses: :rocket:'
-      )
+      result = uEmojiParser.parseToUnicode('Hello world! :smiling_face_with_sunglasses: :rocket:')
       expect(result).to.be.equal('Hello world! 😎 🚀')
 
       // (7) Test with method options
@@ -341,16 +339,12 @@ describe('Test emoji parser', () => {
         parseToHtml: false,
         parseToShortcode: true,
       })
-      expect(result).to.be.equal(
-        'Hello world! :smiling_face_with_sunglasses: :rocket:'
-      )
+      expect(result).to.be.equal('Hello world! :smiling_face_with_sunglasses: :rocket:')
 
       // (8) Test with method options
       text = 'Hello world! 😎 🚀'
       result = uEmojiParser.parseToShortcode(text)
-      expect(result).to.be.equal(
-        'Hello world! :smiling_face_with_sunglasses: :rocket:'
-      )
+      expect(result).to.be.equal('Hello world! :smiling_face_with_sunglasses: :rocket:')
 
       // (8) Test with method options using custom CDN
       text = 'Hello world! 😎 🚀'
