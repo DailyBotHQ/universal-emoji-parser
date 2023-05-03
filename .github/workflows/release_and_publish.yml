@@ -1,14 +1,203 @@
-name: Release and Publish
+# name: Release and Publish
 
+# on:
+#   pull_request:
+#     branches:
+#       - main
+#     types:
+#       - closed
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         node: ['18']
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: '30'
+#           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: 18.x
+#           registry-url: https://registry.npmjs.org/
+#       - name: Step 1 - ⚙️ Setup application
+#         run: |
+#           git config user.name "🤖 DailyBot"
+#           git config user.email "ops@dailybot.com"
+#           npm install
+#       - name: Step 2 - 🧪 Run linter
+#         run: npm run eslint:fix
+#       - name: Step 3 - 🧪🧪 Run prettier
+#         run: npm run prettier:fix
+#       - name: Step 4 - 🧪🧪🧪 Run tests
+#         run: npm run test
+#       - name: Step 5 - 🛠️ Build application bundle
+#         run: npm run build
+#       - name: Step 6 - 📄 Set GitHub release content "BODY" env var
+#         run: |
+#           bash get_github_release_log.sh
+#           if [[ ! -f git_logs_output.txt ]]; then
+#             echo "⚠️ No description found for release body content."
+#             exit 1
+#           fi
+#       - name: Step 7 -🔄 Prepare release
+#         run: |
+#           git status
+#           git add .
+#           git commit -am "[🤖 DailyBot] Minor updates on package versions." || echo "[🤖 DailyBot] No changes to commit"
+#           npm run release
+#           git push --follow-tags origin main
+#       - name: Step 8 - 🏷️ Set GitHub release "TAG" env vars
+#         run: |
+#           GITHUB_RELEASE_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+#           if [[ -z $GITHUB_RELEASE_TAG ]]; then
+#             echo "⚠️ No release tag found."
+#             exit 1
+#           fi
+#           echo "::set-env name=GITHUB_RELEASE_TAG::$GITHUB_RELEASE_TAG"
+#         env:
+#           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+#       - name: Step 9 - 🚀 Publish GitHub release
+#         uses: ncipollo/release-action@v1
+#         with:
+#           name: Release ${{ env.GITHUB_RELEASE_TAG }}
+#           tag: ${{ env.GITHUB_RELEASE_TAG }}
+#           bodyFile: git_logs_output.txt
+#           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+#       - name: Step 10 - 🚀🚀 Publish npm package
+#         run: npm publish
+#         env:
+#           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+
+
+
+
+
+name: Release and Publish
 on:
-  pull_request:
+  push:
     branches:
-      - main
-    types:
-      - closed
+      - '*'
+      - '!main'
 
 jobs:
+  setup:
+    name: 'Setup Application'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Step 0 - 📁 Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        name: Step 1 - ⚙️ Install Dependencies
+        run: npm install
+
+  validate_linters_and_code_format:
+    needs: setup
+    name: 'Validate Linters and Code Format'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Step 0 - 📁 Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Step 1 - 🧪 Run eslint linter
+        run: npm run eslint:check
+      - name: Step 2 - 🧪🧪 Run prettier
+        run: npm run prettier:check
+
+  tests:
+    needs: validate_linters_and_code_format
+    name: 'Run tests'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Step 0 - 📁 Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Step 1 - 🧪 Run tests
+        run: npm run test
+
   build:
+    needs: tests
+    name: 'Build application bundle'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Step 0 - 📁 Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Step 1 - 🛠️ Build application bundle
+        run: npm run build
+
+  tag_and_release:
+    needs: build
+    name: 'Tag and Release'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,35 +210,34 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
-          registry-url: https://registry.npmjs.org/
-      - name: Step 1 - ⚙️ Setup application
-        run: |
-          git config user.name "🤖 DailyBot"
-          git config user.email "ops@dailybot.com"
-          npm install
-      - name: Step 2 - 🧪 Run linter
-        run: npm run eslint:fix
-      - name: Step 3 - 🧪🧪 Run prettier
-        run: npm run prettier:fix
-      - name: Step 4 - 🧪🧪🧪 Run tests
-        run: npm run test
-      - name: Step 5 - 🛠️ Build application bundle
-        run: npm run build
-      - name: Step 6 - 📄 Set GitHub release content "BODY" env var
+      - name: Step 0 - 📁 Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Step 1 - 📄 Set GitHub release content "BODY" env var
         run: |
           bash get_github_release_log.sh
           if [[ ! -f git_logs_output.txt ]]; then
             echo "⚠️ No description found for release body content."
             exit 1
           fi
-      - name: Step 7 -🔄 Prepare release
+      - name: Step 2 -🔄 Prepare release
         run: |
           git status
           git add .
           git commit -am "[🤖 DailyBot] Minor updates on package versions." || echo "[🤖 DailyBot] No changes to commit"
           npm run release
           git push --follow-tags origin main
-      - name: Step 8 - 🏷️ Set GitHub release "TAG" env vars
+      - name: Step 3 - 🏷️ Set GitHub release "TAG" env vars
         run: |
           GITHUB_RELEASE_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
           if [[ -z $GITHUB_RELEASE_TAG ]]; then
@@ -59,14 +247,45 @@ jobs:
           echo "::set-env name=GITHUB_RELEASE_TAG::$GITHUB_RELEASE_TAG"
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      - name: Step 9 - 🚀 Publish GitHub release
+      - name: Step 4 - 🚀 Publish GitHub release
         uses: ncipollo/release-action@v1
         with:
           name: Release ${{ env.GITHUB_RELEASE_TAG }}
           tag: ${{ env.GITHUB_RELEASE_TAG }}
           bodyFile: git_logs_output.txt
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
-      - name: Step 10 - 🚀🚀 Publish npm package
-        run: npm publish
+
+  publish_npm_package:
+    needs: tag_and_release
+    name: 'Publish npm Package'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          registry-url: https://registry.npmjs.org/
+      - name: Step 0 - 📁 Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Step 1 - 🚀 Publish npm package
+        run: |
+          echo '> package.json'
+          cat package.json
+          echo '> NPM Publish'
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
