@@ -122,6 +122,8 @@ jobs:
           ls -la
           echo '> Run build...'
           npm run build
+          echo '> List folders...'
+          ls -la
 
   release_and_publish:
     needs: build
@@ -188,6 +190,9 @@ jobs:
         run: |
           echo '> package.json'
           cat package.json
+          echo '> List directories'
+          ls -la
+          npm run build
           echo '> List directories'
           ls -la
           echo '> NPM Publish'
