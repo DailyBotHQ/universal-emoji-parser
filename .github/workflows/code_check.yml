@@ -99,10 +99,10 @@ jobs:
           echo '-- envs --'
           env
           echo '---- Triggering cleanup caches workflow ----'
-          echo 'GITHUB_REPOSITORY: $GITHUB_REPOSITORY'
-          curl --location 'https://api.github.com/repos/$GITHUB_REPOSITORY/dispatches' \
-            --header 'Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}' \
-            --header 'Content-Type: application/json' \
+          echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+          curl --location "https://api.github.com/repos/$GITHUB_REPOSITORY/dispatches" \
+            --header "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" \
+            --header "Content-Type: application/json" \
             --data '{
                 "event_type": "cleanup_caches",
                 "client_payload": {}

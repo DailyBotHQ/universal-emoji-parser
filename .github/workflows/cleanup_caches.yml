@@ -22,8 +22,8 @@ jobs:
           BRANCH=$GITHUB_REF_NAME
 
           echo '> Vars...'
-          echo 'REPO: $REPO'
-          echo 'BRANCH: $BRANCH'
+          echo "REPO: $REPO"
+          echo "BRANCH: $BRANCH"
 
           echo '> Fetching list of cache key'
           cacheKeysForPR=$(gh actions-cache list -R $REPO | cut -f 1 )
