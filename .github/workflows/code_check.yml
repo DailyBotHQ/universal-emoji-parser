@@ -88,22 +88,3 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Step 1 - 🧪 Run tests
         run: npm run test
-
-  cleanup_caches:
-    needs: tests
-    name: 'Cleanup caches'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Step 1 - 🗑️ Trigger cleanup caches workflow
-        run: |
-          echo '-- envs --'
-          env
-          echo '---- Triggering cleanup caches workflow ----'
-          echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
-          curl --location "https://api.github.com/repos/$GITHUB_REPOSITORY/dispatches" \
-            --header "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" \
-            --header "Content-Type: application/json" \
-            --data '{
-                "event_type": "cleanup_caches",
-                "client_payload": {}
-            }'
