@@ -208,7 +208,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   cleanup_caches:
-    needs: tests
+    needs: release_and_publish
     name: 'Cleanup caches'
     runs-on: ubuntu-latest
     steps:
