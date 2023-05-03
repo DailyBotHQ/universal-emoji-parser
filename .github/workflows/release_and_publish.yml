@@ -6,8 +6,6 @@ on:
       - main
     types:
       - closed
-  workflow_dispatch:
-  repository_dispatch:
 
 jobs:
   build:
