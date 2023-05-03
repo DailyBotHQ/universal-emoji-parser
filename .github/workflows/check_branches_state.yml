@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [check_branches_state]
+
 jobs:
   build:
     runs-on: ubuntu-latest
