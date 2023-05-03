@@ -20,12 +20,13 @@ jobs:
         with:
           node-version: 18.x
       - name: Step 0 - 📁 Cache node modules
-        id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
-          path: ~/.npm,node_modules,dist
+          path: |
+            ~/.npm
+            node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -46,7 +47,6 @@ jobs:
         with:
           node-version: 18.x
       - name: Step 0 - 📁 Cache node modules
-        id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -54,7 +54,6 @@ jobs:
           path: |
             ~/.npm
             node_modules
-            dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -76,7 +75,6 @@ jobs:
         with:
           node-version: 18.x
       - name: Step 0 - 📁 Cache node modules
-        id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -84,7 +82,6 @@ jobs:
           path: |
             ~/.npm
             node_modules
-            dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -104,7 +101,6 @@ jobs:
         with:
           node-version: 18.x
       - name: Step 0 - 📁 Cache node modules
-        id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -112,11 +108,19 @@ jobs:
           path: |
             ~/.npm
             node_modules
-            dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: Step 1 - 🛠️ Build application bundle
+      - name: Step 1 - 📁 Cache build dist
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build-dist
+        with:
+          path: dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Step 2 - 🛠️ Build application bundle
         run: npm run build
 
   release_and_publish:
@@ -136,7 +140,6 @@ jobs:
           node-version: 18.x
           registry-url: https://registry.npmjs.org/
       - name: Step 0 - 📁 Cache node modules
-        id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
@@ -148,22 +151,31 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: Step 1 - ⚙️ Setup GitHub Config
+      - name: Step 1 - 📁 Cache build dist
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build-dist
+        with:
+          path: dist
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Step 2 - ⚙️ Setup GitHub Config
         run: |
           git config user.name "🤖 DailyBot"
           git config user.email "ops@dailybot.com"
-      - name: Step 2 - 📄 Set GitHub release content "BODY" env var
+      - name: Step 3 - 📄 Set GitHub release content "BODY" env var
         run: |
           bash get_github_release_log.sh
           if [[ ! -f git_logs_output.txt ]]; then
             echo "⚠️ No description found for release body content."
             exit 1
           fi
-      - name: Step 3 -🔄 Prepare release
+      - name: Step 4 -🔄 Prepare release
         run: |
           npm run release
           git push --follow-tags origin main
-      - name: Step 4 - 🏷️ Set GitHub release "TAG" env vars
+      - name: Step 5 - 🏷️ Set GitHub release "TAG" env vars
         run: |
           GITHUB_RELEASE_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
           if [[ -z $GITHUB_RELEASE_TAG ]]; then
@@ -173,14 +185,14 @@ jobs:
           echo "::set-env name=GITHUB_RELEASE_TAG::$GITHUB_RELEASE_TAG"
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      - name: Step 5 - 🚀 Publish GitHub release
+      - name: Step 6 - 🚀 Publish GitHub release
         uses: ncipollo/release-action@v1
         with:
           name: Release ${{ env.GITHUB_RELEASE_TAG }}
           tag: ${{ env.GITHUB_RELEASE_TAG }}
           bodyFile: git_logs_output.txt
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
-      - name: Step 6 - 🚀🚀 Publish npm package
+      - name: Step 7 - 🚀🚀 Publish npm package
         run: |
           echo '> package.json'
           cat package.json
