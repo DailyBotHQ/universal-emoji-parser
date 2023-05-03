@@ -121,7 +121,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Step 2 - 🛠️ Build application bundle
-        run: npm run build
+        run: |
+          npm run build
+          if [ ! -d "dist" ]; then
+            echo "⚠️ Error: dist folder does not exist."
+            exit 1
+          fi
 
   release_and_publish:
     needs: build
@@ -201,3 +206,18 @@ jobs:
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  cleanup_caches:
+    needs: release_and_publish
+    name: 'Cleanup caches'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - 🗑️ Trigger cleanup caches workflow
+        run: |
+          curl --location 'https://api.github.com/repos/DailyBotHQ/universal-emoji-parser/dispatches' \
+            --header 'Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}' \
+            --header 'Content-Type: application/json' \
+            --data '{
+                "event_type": "cleanup_caches",
+                "client_payload": {}
+            }'
