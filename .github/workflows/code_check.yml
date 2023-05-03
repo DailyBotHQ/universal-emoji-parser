@@ -17,28 +17,21 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Step 0 - ⚙️ Cache node modules
+      - name: Step 0 - 📁 Cache node modules
         id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
           path: |
             ~/.npm
             node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: ⚙️ Verify folder files
-        run: ls -la
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         name: Step 1 - ⚙️ Install Dependencies
         run: npm install
-      - name: ⚙️ Verify folder files
-        run: ls -la
 
   validate_linters_and_code_format:
     needs: setup
@@ -52,27 +45,21 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Step 0 - ⚙️ Cache node modules
+      - name: Step 0 - 📁 Cache node modules
         id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
           path: |
             ~/.npm
             node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        name: Step 1 - ⚙️ Install Dependencies
-        run: npm install
-      - name: Step 2 - 🧪 Run eslint linter
+      - name: Step 1 - 🧪 Run eslint linter
         run: npm run eslint:check
-      - name: Step 3 - 🧪🧪 Run prettier
+      - name: Step 2 - 🧪🧪 Run prettier
         run: npm run prettier:check
 
   tests:
@@ -87,23 +74,17 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Step 0 - ⚙️ Cache node modules
+      - name: Step 0 - 📁 Cache node modules
         id: cache-npm
         uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
           path: |
             ~/.npm
             node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        name: Step 1 - ⚙️ Install Dependencies
-        run: npm install
-      - name: Step 2 - 🧪🧪🧪 Run tests
+      - name: Step 1 - 🧪 Run tests
         run: npm run test
