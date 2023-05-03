@@ -25,10 +25,7 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: |
-            ~/.npm
-            node_modules
-            dist
+          path: ~/.npm,node_modules,dist
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -126,9 +123,9 @@ jobs:
           echo '> Run build...'
           npm run build
 
-  tag_and_release:
+  release_and_publish:
     needs: build
-    name: 'Tag and Release'
+    name: 'Release and Publish'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -141,6 +138,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
+          registry-url: https://registry.npmjs.org/
       - name: Step 0 - 📁 Cache node modules
         id: cache-npm
         uses: actions/cache@v3
@@ -186,37 +184,12 @@ jobs:
           tag: ${{ env.GITHUB_RELEASE_TAG }}
           bodyFile: git_logs_output.txt
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
-
-  publish_npm_package:
-    needs: tag_and_release
-    name: 'Publish npm Package'
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['18']
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-          registry-url: https://registry.npmjs.org/
-      - name: Step 0 - 📁 Cache node modules
-        id: cache-npm
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: |
-            ~/.npm
-            node_modules
-            dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: Step 1 - 🚀 Publish npm package
+      - name: Step 6 - 🚀🚀 Publish npm package
         run: |
           echo '> package.json'
           cat package.json
+          echo '> List directories'
+          ls -la
           echo '> NPM Publish'
           npm publish
         env:
