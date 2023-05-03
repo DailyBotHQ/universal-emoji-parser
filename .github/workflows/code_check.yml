@@ -4,11 +4,10 @@ on:
     branches:
       - '*'
       - '!main'
-  workflow_dispatch:
-  repository_dispatch:
 
 jobs:
   setup:
+    name: 'Setup Application'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -31,11 +30,13 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Step 1 - ⚙️ Install Dependencies
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        name: Step 1 - ⚙️ Install Dependencies
         run: npm install
 
-  validate_linters:
+  validate_linters_and_code_format:
     needs: setup
+    name: 'Validate Linters and Code Format'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -58,12 +59,41 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm ci
-      - name: Step 1 - 🧪 Run linter
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        name: Step 1 - ⚙️ Install Dependencies
+        run: npm install
+      - name: Step 2 - 🧪 Run eslint linter
         run: npm run eslint:check
-      - name: Step 2 - 🧪🧪 Run prettier
+      - name: Step 3 - 🧪🧪 Run prettier
         run: npm run prettier:check
-      - name: Step 3 - 🧪🧪🧪 Run tests
+
+  tests:
+    needs: validate_linters_and_code_format
+    name: 'Run tests'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Step 0 - ⚙️ Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        name: Step 1 - ⚙️ Install Dependencies
+        run: npm install
+      - name: Step 2 - 🧪🧪🧪 Run tests
         run: npm run test
