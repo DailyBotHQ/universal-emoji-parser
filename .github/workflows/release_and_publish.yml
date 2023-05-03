@@ -117,7 +117,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Step 1 - 🛠️ Build application bundle
-        run: npm run build
+        run: |
+          echo '> List folders...'
+          ls -la
+          echo '> Run build...'
+          npm run build
 
   tag_and_release:
     needs: build
