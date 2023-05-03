@@ -194,14 +194,10 @@ jobs:
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
       - name: Step 7 - 🚀🚀 Publish npm package
         run: |
-          echo '> package.json'
-          cat package.json
-          echo '> List directories'
-          ls -la
-          npm run build
-          echo '> List directories'
-          ls -la
-          echo '> NPM Publish'
+          if [ ! -d "dist" ]; then
+            echo "⚠️ Error: dist folder does not exist."
+            exit 1
+          fi
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
