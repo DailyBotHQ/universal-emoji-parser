@@ -30,9 +30,13 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+      - name: ⚙️ Verify folder files
+        run: ls -la
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         name: Step 1 - ⚙️ Install Dependencies
         run: npm install
+      - name: ⚙️ Verify folder files
+        run: ls -la
 
   validate_linters_and_code_format:
     needs: setup
