@@ -240,7 +240,7 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
-          NOTIFICATION_MESSAGE="*WorkFlow: <https://github.com/DailyBotHQ/universal-emoji-parser/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
+          NOTIFICATION_MESSAGE="*WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="*Repository:* $GITHUB_REPOSITORY"$'\n'
           NOTIFICATION_MESSAGE+="*BRANCH:* $GITHUB_REF_NAME"$'\n'
           INDEX=1
