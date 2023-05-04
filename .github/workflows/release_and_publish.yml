@@ -203,14 +203,20 @@ jobs:
           bodyFile: git_logs_output.txt
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
       - name: Step 7 - 🚀🚀 Publish npm package
+        id: publish_npm_package
         run: |
           if [ ! -d "dist" ]; then
             echo "⚠️ Error: dist folder does not exist."
             exit 1
           fi
           npm publish
+          # Set npm version as output for next steps
+          echo "::set-output name=package_version::$(npm pkg get version)"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    outputs:
+      package_version: ${{ steps.publish_npm_package.outputs.package_version }}
 
   cleanup_caches:
     needs: release_and_publish
@@ -243,7 +249,11 @@ jobs:
           NOTIFICATION_MESSAGE="*WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="*Repository:* $GITHUB_REPOSITORY"$'\n'
           NOTIFICATION_MESSAGE+="*User Actor:* $GITHUB_ACTOR"$'\n\n'
-          NOTIFICATION_MESSAGE+="*JOBS:*"$'\n'
+          PACKAGE_VERSION=$(echo "${NEEDS_JSON}" | jq -r ".release_and_publish.outputs.package_version")
+          if [ ! -z "$PACKAGE_VERSION" ]; then
+            NOTIFICATION_MESSAGE+="*Version:* $PACKAGE_VERSION"$'\n'
+          fi
+          NOTIFICATION_MESSAGE+="*Jobs:*"$'\n'
           INDEX=1
           NEEDS_ORDER=("setup" "validate_linters_and_code_format" "tests" "build" "release_and_publish" "cleanup_caches")
           DEPLOYMENT_SUCCESS="true"
