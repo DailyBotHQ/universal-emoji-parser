@@ -242,7 +242,8 @@ jobs:
         run: |
           NOTIFICATION_MESSAGE="*WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="*Repository:* $GITHUB_REPOSITORY"$'\n'
-          NOTIFICATION_MESSAGE+="*BRANCH:* $GITHUB_REF_NAME"$'\n'
+          NOTIFICATION_MESSAGE+="*User Actor:* $GITHUB_ACTOR"$'\n\n'
+          NOTIFICATION_MESSAGE+="*JOBS:*'\n'
           INDEX=1
           NEEDS_ORDER=("setup" "validate_linters_and_code_format" "tests" "build" "release_and_publish" "cleanup_caches")
           DEPLOYMENT_SUCCESS="true"
@@ -266,9 +267,9 @@ jobs:
           done
 
           if [ "$DEPLOYMENT_SUCCESS" == "true" ]; then
-            NOTIFICATION_MESSAGE="*🚀 DEPLOYMENT SUCCESS:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="*#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) DEPLOYMENT - 🚀 DEPLOYMENT SUCCESS:*"$'\n\n'"$NOTIFICATION_MESSAGE"
           else
-            NOTIFICATION_MESSAGE="@here *⚠️ DEPLOYMENT FAILED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) DEPLOYMENT - @here *⚠️ DEPLOYMENT FAILED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
           fi
 
           JSON_DATA=$(jq -n \
