@@ -104,14 +104,14 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
-          echo "Deployment success: $NEEDS_JSON"
+          NOTIFICATION_MESSAGE="🚀 Deployment success: $NEEDS_JSON\n"
 
           for key in $(echo "${NEEDS_JSON}" | jq -r 'keys[]'); do
-            echo "$key: $(echo "${NEEDS_JSON}" | jq -r ".${key}.result")"
+            NOTIFICATION_MESSAGE+="$key: $(echo "${NEEDS_JSON}" | jq -r ".${key}.result")\n"
           done
 
           JSON_DATA=$(jq -n \
-                        --arg msg "Deployment success: $NEEDS_JSON" \
+                        --arg msg "$NOTIFICATION_MESSAGE" \
                         --arg channel "${{ secrets.DAILYBOT_NOTIFICATION_CHANNEL }}" \
                         '{message: $msg, target_channels: [$channel]}')
           curl --location 'https://api.dailybot.com/v1/send-message/' \
