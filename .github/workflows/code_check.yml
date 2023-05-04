@@ -92,8 +92,9 @@ jobs:
           exit 1
 
   notify_on_channel:
-    needs: tests
+    needs: [setup, validate_linters_and_code_format, tests]
     name: 'Notify on channel'
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Step 1 - 🔔 Send notification on channel
