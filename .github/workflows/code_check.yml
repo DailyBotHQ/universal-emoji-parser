@@ -106,6 +106,9 @@ jobs:
         run: |
           ESCAPED_NEEDS=$(echo "${NEEDS}" | jq -c .)
           echo "Deployment success: $ESCAPED_NEEDS"
+          echo "setup: ${{ needs.setup.result }}"
+          echo "validate_linters_and_code_format: ${{ needs.validate_linters_and_code_format.result }}"
+          echo "tests: ${{ needs.tests.result }}"
           JSON_DATA=$(jq -n \
                         --arg msg "Deployment success: $ESCAPED_NEEDS" \
                         --arg channel "${{ secrets.DAILYBOT_NOTIFICATION_CHANNEL }}" \
