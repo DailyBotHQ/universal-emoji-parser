@@ -104,13 +104,11 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
-          NOTIFICATION_MESSAGE="🚀 Deployment success: $NEEDS_JSON\\n"
+          NOTIFICATION_MESSAGE="🚀 Deployment success: $NEEDS_JSON"$'\n'
 
           for key in $(echo "${NEEDS_JSON}" | jq -r 'keys[]'); do
-            NOTIFICATION_MESSAGE+="$key: $(echo "${NEEDS_JSON}" | jq -r ".${key}.result")\\n"
+            NOTIFICATION_MESSAGE+="$key: $(echo "${NEEDS_JSON}" | jq -r ".${key}.result")"$'\n'
           done
-
-          echo "$NOTIFICATION_MESSAGE"
 
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
@@ -120,4 +118,3 @@ jobs:
             --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
             --header 'Content-Type: application/json' \
             --data "$JSON_DATA"
-
