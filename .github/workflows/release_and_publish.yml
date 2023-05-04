@@ -21,6 +21,7 @@ jobs:
           node-version: 18.x
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
+        id: cache-npm
         env:
           cache-name: cache-node-modules
         with:
@@ -48,6 +49,7 @@ jobs:
           node-version: 18.x
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
+        id: cache-npm
         env:
           cache-name: cache-node-modules
         with:
@@ -76,6 +78,7 @@ jobs:
           node-version: 18.x
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
+        id: cache-npm
         env:
           cache-name: cache-node-modules
         with:
@@ -102,6 +105,7 @@ jobs:
           node-version: 18.x
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
+        id: cache-npm
         env:
           cache-name: cache-node-modules
         with:
@@ -146,6 +150,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
+        id: cache-npm
         env:
           cache-name: cache-node-modules
         with:
@@ -221,3 +226,57 @@ jobs:
                 "event_type": "cleanup_caches",
                 "client_payload": {}
             }'
+
+  notify_on_channel:
+    needs: [setup, validate_linters_and_code_format, tests, build, release_and_publish, cleanup_caches]
+    name: 'Notify on channel'
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Step 1 - 🔔 Send notification on channel
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          env
+          NOTIFICATION_MESSAGE="*WorkFlow: <https://github.com/DailyBotHQ/universal-emoji-parser/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
+          NOTIFICATION_MESSAGE+="*Repository:* $GITHUB_REPOSITORY"$'\n'
+          NOTIFICATION_MESSAGE+="*BRANCH:* $GITHUB_REF_NAME"$'\n'
+          INDEX=1
+          NEEDS_ORDER=("setup" "validate_linters_and_code_format" "tests", "build", "release_and_publish", "cleanup_caches")
+          DEPLOYMENT_SUCCESS="true"
+
+          for key in "${NEEDS_ORDER[@]}"; do
+            RESULT=$(echo "${NEEDS_JSON}" | jq -r ".${key}.result")
+            if [ "$RESULT" == "success" ]; then
+              EMOJI="✅"
+            elif [ "$RESULT" == "failure" ]; then
+              DEPLOYMENT_SUCCESS="false"
+              EMOJI="❌"
+            elif [ "$RESULT" == "skipped" ]; then
+              DEPLOYMENT_SUCCESS="false"
+              EMOJI="⏩"
+            else
+              DEPLOYMENT_SUCCESS="false"
+              EMOJI="❓"
+            fi
+            NOTIFICATION_MESSAGE+="• *Job $INDEX:* $key $EMOJI"$'\n'
+            INDEX=$((INDEX+1))
+          done
+
+          if [ "$DEPLOYMENT_SUCCESS" == "true" ]; then
+            NOTIFICATION_MESSAGE="*🚀 DEPLOYMENT SUCCESS:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          else
+            NOTIFICATION_MESSAGE="@here *⚠️ DEPLOYMENT FAILED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          fi
+
+          JSON_DATA=$(jq -n \
+                        --arg msg "$NOTIFICATION_MESSAGE" \
+                        --arg channel "${{ secrets.DAILYBOT_NOTIFICATION_CHANNEL }}" \
+                        '{message: $msg, target_channels: [$channel]}')
+          curl --location 'https://api.dailybot.com/v1/send-message/' \
+            --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
+            --header 'Content-Type: application/json' \
+            --data "$JSON_DATA"
