@@ -99,7 +99,7 @@ jobs:
     steps:
       - name: Step 1 - 🔔 Send notification on channel
         env:
-          NEEDS: ${{ needs }}
+          NEEDS: ${{ toJSON(needs) }}
         run: |
           echo "Deployment success: ${{ env.NEEDS }}"
           curl --location 'https://api.dailybot.com/v1/send-message/' \
