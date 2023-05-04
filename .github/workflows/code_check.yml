@@ -105,6 +105,7 @@ jobs:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
           NOTIFICATION_MESSAGE="🚀 Deployment success:"$'\n\n'
+          NOTIFICATION_MESSAGE+="*REPOSITORY:* $GITHUB_REPOSITORY"$'\n'
           INDEX=1
           NEEDS_ORDER=("setup" "validate_linters_and_code_format" "tests")
 
