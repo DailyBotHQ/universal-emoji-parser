@@ -87,7 +87,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Step 1 - 🧪 Run tests
-        run: npm run test
+        run: |
+          npm run test
+          exit 1
 
   notify_on_channel:
     needs: tests
