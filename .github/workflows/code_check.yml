@@ -98,11 +98,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step 1 - 🔔 Send notification on channel
+        env:
+          NEEDS: ${{ toJSON(needs) }}
         run: |
           curl --location 'https://api.dailybot.com/v1/send-message/' \
             --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
             --header 'Content-Type: application/json' \
             --data '{
-              "message": "Deployment success...",
+              "message": "Deployment success: $NEEDS",
               "target_channels": ["${{ secrets.DAILYBOT_NOTIFICATION_CHANNEL }}"]
             }'
