@@ -181,4 +181,4 @@ DailyBot is an [AI Assistant](https://www.dailybot.com/product/ai) powered by Ch
 
 ## License
 
-Universal emoji parser is [MIT licensed](./LICENSE).
+Universal Emoji Parser is [MIT licensed](./LICENSE).
