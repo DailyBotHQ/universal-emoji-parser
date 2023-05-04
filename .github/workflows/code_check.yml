@@ -112,7 +112,7 @@ jobs:
             RESULT=$(echo "${NEEDS_JSON}" | jq -r ".${key}.result")
             if [ "$RESULT" == "success" ]; then
               EMOJI="✅"
-            elif [ "$RESULT" == "failed" ]; then
+            elif [ "$RESULT" == "failure" ]; then
               EMOJI="❌"
             elif [ "$RESULT" == "skipped" ]; then
               EMOJI="⏩"
