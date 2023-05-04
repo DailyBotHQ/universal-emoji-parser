@@ -104,21 +104,22 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
-          NOTIFICATION_MESSAGE="🚀 Deployment success:"$'\n'
+          NOTIFICATION_MESSAGE="🚀 Deployment success: $NEEDS_JSON"$'\n'
           INDEX=1
+          NEEDS_ORDER=("setup" "validate_linters_and_code_format" "tests")
 
-          for key in $(echo "${NEEDS_JSON}" | jq -r 'keys[]'); do
+          for key in "${NEEDS_ORDER[@]}"; do
             RESULT=$(echo "${NEEDS_JSON}" | jq -r ".${key}.result")
             if [ "$RESULT" == "success" ]; then
               EMOJI="✅"
-            elif [ "$RESULT" == "failure" ]; then
+            elif [ "$RESULT" == "failed" ]; then
               EMOJI="❌"
             elif [ "$RESULT" == "skipped" ]; then
               EMOJI="⏩"
             else
               EMOJI="❓"
             fi
-            NOTIFICATION_MESSAGE+="• *Job $INDEX:* $key $EMOJI"$'\n'
+            NOTIFICATION_MESSAGE+="$INDEX. $key: $EMOJI"$'\n'
             INDEX=$((INDEX+1))
           done
 
