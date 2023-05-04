@@ -248,10 +248,10 @@ jobs:
         run: |
           NOTIFICATION_MESSAGE="*WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="*Repository:* $GITHUB_REPOSITORY"$'\n'
-          NOTIFICATION_MESSAGE+="*User Actor:* $GITHUB_ACTOR"$'\n\n'
+          NOTIFICATION_MESSAGE+="*User Actor:* $GITHUB_ACTOR"$'\n'
           PACKAGE_VERSION=$(echo "${NEEDS_JSON}" | jq -r ".release_and_publish.outputs.package_version")
           if [ ! -z "$PACKAGE_VERSION" ]; then
-            NOTIFICATION_MESSAGE+="*Version:* $PACKAGE_VERSION"$'\n'
+            NOTIFICATION_MESSAGE+="*New Version:* $PACKAGE_VERSION"$'\n'
           fi
           NOTIFICATION_MESSAGE+="*Jobs:*"$'\n'
           INDEX=1
