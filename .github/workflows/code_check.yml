@@ -104,7 +104,7 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
-          NOTIFICATION_MESSAGE="🚀 Deployment success: $NEEDS_JSON"$'\n\n'
+          NOTIFICATION_MESSAGE="🚀 Deployment success:"$'\n\n'
           INDEX=1
           NEEDS_ORDER=("setup" "validate_linters_and_code_format" "tests")
 
