@@ -104,6 +104,9 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
+          echo '> Env...'
+          env
+          echo '> Needs...'
           NOTIFICATION_MESSAGE="*🚀 DEPLOYMENT SUCCESS:*"$'\n\n'
           NOTIFICATION_MESSAGE+="*Repository:* $GITHUB_REPOSITORY"$'\n'
           INDEX=1
