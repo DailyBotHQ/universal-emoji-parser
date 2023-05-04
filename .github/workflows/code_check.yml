@@ -110,7 +110,7 @@ jobs:
             --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
             --header 'Content-Type: application/json' \
             --data '{
-              "message": "Deployment success: $ESCAPED_NEEDS",
+              "message": "Deployment success: ${{ ESCAPED_NEEDS }}",
               "target_channels": ["${{ secrets.DAILYBOT_NOTIFICATION_CHANNEL }}"]
             }'
 
