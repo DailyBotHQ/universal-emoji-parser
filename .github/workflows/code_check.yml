@@ -104,12 +104,13 @@ jobs:
         env:
           NEEDS: ${{ toJSON(needs) }}
         run: |
-          ESCAPED_NEEDS=$(echo "${NEEDS}" | jq -sRr @json)
+          ESCAPED_NEEDS=$(echo "${NEEDS}" | jq -c .)
           echo "Deployment success: $ESCAPED_NEEDS"
           curl --location 'https://api.dailybot.com/v1/send-message/' \
             --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
             --header 'Content-Type: application/json' \
             --data '{
-              "message": "Deployment success: '"$ESCAPED_NEEDS"'",
+              "message": "Deployment success: '$ESCAPED_NEEDS'",
               "target_channels": ["${{ secrets.DAILYBOT_NOTIFICATION_CHANNEL }}"]
             }'
+
