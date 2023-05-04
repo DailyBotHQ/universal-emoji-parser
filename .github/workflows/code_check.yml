@@ -110,6 +110,8 @@ jobs:
             NOTIFICATION_MESSAGE+="$key: $(echo "${NEEDS_JSON}" | jq -r ".${key}.result")\\n"
           done
 
+          echo "$NOTIFICATION_MESSAGE"
+
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
                         --arg channel "${{ secrets.DAILYBOT_NOTIFICATION_CHANNEL }}" \
