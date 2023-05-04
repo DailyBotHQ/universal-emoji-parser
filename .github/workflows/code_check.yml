@@ -97,15 +97,19 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Step 1 - 🔔 Send notification on channel
         env:
           NEEDS: ${{ toJSON(needs) }}
         run: |
-          echo "Deployment success: ${{ env.NEEDS }}"
+          ESCAPED_NEEDS=$(echo "${NEEDS}" | jq -sRr @json)
+          echo "Deployment success: $ESCAPED_NEEDS"
           curl --location 'https://api.dailybot.com/v1/send-message/' \
             --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
             --header 'Content-Type: application/json' \
             --data '{
-              "message": "Deployment success: ${{ env.NEEDS }}",
+              "message": "Deployment success: '"$ESCAPED_NEEDS"'",
               "target_channels": ["${{ secrets.DAILYBOT_NOTIFICATION_CHANNEL }}"]
             }'
