@@ -108,6 +108,7 @@ jobs:
           env
           echo '> Needs...'
           NOTIFICATION_MESSAGE="*🚀 DEPLOYMENT SUCCESS:*"$'\n\n'
+          NOTIFICATION_MESSAGE+="*WorkFlow:* <https://github.com/DailyBotHQ/universal-emoji-parser/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>"$'\n'
           NOTIFICATION_MESSAGE+="*Repository:* $GITHUB_REPOSITORY"$'\n'
           INDEX=1
           NEEDS_ORDER=("setup" "validate_linters_and_code_format" "tests")
