@@ -101,6 +101,7 @@ jobs:
         env:
           NEEDS: ${{ toJSON(needs) }}
         run: |
+          echo "Deployment success: ${{ env.NEEDS }}"
           curl --location 'https://api.dailybot.com/v1/send-message/' \
             --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
             --header 'Content-Type: application/json' \
