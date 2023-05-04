@@ -102,15 +102,16 @@ jobs:
 
       - name: Step 1 - 🔔 Send notification on channel
         env:
-          NEEDS: ${{ toJSON(needs) }}
+          NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
-          ESCAPED_NEEDS=$(echo "${NEEDS}" | jq -c .)
-          echo "Deployment success: $ESCAPED_NEEDS"
-          echo "setup: ${{ needs.setup.result }}"
-          echo "validate_linters_and_code_format: ${{ needs.validate_linters_and_code_format.result }}"
-          echo "tests: ${{ needs.tests.result }}"
+          echo "Deployment success: $NEEDS_JSON"
+
+          for key in $(echo "${NEEDS_JSON}" | jq -r 'keys[]'); do
+            echo "$key: $(echo "${NEEDS_JSON}" | jq -r ".${key}.result")"
+          done
+
           JSON_DATA=$(jq -n \
-                        --arg msg "Deployment success: $ESCAPED_NEEDS" \
+                        --arg msg "Deployment success: $NEEDS_JSON" \
                         --arg channel "${{ secrets.DAILYBOT_NOTIFICATION_CHANNEL }}" \
                         '{message: $msg, target_channels: [$channel]}')
           curl --location 'https://api.dailybot.com/v1/send-message/' \
