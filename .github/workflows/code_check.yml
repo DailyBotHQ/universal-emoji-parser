@@ -133,7 +133,7 @@ jobs:
           if [ "$DEPLOYMENT_SUCCESS" == "true" ]; then
             NOTIFICATION_MESSAGE="*🚀 DEPLOYMENT SUCCESS:*"$'\n\n'"$NOTIFICATION_MESSAGE"
           else
-            NOTIFICATION_MESSAGE="*⚠️ DEPLOYMENT FAILED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="@here *⚠️ DEPLOYMENT FAILED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
           fi
 
           JSON_DATA=$(jq -n \
