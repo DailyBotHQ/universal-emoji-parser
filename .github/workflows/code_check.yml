@@ -104,29 +104,35 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
-          echo '> Env...'
-          env
-          echo '> Needs...'
-          NOTIFICATION_MESSAGE="*🚀 DEPLOYMENT SUCCESS:*"$'\n\n'
-          NOTIFICATION_MESSAGE+="*WorkFlow:* <https://github.com/DailyBotHQ/universal-emoji-parser/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>"$'\n'
+          NOTIFICATION_MESSAGE="*WorkFlow: <https://github.com/DailyBotHQ/universal-emoji-parser/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="*Repository:* $GITHUB_REPOSITORY"$'\n'
           INDEX=1
           NEEDS_ORDER=("setup" "validate_linters_and_code_format" "tests")
+          DEPLOYMENT_SUCCESS="true"
 
           for key in "${NEEDS_ORDER[@]}"; do
             RESULT=$(echo "${NEEDS_JSON}" | jq -r ".${key}.result")
             if [ "$RESULT" == "success" ]; then
               EMOJI="✅"
             elif [ "$RESULT" == "failure" ]; then
+              DEPLOYMENT_SUCCESS="false"
               EMOJI="❌"
             elif [ "$RESULT" == "skipped" ]; then
+              DEPLOYMENT_SUCCESS="false"
               EMOJI="⏩"
             else
+              DEPLOYMENT_SUCCESS="false"
               EMOJI="❓"
             fi
             NOTIFICATION_MESSAGE+="• *Job $INDEX:* $key $EMOJI"$'\n'
             INDEX=$((INDEX+1))
           done
+
+          if [ "$DEPLOYMENT_SUCCESS" == "true" ]; then
+            NOTIFICATION_MESSAGE="*🚀 DEPLOYMENT SUCCESS:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          else
+            NOTIFICATION_MESSAGE="*⚠️ DEPLOYMENT FAILED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          fi
 
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
