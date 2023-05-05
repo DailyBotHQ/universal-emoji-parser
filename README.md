@@ -14,6 +14,7 @@ Emojis Support:
 
 ---
 
+[![Code Check && Release](https://github.com/DailyBotHQ/universal-emoji-parser/actions/workflows/release_and_publish.yml/badge.svg?branch=main)](https://github.com/DailyBotHQ/universal-emoji-parser/actions/workflows/release_and_publish.yml)
 [![GitHub license](https://img.shields.io/github/license/DailyBotHQ/universal-emoji-parser)](https://github.com/DailyBotHQ/universal-emoji-parser/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/DailyBotHQ/universal-emoji-parser)](https://github.com/DailyBotHQ/universal-emoji-parser)
 [![Total downloads](https://img.shields.io/npm/dt/universal-emoji-parser.svg)](https://www.npmjs.com/package/universal-emoji-parser)

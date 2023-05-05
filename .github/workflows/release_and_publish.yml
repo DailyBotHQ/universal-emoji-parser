@@ -211,7 +211,7 @@ jobs:
           fi
           npm publish
           # Set npm version as output for next steps
-          echo "::set-output name=package_version::$(npm pkg get version)"
+          echo "package_version=$(npm pkg get version)" >> $GITHUB_OUTPUT
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
