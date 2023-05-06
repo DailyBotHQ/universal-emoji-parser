@@ -21,7 +21,7 @@ Emojis Support:
 
 ## Installation
 
-```
+```javascript
 npm install universal-emoji-parser --save
 
 or
@@ -32,7 +32,13 @@ yarn add universal-emoji-parser
 ## Usage
 
 ```javascript
+// ES6 import
 → import uEmojiParser from 'universal-emoji-parser'
+
+or
+
+// CommonJS require
+→ const uEmojiParser = require('universal-emoji-parser')
 ```
 
 ### Using default options:
@@ -134,7 +140,17 @@ Hello world! :smiling_face_with_sunglasses: :rocket:
 You can get the entire emoji lib json data curated and processed to best match with shortcode keywords.
 
 ```javascript
+// ES6 import
 → import { emojiLibJsonData } from 'universal-emoji-parser'
+
+or
+
+// CommonJS require
+const uEmojiParser = require('universal-emoji-parser')
+const { emojiLibJsonData } = uEmojiParser
+```
+
+```
 
 → Object.keys(emojiLibJsonData).length
 1870

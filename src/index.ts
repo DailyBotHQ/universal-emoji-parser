@@ -117,3 +117,9 @@ const uEmojiParser: UEmojiParserType = {
 }
 
 export default uEmojiParser
+
+// Exporting for CommonJS modules (require)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = uEmojiParser
+  module.exports.emojiLibJsonData = emojiLibJsonData
+}
