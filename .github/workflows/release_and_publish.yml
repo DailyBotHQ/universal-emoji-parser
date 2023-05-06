@@ -266,7 +266,7 @@ jobs:
           fi
           NOTIFICATION_MESSAGE+="*Jobs:*"$'\n'
           INDEX=1
-          NEEDS_ORDER=("setup" "validate_linters_and_code_format" "tests" "build" "release_and_publish" "cleanup_caches")
+          NEEDS_ORDER=("deploy_setup" "deploy_validate_linters_and_code_format" "deploy_tests" "build" "release_and_publish" "cleanup_caches")
           DEPLOYMENT_SUCCESS="true"
 
           for key in "${NEEDS_ORDER[@]}"; do
