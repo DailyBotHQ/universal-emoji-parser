@@ -1,12 +1,21 @@
 name: Code Check
+
 on:
-  push:
+  pull_request:
     branches:
-      - '*'
-      - '!main'
+      - 'main'
+    types:
+      - opened
+      - synchronize
+      - labeled
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   setup:
+    if: contains(github.event.pull_request.labels.*.name, 'ready')
     name: 'Setup Application'
     runs-on: ubuntu-latest
     strategy:

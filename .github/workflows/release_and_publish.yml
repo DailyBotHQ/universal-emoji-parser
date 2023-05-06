@@ -7,9 +7,16 @@ on:
     types:
       - closed
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  setup:
-    name: 'Setup Application'
+  deploy_setup:
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'ready')
+      && github.event.pull_request.merged == true
+    name: 'Deploy - Setup Application'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,9 +42,9 @@ jobs:
         name: Step 1 - ⚙️ Install Dependencies
         run: npm install
 
-  validate_linters_and_code_format:
-    needs: setup
-    name: 'Validate Linters and Code Format'
+  deploy_validate_linters_and_code_format:
+    needs: deploy_setup
+    name: 'Deploy - Validate Linters and Code Format'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -64,8 +71,8 @@ jobs:
       - name: Step 2 - 🧪🧪 Run prettier
         run: npm run prettier:check
 
-  tests:
-    needs: validate_linters_and_code_format
+  deploy_tests:
+    needs: deploy_validate_linters_and_code_format
     name: 'Run tests'
     runs-on: ubuntu-latest
     strategy:
@@ -92,7 +99,7 @@ jobs:
         run: npm run test
 
   build:
-    needs: tests
+    needs: deploy_tests
     name: 'Build application bundle'
     runs-on: ubuntu-latest
     strategy:
@@ -234,9 +241,13 @@ jobs:
             }'
 
   notify_on_channel:
-    needs: [setup, validate_linters_and_code_format, tests, build, release_and_publish, cleanup_caches]
+    needs:
+      [deploy_setup, deploy_validate_linters_and_code_format, deploy_tests, build, release_and_publish, cleanup_caches]
     name: 'Notify on channel'
-    if: ${{ always() }}
+    if: |
+      always()
+      && contains(github.event.pull_request.labels.*.name, 'ready')
+      && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Install jq
