@@ -4,10 +4,6 @@ on:
   pull_request:
     branches:
       - 'main'
-    types:
-      - opened
-      - synchronize
-      - labeled
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -15,7 +11,6 @@ concurrency:
 
 jobs:
   setup:
-    if: contains(github.event.pull_request.labels.*.name, 'ready')
     name: 'Setup Application'
     runs-on: ubuntu-latest
     strategy:

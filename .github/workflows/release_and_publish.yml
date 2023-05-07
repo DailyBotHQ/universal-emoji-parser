@@ -13,9 +13,7 @@ concurrency:
 
 jobs:
   deploy_setup:
-    if: |
-      contains(github.event.pull_request.labels.*.name, 'ready')
-      && github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     name: 'Deploy - Setup Application'
     runs-on: ubuntu-latest
     strategy:
@@ -244,10 +242,7 @@ jobs:
     needs:
       [deploy_setup, deploy_validate_linters_and_code_format, deploy_tests, build, release_and_publish, cleanup_caches]
     name: 'Notify on channel'
-    if: |
-      always()
-      && contains(github.event.pull_request.labels.*.name, 'ready')
-      && github.event.pull_request.merged == true
+    if: always() && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Install jq
