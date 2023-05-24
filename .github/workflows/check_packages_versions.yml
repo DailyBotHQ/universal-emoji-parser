@@ -40,7 +40,7 @@ jobs:
       - name: Step 5 - Check Git Status
         id: check_git_status_step
         run: |
-          CHANGES=$(git status --porcelain)
+          CHANGES=$(git status --porcelain | tr '\n' ' ' | tr -d '\r')
           echo 'Changes: $CHANGES'
           echo "git_changes=$CHANGES" >> $GITHUB_OUTPUT
       - name: Step 6 - Commit and push changes to repository branch
