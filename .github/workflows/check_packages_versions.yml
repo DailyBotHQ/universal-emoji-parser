@@ -35,6 +35,8 @@ jobs:
         run: npm install
       - name: Step 4 - Check Packages Versions
         run: npm run ncu:upgrade
+      - name: Step 4 - ⚙️ Re-install dependencies with upgrades
+        run: npm install
       - name: Step 5 - Check Git Status
         id: check_git_status_step
         run: |
