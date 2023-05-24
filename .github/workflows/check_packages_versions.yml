@@ -46,6 +46,10 @@ jobs:
           echo "git_changes=$CHANGES" >> $GITHUB_OUTPUT
       - name: Step 6 - Commit and push changes to repository branch
         run: |
+          echo 'New changes 1:'
+          echo $CHANGES
+          echo 'New changes 2:'
+          echo ${{ steps.check_git_status_step.outputs.git_changes }}
           if [[ -n $CHANGES ]]; then
             git commit -am "Upgrading packages versions"
             git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES
