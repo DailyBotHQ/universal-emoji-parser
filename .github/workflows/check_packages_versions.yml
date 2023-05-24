@@ -1,6 +1,7 @@
 name: Check Packages Versions
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
 
@@ -26,4 +27,18 @@ jobs:
       - name: Step 3 - Check Packages Versions
         run: npm run ncu:upgrade
       - name: Step 4 - Check Git Status
-        run: git status
+        id: check_git_status_step
+        run: |
+          changes=$(git status --porcelain)
+          echo "git_changes=$changes" >> $GITHUB_OUTPUT
+
+          # Check git status changes
+          if [[ -n $changes ]]; then
+            echo "El repositorio tiene cambios."
+            echo "$changes"
+          else
+            echo "El repositorio no tiene cambios."
+          fi
+
+    outputs:
+      git_changes: ${{ steps.check_git_status_step.outputs.git_changes }}
