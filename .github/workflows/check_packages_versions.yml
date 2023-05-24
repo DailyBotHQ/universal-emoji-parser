@@ -30,7 +30,7 @@ jobs:
       - name: Step 2 - ⚙️ Download changes from branch with upgrades
         run: |
           git checkout -B $GIT_BRANCH_FOR_PACKAGES_UPGRADES
-          git pull origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+          git pull origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES || true
       - name: Step 3 - ⚙️ Install Dependencies
         run: npm install
       - name: Step 4 - Check Packages Versions
