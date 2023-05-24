@@ -1,0 +1,29 @@
+name: Check Packages Versions
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  build:
+    name: 'Check Packages Versions'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          registry-url: https://registry.npmjs.org/
+      - name: Step 1 - ⚙️ Setup GitHub Config
+        run: |
+          git config user.name "🤖 DailyBot"
+          git config user.email "ops@dailybot.com"
+      - name: Step 2 - ⚙️ Install Dependencies
+        run: npm install
+      - name: Step 3 - Check Packages Versions
+        run: npm run ncu:upgrade
+      - name: Step 4 - Check Git Status
+        run: git status

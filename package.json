@@ -36,7 +36,9 @@
     "dev": "nodemon src/index.ts",
     "build": "webpack --mode production --progress",
     "build:dev": "webpack --mode development --progress",
-    "build:tsc": "tsc --build tsconfig.json"
+    "build:tsc": "tsc --build tsconfig.json",
+    "ncu:check": "ncu",
+    "ncu:upgrade": "ncu -u"
   },
   "repository": {
     "type": "git",
@@ -74,6 +76,7 @@
     "unicode-emoji-json": "0.4.0",
     "webpack": "5.82.0",
     "webpack-cli": "5.0.2",
-    "prettier": "2.8.8"
+    "prettier": "2.8.8",
+    "npm-check-updates": "16.10.12"
   }
 }
