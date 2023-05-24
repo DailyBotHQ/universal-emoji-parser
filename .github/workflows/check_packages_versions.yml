@@ -14,6 +14,8 @@ jobs:
         node: ['18']
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
@@ -34,10 +36,11 @@ jobs:
 
           # Check git status changes
           if [[ -n $changes ]]; then
-            echo "El repositorio tiene cambios."
-            echo "$changes"
+            git checkout -b feature__packages_versions_update
+            git commit -am "Upgrading packages versions"
+            git push origin feature__packages_versions_update
           else
-            echo "El repositorio no tiene cambios."
+            echo "There are no changes in the repository"
           fi
 
     outputs:
