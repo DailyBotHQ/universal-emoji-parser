@@ -35,7 +35,7 @@ jobs:
           echo '---- 1 ----'
           if git ls-remote --quiet --heads origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES; then
             echo '---- 2 ----'
-            echo BRANCH_CREATED='false'
+            BRANCH_CREATED='false'
           else
             echo '---- 3 ----'
             git checkout -b $GIT_BRANCH_FOR_PACKAGES_UPGRADES
