@@ -28,38 +28,40 @@ jobs:
           git config user.name "🤖 DailyBot"
           git config user.email "ops@dailybot.com"
       - name: Step 2 - ⚙️ Download changes from branch with upgrades
+        id: creating_pr_step
         run: |
           git checkout -B $GIT_BRANCH_FOR_PACKAGES_UPGRADES
-          git pull origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES || true
-      - name: Step 3 - ⚙️ Install Dependencies
+          BRANCH_CREATED=git pull origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false'
+          echo "branch_created=$BRANCH_CREATED" >> $GITHUB_OUTPUT
+      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
+        name: Step 3 - ⚙️ Install Dependencies
         run: npm install
-      - name: Step 4 - Check Packages Versions
+      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
+        name: Step 4 - Check Packages Versions
         run: npm run ncu:upgrade
-      - name: Step 4 - ⚙️ Re-install dependencies with upgrades
+      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
+        name: Step 4 - ⚙️ Re-install dependencies with upgrades
         run: npm install
-      - name: Step 5 - Check Git Status
+      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
+        name: Step 5 - Check Git Status
         id: check_git_status_step
         run: |
           CHANGES=$(git status --porcelain | tr '\n' ' ' | tr -d '\r')
-          echo 'New changes:'
-          echo $CHANGES
           echo "git_changes=$CHANGES" >> $GITHUB_OUTPUT
-      - name: Step 6 - Commit and push changes to repository branch
+      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' || !steps.check_git_status_step.outputs.git_changes }}
+        name: Step 6 - Commit and push changes to repository branch
         run: |
-          if [[ -n "${{ steps.check_git_status_step.outputs.git_changes }}" ]]; then
-            git commit -am "Upgrading packages versions"
-            git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES
-          else
-            echo "There are no changes in the repository"
-          fi
-      - name: Step 7 - Creating pull request
+          git commit -am "Upgrading packages versions"
+          git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' || !steps.check_git_status_step.outputs.git_changes }}
+        name: Step 7 - Creating pull request
+        id: creating_pull_request_step
         run: |
-          if [[ -n "${{ steps.check_git_status_step.outputs.git_changes }}" ]]; then
-            gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
-            gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'true'
-          else
-            echo "There are no changes in the repository"
-          fi
+          gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
+          PR_CREATED=gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false'
+          echo pr_created=$PR_CREATED" >> $GITHUB_OUTPUT
 
     outputs:
+      branch_created: ${{ steps.creating_pr_step.outputs.branch_created }}
       git_changes: ${{ steps.check_git_status_step.outputs.git_changes }}
+      pr_created: ${{ steps.creating_pull_request_step.outputs.pr_created }}
