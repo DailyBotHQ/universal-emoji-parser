@@ -30,11 +30,12 @@ jobs:
       - name: Step 2 - ⚙️ Download changes from branch with upgrades
         id: creating_pr_step
         run: |
-          BRANCH_CREATED=$(git checkout -b $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
-          if [ "$BRANCH_CREATED" != 'false' ]; then
-            BRANCH_CREATED='true'
+          BRANCH_CREATED='true'
+          if git ls-remote --quiet --heads origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES; then
+            echo BRANCH_CREATED='false'
+          else
+            git checkout -b $GIT_BRANCH_FOR_PACKAGES_UPGRADES
           fi
-          echo "BRANCH_CREATED=${BRANCH_CREATED}"
           echo "branch_created=$BRANCH_CREATED" >> $GITHUB_OUTPUT
       - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 3 - ⚙️ Install Dependencies
@@ -54,7 +55,7 @@ jobs:
             CHANGES_APPLIED='true'
           fi
           echo "changes_applied=$CHANGES_APPLIED" >> $GITHUB_OUTPUT
-      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
         id: git_commit_and_push_changes_step
         name: Step 6 - Commit and push changes to repository branch
         run: |
@@ -64,7 +65,7 @@ jobs:
             GIT_CHANGES_PUSHED='true'
           fi
           echo "git_changes_pushed=$GIT_CHANGES_PUSHED" >> $GITHUB_OUTPUT
-      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
         name: Step 7 - Creating pull request
         id: creating_pull_request_step
         run: |
