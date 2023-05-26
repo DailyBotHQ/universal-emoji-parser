@@ -45,7 +45,9 @@ jobs:
           echo "branch_created=$BRANCH_CREATED" >> $GITHUB_OUTPUT
       - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 3 - ⚙️ Install Dependencies
-        run: npm install
+        run: |
+          echo ${{ steps.creating_pr_step.outputs.branch_created }}
+          npm install
       - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 4 - Check Packages Versions
         run: npm run ncu:upgrade
