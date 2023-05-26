@@ -56,7 +56,7 @@ jobs:
         run: |
           if [[ -n "${{ steps.check_git_status_step.outputs.git_changes }}" ]]; then
             gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
-            gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+            gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'true'
           else
             echo "There are no changes in the repository"
           fi
