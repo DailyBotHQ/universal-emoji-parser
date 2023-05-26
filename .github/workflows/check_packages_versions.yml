@@ -36,16 +36,16 @@ jobs:
           fi
           echo "BRANCH_CREATED=${BRANCH_CREATED}"
           echo "branch_created=$BRANCH_CREATED" >> $GITHUB_OUTPUT
-      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 3 - ⚙️ Install Dependencies
         run: npm install
-      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 4 - Check Packages Versions
         run: npm run ncu:upgrade
-      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 4 - ⚙️ Re-install dependencies with upgrades
         run: npm install
-      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 5 - Check Git Status
         id: check_git_status_step
         run: |
@@ -54,7 +54,7 @@ jobs:
             CHANGES_APPLIED='true'
           fi
           echo "changes_applied=$CHANGES_APPLIED" >> $GITHUB_OUTPUT
-      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' && steps.check_git_status_step.outputs.changes_applied != 'false' }}
+      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
         id: git_commit_and_push_changes_step
         name: Step 6 - Commit and push changes to repository branch
         run: |
@@ -64,7 +64,7 @@ jobs:
             GIT_CHANGES_PUSHED='true'
           fi
           echo "git_changes_pushed=$GIT_CHANGES_PUSHED" >> $GITHUB_OUTPUT
-      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' && steps.check_git_status_step.outputs.changes_applied != 'false' }}
+      - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
         name: Step 7 - Creating pull request
         id: creating_pull_request_step
         run: |
