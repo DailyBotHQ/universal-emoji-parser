@@ -63,24 +63,14 @@ jobs:
         name: Step 6 - Commit and push changes to repository branch
         run: |
           git commit -am "Upgrading packages versions"
-          GIT_CHANGES_PUSHED=$(git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
-          if [ "$GIT_CHANGES_PUSHED" != 'false' ]; then
-            GIT_CHANGES_PUSHED='true'
-          fi
-          echo "git_changes_pushed=$GIT_CHANGES_PUSHED" >> $GITHUB_OUTPUT
+          git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES
       - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
         name: Step 7 - Creating pull request
         id: creating_pull_request_step
         run: |
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
-          PR_CREATED=$(gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
-          f [ $PR_CREATED != 'false' ]; then
-            PR_CREATED='true'
-          fi
-          echo pr_created=$PR_CREATED" >> $GITHUB_OUTPUT
+          gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
 
     outputs:
       branch_created: ${{ steps.creating_pr_step.outputs.branch_created }}
       changes_applied: ${{ steps.check_git_status_step.outputs.changes_applied }}
-      git_changes_pushed: ${{ steps.git_commit_and_push_changes_step.outputs.git_changes_pushed }}
-      pr_created: ${{ steps.creating_pull_request_step.outputs.pr_created }}
