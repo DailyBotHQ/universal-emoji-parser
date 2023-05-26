@@ -31,6 +31,7 @@ jobs:
         id: creating_pr_step
         run: |
           BRANCH_CREATED=$(git checkout -b $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
+          echo "BRANCH_CREATED=${BRANCH_CREATED}"
           echo "branch_created=$BRANCH_CREATED" >> $GITHUB_OUTPUT
       - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
         name: Step 3 - ⚙️ Install Dependencies
@@ -46,6 +47,7 @@ jobs:
         id: check_git_status_step
         run: |
           CHANGES_APPLIED=$(git status --porcelain | tr '\n' ' ' | tr -d '\r')
+          echo "CHANGES_APPLIED=${CHANGES_APPLIED}"
           echo "changes_applied=$CHANGES_APPLIED" >> $GITHUB_OUTPUT
       - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' && steps.check_git_status_step.outputs.changes_applied != 'false' }}
         id: git_commit_and_push_changes_step
@@ -53,6 +55,7 @@ jobs:
         run: |
           git commit -am "Upgrading packages versions"
           GIT_CHANGES_PUSHED=$(git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
+          echo "GIT_CHANGES_PUSHED=${GIT_CHANGES_PUSHED}"
           echo "git_changes_pushed=$GIT_CHANGES_PUSHED" >> $GITHUB_OUTPUT
       - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' && steps.check_git_status_step.outputs.changes_applied != 'false' }}
         name: Step 7 - Creating pull request
@@ -60,6 +63,7 @@ jobs:
         run: |
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
           PR_CREATED=$(gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
+          echo "PR_CREATED=${PR_CREATED}"
           echo pr_created=$PR_CREATED" >> $GITHUB_OUTPUT
 
     outputs:
