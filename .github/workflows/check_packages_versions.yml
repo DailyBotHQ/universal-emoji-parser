@@ -31,7 +31,7 @@ jobs:
         id: creating_pr_step
         run: |
           BRANCH_CREATED=$(git checkout -b $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
-          if [ $BRANCH_CREATED != 'false' ]; then
+          if [ "$BRANCH_CREATED" != 'false' ]; then
             BRANCH_CREATED='true'
           fi
           echo "BRANCH_CREATED=${BRANCH_CREATED}"
@@ -50,7 +50,7 @@ jobs:
         id: check_git_status_step
         run: |
           CHANGES_APPLIED=$(git status --porcelain | tr '\n' ' ' | tr -d '\r')
-          if [ $CHANGES_APPLIED != 'false' ]; then
+          if [ "$CHANGES_APPLIED" != 'false' ]; then
             CHANGES_APPLIED='true'
           fi
           echo "changes_applied=$CHANGES_APPLIED" >> $GITHUB_OUTPUT
@@ -60,7 +60,7 @@ jobs:
         run: |
           git commit -am "Upgrading packages versions"
           GIT_CHANGES_PUSHED=$(git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
-          if [ $GIT_CHANGES_PUSHED != 'false' ]; then
+          if [ "$GIT_CHANGES_PUSHED" != 'false' ]; then
             GIT_CHANGES_PUSHED='true'
           fi
           echo "git_changes_pushed=$GIT_CHANGES_PUSHED" >> $GITHUB_OUTPUT
