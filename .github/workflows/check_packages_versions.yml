@@ -3,7 +3,10 @@ name: Check Packages Versions
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 10 * * 1'
+
+env:
+  GIT_BRANCH_FOR_PACKAGES_UPGRADES: feature__packages_versions_update
 
 jobs:
   build:
@@ -14,6 +17,8 @@ jobs:
         node: ['18']
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
@@ -22,23 +27,49 @@ jobs:
         run: |
           git config user.name "🤖 DailyBot"
           git config user.email "ops@dailybot.com"
-      - name: Step 2 - ⚙️ Install Dependencies
-        run: npm install
-      - name: Step 3 - Check Packages Versions
+      - name: Step 2 - ⚙️ Download changes from branch with upgrades
+        id: creating_pr_step
+        run: |
+          BRANCH_CREATED='true'
+          if [ -n "$(git ls-remote --quiet --heads origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES)" ]; then
+            BRANCH_CREATED='false'
+          else
+            git checkout -b $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+          fi
+          echo "branch_created=$BRANCH_CREATED" >> $GITHUB_OUTPUT
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
+        name: Step 3 - ⚙️ Install Dependencies
+        run: |
+          echo ${{ steps.creating_pr_step.outputs.branch_created }}
+          npm install
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
+        name: Step 4 - Check Packages Versions
         run: npm run ncu:upgrade
-      - name: Step 4 - Check Git Status
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
+        name: Step 4 - ⚙️ Re-install dependencies with upgrades
+        run: npm install
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
+        name: Step 5 - Check Git Status
         id: check_git_status_step
         run: |
-          changes=$(git status --porcelain)
-          echo "git_changes=$changes" >> $GITHUB_OUTPUT
-
-          # Check git status changes
-          if [[ -n $changes ]]; then
-            echo "El repositorio tiene cambios."
-            echo "$changes"
-          else
-            echo "El repositorio no tiene cambios."
+          CHANGES_APPLIED=$(git status --porcelain | tr '\n' ' ' | tr -d '\r')
+          if [ "$CHANGES_APPLIED" != 'false' ]; then
+            CHANGES_APPLIED='true'
           fi
+          echo "changes_applied=$CHANGES_APPLIED" >> $GITHUB_OUTPUT
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
+        id: git_commit_and_push_changes_step
+        name: Step 6 - Commit and push changes to repository branch
+        run: |
+          git commit -am "Upgrading packages versions"
+          git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
+        name: Step 7 - Creating pull request
+        id: creating_pull_request_step
+        run: |
+          gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
+          gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
 
     outputs:
-      git_changes: ${{ steps.check_git_status_step.outputs.git_changes }}
+      branch_created: ${{ steps.creating_pr_step.outputs.branch_created }}
+      changes_applied: ${{ steps.check_git_status_step.outputs.changes_applied }}
