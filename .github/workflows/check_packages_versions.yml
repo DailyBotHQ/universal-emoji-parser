@@ -31,7 +31,6 @@ jobs:
         id: creating_pr_step
         run: |
           BRANCH_CREATED='true'
-          echo $(git ls-remote --quiet --heads origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES)
           if [ -n "$(git ls-remote --quiet --heads origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES)" ]; then
             BRANCH_CREATED='false'
           else
