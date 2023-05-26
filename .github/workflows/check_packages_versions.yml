@@ -31,11 +31,17 @@ jobs:
         id: creating_pr_step
         run: |
           BRANCH_CREATED='true'
+          echo $(git ls-remote --quiet --heads origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES)
+          echo '---- 1 ----'
           if git ls-remote --quiet --heads origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES; then
+            echo '---- 2 ----'
             echo BRANCH_CREATED='false'
           else
+            echo '---- 3 ----'
             git checkout -b $GIT_BRANCH_FOR_PACKAGES_UPGRADES
           fi
+          echo '---- 4 ----'
+          echo $BRANCH_CREATED
           echo "branch_created=$BRANCH_CREATED" >> $GITHUB_OUTPUT
       - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 3 - ⚙️ Install Dependencies
