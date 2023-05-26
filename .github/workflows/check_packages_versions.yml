@@ -31,7 +31,7 @@ jobs:
         id: creating_pr_step
         run: |
           git checkout -B $GIT_BRANCH_FOR_PACKAGES_UPGRADES
-          BRANCH_CREATED=$(git pull origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES) || 'false'
+          BRANCH_CREATED=$(git pull origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
           echo "branch_created=$BRANCH_CREATED" >> $GITHUB_OUTPUT
       - if: ${{ steps.creating_pr_step.outputs.branch_created != 'false' }}
         name: Step 3 - ⚙️ Install Dependencies
@@ -58,7 +58,7 @@ jobs:
         id: creating_pull_request_step
         run: |
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
-          PR_CREATED=$(gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES) || 'false'
+          PR_CREATED=$(gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES || 'false')
           echo pr_created=$PR_CREATED" >> $GITHUB_OUTPUT
 
     outputs:
