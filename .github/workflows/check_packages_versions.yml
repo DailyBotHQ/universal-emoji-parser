@@ -44,32 +44,33 @@ jobs:
           npm install
       - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 4 - Check Packages Versions
-        run: npm run ncu:upgrade
-      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
-        name: Step 4 - ⚙️ Re-install dependencies with upgrades
-        run: npm install
+        run: |
+          bash .github/scripts/get_packages_upgrades.sh
       - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 5 - Check Git Status
-        id: check_git_status_step
+        id: check_upgrades_available_step
         run: |
-          CHANGES_APPLIED=$(git status --porcelain | tr '\n' ' ' | tr -d '\r')
-          if [ "$CHANGES_APPLIED" != 'false' ]; then
-            CHANGES_APPLIED='true'
+          UPGRADES_AVAILABLE='false'
+          if [[ -f "packages_upgrades_output.txt" ]]; then
+            UPGRADES_AVAILABLE='true'
           fi
-          echo "changes_applied=$CHANGES_APPLIED" >> $GITHUB_OUTPUT
-      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
+          echo "upgrades_available=$UPGRADES_AVAILABLE" >> $GITHUB_OUTPUT
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_upgrades_available_step.outputs.upgrades_available == 'true' }}
+        name: Step 6 - ⚙️ Re-install dependencies with upgrades
+        run: npm install
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_upgrades_available_step.outputs.upgrades_available == 'true' }}
         id: git_commit_and_push_changes_step
-        name: Step 6 - Commit and push changes to repository branch
+        name: Step 7 - Commit and push changes to repository branch
         run: |
           git commit -am "Upgrading packages versions"
           git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES
-      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
-        name: Step 7 - Creating pull request
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_upgrades_available_step.outputs.upgrades_available == 'true' }}
+        name: Step 8 - Creating pull request
         id: creating_pull_request_step
         run: |
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
-          gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+          gh pr create --title "Upgrading packages versions" --body "$(cat packages_upgrades_output.txt)" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
 
     outputs:
       branch_created: ${{ steps.creating_pr_step.outputs.branch_created }}
-      changes_applied: ${{ steps.check_git_status_step.outputs.changes_applied }}
+      upgrades_available: ${{ steps.check_upgrades_available_step.outputs.upgrades_available }}

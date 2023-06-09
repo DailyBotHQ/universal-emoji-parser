@@ -181,7 +181,7 @@ jobs:
           git config user.email "ops@dailybot.com"
       - name: Step 3 - 📄 Set GitHub release content "BODY" env var
         run: |
-          bash get_github_release_log.sh
+          bash .github/scripts/get_github_release_log.sh
           if [[ ! -f git_logs_output.txt ]]; then
             echo "⚠️ No description found for release body content."
             exit 1
