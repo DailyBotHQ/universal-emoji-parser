@@ -9,7 +9,7 @@ env:
   GIT_BRANCH_FOR_PACKAGES_UPGRADES: feature__packages_versions_update
 
 jobs:
-  build:
+  check_packages_versions:
     name: 'Check Packages Versions'
     runs-on: ubuntu-latest
     strategy:
@@ -68,9 +68,42 @@ jobs:
         name: Step 8 - Creating pull request
         id: creating_pull_request_step
         run: |
+          PR_BODY=$(cat packages_upgrades_output.txt)
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
-          gh pr create --title "Upgrading packages versions" --body "$(cat packages_upgrades_output.txt)" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+          gh pr create --title "🤖 Upgrading packages versions" --body "$PR_BODY" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+          echo "pr_body=$PR_BODY" >> $GITHUB_OUTPUT
 
     outputs:
       branch_created: ${{ steps.creating_pr_step.outputs.branch_created }}
       upgrades_available: ${{ steps.check_upgrades_available_step.outputs.upgrades_available }}
+      pr_body: ${{ steps.creating_pull_request_step.outputs.pr_body }}
+
+  notify_packages_upgrades_on_channel:
+    needs: [check_packages_versions]
+    name: 'Notify on channel'
+    if: ${{ needs.check_packages_versions.outputs.upgrades_available == 'true' && needs.check_packages_versions.outputs.pr_body }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Step 1 - 🔔 Send notification on channel
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
+          NOTIFICATION_MESSAGE+="> *Repository:* $GITHUB_REPOSITORY"$'\n'
+          NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n'
+          NOTIFICATION_MESSAGE+="> *PR BODY CONTENT:* '\n'
+          PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".release_and_publish.outputs.pr_body")
+          NOTIFICATION_MESSAGE+="```$PR_BODY```"$'\n'
+          NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 NEW PACKAGES UPGRADES AVAILABLE:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+
+          JSON_DATA=$(jq -n \
+                        --arg msg "$NOTIFICATION_MESSAGE" \
+                        --arg channel "${{ vars.DAILYBOT_NOTIFICATION_DEV_CHANNEL }}" \
+                        '{message: $msg, target_channels: [$channel]}')
+          curl --location 'https://api.dailybot.com/v1/send-message/' \
+            --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
+            --header 'Content-Type: application/json' \
+            --data "$JSON_DATA"
