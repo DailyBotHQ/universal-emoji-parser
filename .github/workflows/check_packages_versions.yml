@@ -68,7 +68,7 @@ jobs:
         name: Step 8 - Creating pull request
         id: creating_pull_request_step
         run: |
-          PR_BODY=$(cat packages_upgrades_output.txt)
+          PR_BODY=$(cat packages_upgrades_output.txt | sed 's/%/%25/g; s/\r/%0D/g; s/\n/%0A/g')
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
           gh pr create --title "🤖 Upgrading packages versions" --body "$PR_BODY" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
           echo "pr_body=$PR_BODY" >> $GITHUB_OUTPUT
