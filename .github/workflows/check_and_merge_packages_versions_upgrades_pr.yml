@@ -1,0 +1,100 @@
+name: Check and Merge Packages Versions Upgrades PR
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 15 * * 1'
+
+env:
+  GIT_BRANCH_FOR_PACKAGES_UPGRADES: feature__packages_versions_update
+
+jobs:
+  check_packages_versions_upgrades_pr:
+    name: 'Check Packages Versions'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          registry-url: https://registry.npmjs.org/
+      - name: Step 1 - ⚙️ Setup GitHub Config
+        run: |
+          git config user.name "🤖 DailyBot"
+          git config user.email "ops@dailybot.com"
+          gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
+      - name: Step 2 - Check if there is any pr with packages upgrades available
+        id: check_upgrades_available_pr_step
+        run: |
+          PR_NUMBER=$(gh pr list -B main -s open -L 1 --json number,headRefName -q '.[] | select(.headRefName == "feature__packages_versions_update") | .number')
+          if [ -z "$PR_NUMBER" ]; then
+            echo "No open PRs from feature__packages_versions_update to main"
+            exit 0
+          fi
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+      - if: ${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}
+        name: Get PR body content
+        id: get_pr_body_content_step
+        run: |
+          PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
+          PR_BODY=$(gh pr view $PR_NUMBER --json body -q '.body')
+          echo $PR_BODY
+          echo "pr_body=$PR_BODY" >> $GITHUB_OUTPUT
+      - if: ${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}
+        name: Step 3 - Check PR mergeable state
+        id: check_pr_mergeable_state_step
+        run: |
+          PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
+          PR_DATA=$(gh api repos/:owner/:repo/pulls/$PR_NUMBER)
+          PR_MERGEABLE_STATE=$(echo "$PR_DATA" | jq -r '.pr_mergeable_state')
+          echo "pr_mergeable_state=$PR_MERGEABLE_STATE" >> $GITHUB_OUTPUT
+
+    outputs:
+      pr_number: ${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}
+      pr_body: ${{ steps.get_pr_body_content_step.outputs.pr_body }}
+      pr_mergeable_state: ${{ steps.check_pr_mergeable_state_step.outputs.pr_mergeable_state }}
+
+  notify_check_and_merge_packages_upgrades_pr_on_channel:
+    needs: [check_packages_versions_upgrades_pr]
+    name: 'Notify on channel'
+    if: ${{ needs.check_packages_versions_upgrades_pr.outputs.pr_number && needs.check_packages_versions_upgrades_pr.outputs.pr_mergeable_state }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Step 1 - 🔔 Send notification on channel
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
+          NOTIFICATION_MESSAGE+="> *Repository:* $GITHUB_REPOSITORY"$'\n'
+          NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n\n'
+          PR_NUMBER=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_number")
+          PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_body")
+          PR_MERGEABLE_STATE=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_mergeable_state")
+          PR_LINK="https://github.com/DailyBotHQ/universal-emoji-parser/pull/$PR_NUMBER"
+          NOTIFICATION_MESSAGE+="> *Pull request: <$PR_LINK|$PR_NUMBER>*"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request mergeable state:* $PR_MERGEABLE_STATE"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
+          NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
+          if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
+            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 PACKAGES UPGRADES PULL REQUEST MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          else
+            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here ⚠️ PACKAGES UPGRADES PULL REQUEST CANNOT BE MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          fi
+
+          JSON_DATA=$(jq -n \
+                        --arg msg "$NOTIFICATION_MESSAGE" \
+                        --arg channel "${{ vars.DAILYBOT_NOTIFICATION_DEV_CHANNEL }}" \
+                        '{message: $msg, target_channels: [$channel]}')
+
+          curl --location 'https://api.dailybot.com/v1/send-message/' \
+            --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
+            --header 'Content-Type: application/json' \
+            --data "$JSON_DATA"
