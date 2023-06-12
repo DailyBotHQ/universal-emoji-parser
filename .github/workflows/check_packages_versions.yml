@@ -96,7 +96,8 @@ jobs:
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n'
           NOTIFICATION_MESSAGE+="> *PR BODY CONTENT:*"$'\n'
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions.outputs.pr_body")
-          NOTIFICATION_MESSAGE+="```$PR_BODY```"
+          echo "$PR_BODY"
+          # NOTIFICATION_MESSAGE+="```$PR_BODY```"
           NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 NEW PACKAGES UPGRADES AVAILABLE:*"$'\n\n'"$NOTIFICATION_MESSAGE"
 
           JSON_DATA=$(jq -n \
