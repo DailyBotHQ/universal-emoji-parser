@@ -252,12 +252,13 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
-          NOTIFICATION_MESSAGE="*WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
-          NOTIFICATION_MESSAGE+="*Repository:* $GITHUB_REPOSITORY"$'\n'
-          NOTIFICATION_MESSAGE+="*User Actor:* $GITHUB_ACTOR"$'\n'
+          NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
+          NOTIFICATION_MESSAGE+="> *Repository:* $GITHUB_REPOSITORY"$'\n'
+          NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request:* <https://github.com/$GITHUB_REPOSITORY/pull/${{ github.event.pull_request.number }}|#${{github.event.pull_request.number}}>"$'\n'
           PACKAGE_VERSION=$(echo "${NEEDS_JSON}" | jq -r ".release_and_publish.outputs.package_version")
           if [ ! -z "$PACKAGE_VERSION" ]; then
-            NOTIFICATION_MESSAGE+="*New Version:* $PACKAGE_VERSION"$'\n'
+            NOTIFICATION_MESSAGE+="> *New Version:* $PACKAGE_VERSION"$'\n'
           fi
           NOTIFICATION_MESSAGE+="*Jobs:*"$'\n'
           INDEX=1
@@ -283,9 +284,9 @@ jobs:
           done
 
           if [ "$DEPLOYMENT_SUCCESS" == "true" ]; then
-            NOTIFICATION_MESSAGE="*#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 DEPLOYMENT SUCCESS:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 DEPLOYMENT SUCCESS:*"$'\n\n'"$NOTIFICATION_MESSAGE"
           else
-            NOTIFICATION_MESSAGE="*#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here ⚠️ DEPLOYMENT FAILED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here ⚠️ DEPLOYMENT FAILED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
           fi
 
           JSON_DATA=$(jq -n \
