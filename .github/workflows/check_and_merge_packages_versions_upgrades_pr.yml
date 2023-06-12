@@ -50,7 +50,7 @@ jobs:
         run: |
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
           PR_DATA=$(gh api repos/:owner/:repo/pulls/$PR_NUMBER)
-          PR_MERGEABLE_STATE=$(echo "$PR_DATA" | jq -r '.pr_mergeable_state')
+          PR_MERGEABLE_STATE=$(echo "$PR_DATA" | jq -r '.mergeable_state')
           echo "----- PR_MERGEABLE_STATE ----"
           echo $PR_MERGEABLE_STATE
           echo "pr_mergeable_state=$PR_MERGEABLE_STATE" >> $GITHUB_OUTPUT
