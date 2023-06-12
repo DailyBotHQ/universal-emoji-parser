@@ -9,7 +9,7 @@ env:
   GIT_BRANCH_FOR_PACKAGES_UPGRADES: feature__packages_versions_update
 
 jobs:
-  build:
+  check_packages_versions:
     name: 'Check Packages Versions'
     runs-on: ubuntu-latest
     strategy:
@@ -44,32 +44,73 @@ jobs:
           npm install
       - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 4 - Check Packages Versions
-        run: npm run ncu:upgrade
-      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
-        name: Step 4 - ⚙️ Re-install dependencies with upgrades
-        run: npm install
+        run: |
+          bash .github/scripts/get_packages_upgrades.sh
       - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' }}
         name: Step 5 - Check Git Status
-        id: check_git_status_step
+        id: check_upgrades_available_step
         run: |
-          CHANGES_APPLIED=$(git status --porcelain | tr '\n' ' ' | tr -d '\r')
-          if [ "$CHANGES_APPLIED" != 'false' ]; then
-            CHANGES_APPLIED='true'
+          UPGRADES_AVAILABLE='false'
+          if [[ -f "packages_upgrades_output.txt" ]]; then
+            UPGRADES_AVAILABLE='true'
           fi
-          echo "changes_applied=$CHANGES_APPLIED" >> $GITHUB_OUTPUT
-      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
+          echo "upgrades_available=$UPGRADES_AVAILABLE" >> $GITHUB_OUTPUT
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_upgrades_available_step.outputs.upgrades_available == 'true' }}
+        name: Step 6 - ⚙️ Re-install dependencies with upgrades
+        run: npm install
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_upgrades_available_step.outputs.upgrades_available == 'true' }}
         id: git_commit_and_push_changes_step
-        name: Step 6 - Commit and push changes to repository branch
+        name: Step 7 - Commit and push changes to repository branch
         run: |
           git commit -am "Upgrading packages versions"
           git push origin $GIT_BRANCH_FOR_PACKAGES_UPGRADES
-      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_git_status_step.outputs.changes_applied == 'true' }}
-        name: Step 7 - Creating pull request
+      - if: ${{ steps.creating_pr_step.outputs.branch_created == 'true' && steps.check_upgrades_available_step.outputs.upgrades_available == 'true' }}
+        name: Step 8 - Creating pull request
         id: creating_pull_request_step
         run: |
+          PR_BODY=$(cat packages_upgrades_output.txt)
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
-          gh pr create --title "Upgrading packages versions" --body "Upgrading packages versions body" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+          PR_LINK=$(gh pr create --title "🤖 Upgrading packages versions" --body "$PR_BODY" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES)
+          echo "$PR_LINK"
+          echo "pr_body=$(echo $PR_BODY | sed 's/\\n/\\\\n/g')" >> $GITHUB_OUTPUT
+          echo "pr_link=$(echo $PR_LINK)" >> $GITHUB_OUTPUT
 
     outputs:
       branch_created: ${{ steps.creating_pr_step.outputs.branch_created }}
-      changes_applied: ${{ steps.check_git_status_step.outputs.changes_applied }}
+      upgrades_available: ${{ steps.check_upgrades_available_step.outputs.upgrades_available }}
+      pr_body: ${{ steps.creating_pull_request_step.outputs.pr_body }}
+      pr_link: ${{ steps.creating_pull_request_step.outputs.pr_link }}
+
+  notify_packages_upgrades_on_channel:
+    needs: [check_packages_versions]
+    name: 'Notify on channel'
+    if: ${{ needs.check_packages_versions.outputs.upgrades_available == 'true' && needs.check_packages_versions.outputs.pr_body }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Step 1 - 🔔 Send notification on channel
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
+          NOTIFICATION_MESSAGE+="> *Repository:* $GITHUB_REPOSITORY"$'\n'
+          NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n\n'
+          PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions.outputs.pr_body")
+          PR_LINK=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions.outputs.pr_link")
+          PR_NUMBER=$(echo "$PR_LINK" | sed 's/https:\/\/github.com\/DailyBotHQ\/universal-emoji-parser\/pull\//#/g')
+          NOTIFICATION_MESSAGE+="> *Pull request: <$PR_LINK|$PR_NUMBER>*"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
+          NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
+          NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 @here NEW PACKAGES UPGRADES AVAILABLE*"$'\n\n'"$NOTIFICATION_MESSAGE"
+
+          JSON_DATA=$(jq -n \
+                        --arg msg "$NOTIFICATION_MESSAGE" \
+                        --arg channel "${{ vars.DAILYBOT_NOTIFICATION_DEV_CHANNEL }}" \
+                        '{message: $msg, target_channels: [$channel]}')
+
+          curl --location 'https://api.dailybot.com/v1/send-message/' \
+            --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
+            --header 'Content-Type: application/json' \
+            --data "$JSON_DATA"

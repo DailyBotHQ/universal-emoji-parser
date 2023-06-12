@@ -1,0 +1,43 @@
+name: Merge Packages Versions Upgrades PR
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 15 * * 1'
+
+env:
+  GIT_BRANCH_FOR_PACKAGES_UPGRADES: feature__packages_versions_update
+
+jobs:
+  merge_packages_versions_upgrades_pr_job:
+    name: 'Check Packages Versions'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          registry-url: https://registry.npmjs.org/
+      - name: Step 1 - ⚙️ Setup GitHub Config
+        run: |
+          git config user.name "🤖 DailyBot"
+          git config user.email "ops@dailybot.com"
+          gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
+      - name: Step 2 - Check if there is any pr with packages upgrades available
+        id: check_upgrades_available_pr_step
+        run: |
+          UPGRADES_AVAILABLE='false'
+          PR_NUMBER=$(gh pr list -B main -s open -L 1 --json number,headRefName -q '.[] | select(.headRefName == "feature__packages_versions_update") | .number')
+          if [ -z "$PR_NUMBER" ]; then
+            echo "No open PRs from feature__packages_versions_update to main"
+            exit 0
+          fi
+          echo "upgrades_available=$UPGRADES_AVAILABLE" >> $GITHUB_OUTPUT
+
+    outputs:
+      upgrades_available: ${{ steps.check_upgrades_available_pr_step.outputs.upgrades_available }}
