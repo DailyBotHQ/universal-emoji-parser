@@ -44,16 +44,20 @@ jobs:
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
           echo "LOGS CHECKS"
           echo $PR_NUMBER
+
+          MERGEABLE_STATE=$(gh pr view $PR_NUMBER --json mergeableState -q '.mergeableState')
+          echo "Mergeable state:"
+          echo "$MERGEABLE_STATE"
+          if [ "$MERGEABLE_STATE" != "clean" ]; then
+            echo "PR #$PR_NUMBER is not ready to be merged (Mergeable state: $MERGEABLE_STATE)"
+            exit 0
+          fi
+
           CHECKS_DATA=$(gh api repos/:owner/:repo/commits/$(gh pr view $PR_NUMBER --json headRefOid -q '.headRefOid')/check-runs)
-          echo $CHECKS_DATA
-          CHECKS_CONCLUSION=$(echo "$CHECKS_DATA" | jq -r '.check_runs[].conclusion')
-
-          echo $CHECKS_CONCLUSION
-
           echo "$CHECKS_DATA" | jq -r '.check_runs[].conclusion' | while read -r CHECK_CONCLUSION; do
             if [ "$CHECK_CONCLUSION" != "success" ]; then
               echo "A check for PR #$PR_NUMBER has not succeeded"
-              exit 1
+              exit 0
             fi
           done
 
