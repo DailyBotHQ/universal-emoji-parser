@@ -93,10 +93,10 @@ jobs:
         run: |
           NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Repository:* $GITHUB_REPOSITORY"$'\n'
-          NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n'
-          NOTIFICATION_MESSAGE+="> *PR BODY CONTENT:*"$'\n'
+          NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n\n'
+          NOTIFICATION_MESSAGE+="> *Pr body content:*"$'\n'
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions.outputs.pr_body")
-          NOTIFICATION_MESSAGE+="\`\`\`${PR_BODY}\`\`\`"
+          NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
           NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 NEW PACKAGES UPGRADES AVAILABLE:*"$'\n\n'"$NOTIFICATION_MESSAGE"
 
           JSON_DATA=$(jq -n \
