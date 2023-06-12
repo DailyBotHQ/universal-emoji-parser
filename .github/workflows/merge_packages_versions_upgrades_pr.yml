@@ -33,6 +33,8 @@ jobs:
         run: |
           UPGRADES_AVAILABLE='false'
           PR_NUMBER=$(gh pr list -B main -s open -L 1 --json number,headRefName -q '.[] | select(.headRefName == "feature__packages_versions_update") | .number')
+          echo "LOGS"
+          echo $PR_NUMBER
           if [ -z "$PR_NUMBER" ]; then
             echo "No open PRs from feature__packages_versions_update to main"
             exit 0
