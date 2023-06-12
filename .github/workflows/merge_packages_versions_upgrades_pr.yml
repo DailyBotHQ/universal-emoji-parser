@@ -45,7 +45,8 @@ jobs:
           echo "LOGS CHECKS"
           echo $PR_NUMBER
 
-          MERGEABLE_STATE=$(gh pr view $PR_NUMBER --json mergeableState -q '.mergeableState')
+          PR_DATA=$(gh api repos/:owner/:repo/pulls/$PR_NUMBER)
+          MERGEABLE_STATE=$(echo "$PR_DATA" | jq -r '.mergeable_state')
 
           if [ "$MERGEABLE_STATE" != "clean" ]; then
             echo "PR #$PR_NUMBER is not ready to be merged (Mergeable state: $MERGEABLE_STATE)"
