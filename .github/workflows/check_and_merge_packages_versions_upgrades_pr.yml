@@ -43,8 +43,7 @@ jobs:
         run: |
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
           PR_BODY=$(gh pr view $PR_NUMBER --json body -q '.body')
-          echo $PR_BODY
-          echo "pr_body=$PR_BODY" >> $GITHUB_OUTPUT
+          echo "pr_body=$(echo $PR_BODY | sed 's/\\n/\\\\n/g')" >> $GITHUB_OUTPUT
       - if: ${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}
         name: Step 3 - Check PR mergeable state
         id: check_pr_mergeable_state_step
