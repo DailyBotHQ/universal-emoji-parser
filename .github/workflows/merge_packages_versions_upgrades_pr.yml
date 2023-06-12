@@ -40,6 +40,26 @@ jobs:
             exit 0
           fi
           echo "upgrades_available=$UPGRADES_AVAILABLE" >> $GITHUB_OUTPUT
+      - if: ${{ steps.check_upgrades_available_pr_step.outputs.upgrades_available == 'true' }}
+        name: Step 3 - Check PR status and conclusion
+        id: check_pr_status_and_conclusion_step
+        run: |
+          echo "LOGS CHECKS"
+          CHECK_STATUS=$(gh pr checks $pr_number -q '.status')
+          echo "$CHECK_STATUS"
+          if [ "$CHECK_STATUS" != "completed" ]; then
+            echo "Checks for PR #$pr_number are not completed"
+            exit 0
+          fi
+
+          CHECK_CONCLUSION=$(gh pr checks $pr_number -q '.conclusion')
+          echo "$CHECK_STATUS"
+          if [ "$CHECK_CONCLUSION" != "success" ]; then
+            echo "Checks for PR #$pr_number have not succeeded"
+            exit 0
+          fi
+          echo "pr_checks_done='true'" >> $GITHUB_OUTPUT
 
     outputs:
       upgrades_available: ${{ steps.check_upgrades_available_pr_step.outputs.upgrades_available }}
+      pr_checks_done: ${{ steps.check_pr_status_and_conclusion_step.outputs.pr_checks_done }}
