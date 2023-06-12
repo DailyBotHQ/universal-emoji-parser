@@ -38,7 +38,7 @@ jobs:
           fi
           echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
       - if: ${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}
-        name: Step 3 - Check PR status and conclusion
+        name: Step 3 - Check PR status, conclusion and mergeability
         id: check_pr_status_and_conclusion_step
         run: |
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
@@ -46,8 +46,7 @@ jobs:
           echo $PR_NUMBER
 
           MERGEABLE_STATE=$(gh pr view $PR_NUMBER --json mergeableState -q '.mergeableState')
-          echo "Mergeable state:"
-          echo "$MERGEABLE_STATE"
+
           if [ "$MERGEABLE_STATE" != "clean" ]; then
             echo "PR #$PR_NUMBER is not ready to be merged (Mergeable state: $MERGEABLE_STATE)"
             exit 0
