@@ -51,8 +51,6 @@ jobs:
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
           PR_DATA=$(gh api repos/:owner/:repo/pulls/$PR_NUMBER)
           PR_MERGEABLE_STATE=$(echo "$PR_DATA" | jq -r '.mergeable_state')
-          echo "----- PR_MERGEABLE_STATE ----"
-          echo $PR_MERGEABLE_STATE
           echo "pr_mergeable_state=$PR_MERGEABLE_STATE" >> $GITHUB_OUTPUT
 
     outputs:
@@ -79,9 +77,23 @@ jobs:
           PR_NUMBER=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_number")
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_body")
           PR_MERGEABLE_STATE=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_mergeable_state")
+          PR_MERGEABLE_STATE_MESSAGE=""
+          if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="✅ Clean"
+          elif [ "$PR_MERGEABLE_STATE" == "dirty" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="🗑️ Dirty"
+          elif [ "$PR_MERGEABLE_STATE" == "blocked" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="🚫 Blocked"
+          elif [ "$PR_MERGEABLE_STATE" == "unknown" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="❓ Unknown"
+          elif [ "$PR_MERGEABLE_STATE" == "unstable" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="⚠️ Unstable"
+          elif [ "$PR_MERGEABLE_STATE" == "behind" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="🔁 Behind"
+          fi
           PR_LINK="https://github.com/$GITHUB_REPOSITORY/pull/$PR_NUMBER"
           NOTIFICATION_MESSAGE+="> *Pull request: <$PR_LINK|$PR_NUMBER>*"$'\n'
-          NOTIFICATION_MESSAGE+="> *Pull request mergeable state:* $PR_MERGEABLE_STATE"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request mergeable state:* $PR_MERGEABLE_STATE_MESSAGE"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
           NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
           if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
