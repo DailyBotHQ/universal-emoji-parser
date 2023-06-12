@@ -44,9 +44,10 @@ jobs:
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
           echo "LOGS CHECKS"
           echo $PR_NUMBER
-          CHECKS_DATA=$(gh api repos/:owner/:repo/commits/$(gh pr view $PR_NUMBER --json headSHA -q '.headSHA')/check-runs)
+          CHECKS_DATA=$(gh api repos/:owner/:repo/commits/$(gh pr view $PR_NUMBER --json headRefOid -q '.headRefOid')/check-runs)
           echo $CHECKS_DATA
           CHECKS_CONCLUSION=$(echo "$CHECKS_DATA" | jq -r '.check_runs[].conclusion')
+
           echo $CHECKS_CONCLUSION
 
           if [ "$CHECKS_CONCLUSION" != "success" ]; then
