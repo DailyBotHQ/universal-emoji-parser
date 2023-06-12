@@ -70,14 +70,16 @@ jobs:
         run: |
           PR_BODY=$(cat packages_upgrades_output.txt)
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
-          PR_RESULT=$(gh pr create --title "🤖 Upgrading packages versions" --body "$PR_BODY" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES)
-          echo $PR_RESULT
+          PR_LINK=$(gh pr create --title "🤖 Upgrading packages versions" --body "$PR_BODY" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES)
+          echo "$PR_LINK"
           echo "pr_body=$(echo $PR_BODY | sed 's/\\n/\\\\n/g')" >> $GITHUB_OUTPUT
+          echo "pr_link=$(echo $PR_LINK)" >> $GITHUB_OUTPUT
 
     outputs:
       branch_created: ${{ steps.creating_pr_step.outputs.branch_created }}
       upgrades_available: ${{ steps.check_upgrades_available_step.outputs.upgrades_available }}
       pr_body: ${{ steps.creating_pull_request_step.outputs.pr_body }}
+      pr_link: ${{ steps.creating_pull_request_step.outputs.pr_link }}
 
   notify_packages_upgrades_on_channel:
     needs: [check_packages_versions]
@@ -95,8 +97,10 @@ jobs:
           NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Repository:* $GITHUB_REPOSITORY"$'\n'
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n\n'
-          NOTIFICATION_MESSAGE+="> *Pr body content:*"$'\n'
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions.outputs.pr_body")
+          PR_LINK=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions.outputs.pr_link")
+          NOTIFICATION_MESSAGE+="> *Pr link:* $PR_LINK"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pr body content:*"$'\n'
           NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
           NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 NEW PACKAGES UPGRADES AVAILABLE*"$'\n\n'"$NOTIFICATION_MESSAGE"
 
