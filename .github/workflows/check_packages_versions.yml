@@ -70,7 +70,8 @@ jobs:
         run: |
           PR_BODY=$(cat packages_upgrades_output.txt)
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
-          gh pr create --title "🤖 Upgrading packages versions" --body "$PR_BODY" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES
+          PR_RESULT=$(gh pr create --title "🤖 Upgrading packages versions" --body "$PR_BODY" --base main --head $GIT_BRANCH_FOR_PACKAGES_UPGRADES)
+          echo $PR_RESULT
           echo "pr_body=$(echo $PR_BODY | sed 's/\\n/\\\\n/g')" >> $GITHUB_OUTPUT
 
     outputs:
@@ -97,7 +98,7 @@ jobs:
           NOTIFICATION_MESSAGE+="> *Pr body content:*"$'\n'
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions.outputs.pr_body")
           NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
-          NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 NEW PACKAGES UPGRADES AVAILABLE:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 NEW PACKAGES UPGRADES AVAILABLE*"$'\n\n'"$NOTIFICATION_MESSAGE"
 
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
