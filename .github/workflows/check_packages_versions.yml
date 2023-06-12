@@ -94,6 +94,8 @@ jobs:
           NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Repository:* $GITHUB_REPOSITORY"$'\n'
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n'
+          NOTIFICATION_MESSAGE+="> *PR BODY CONTENT:* '\n'
+          PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".release_and_publish.outputs.pr_body")
 
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
