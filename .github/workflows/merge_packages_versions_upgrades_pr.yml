@@ -50,10 +50,13 @@ jobs:
 
           echo $CHECKS_CONCLUSION
 
-          if [ "$CHECKS_CONCLUSION" != "success" ]; then
-            echo "Checks for PR #$PR_NUMBER have not succeeded"
-            exit 0
-          fi
+          echo "$CHECKS_DATA" | jq -r '.check_runs[].conclusion' | while read -r CHECK_CONCLUSION; do
+            if [ "$CHECK_CONCLUSION" != "success" ]; then
+              echo "A check for PR #$PR_NUMBER has not succeeded"
+              exit 1
+            fi
+          done
+
           echo "pr_checks_done='true'" >> $GITHUB_OUTPUT
 
     outputs:
