@@ -1,4 +1,4 @@
-name: Check and Merge Packages Versions Upgrades PR
+name: Check and Merge Packages Upgrades PR
 
 on:
   workflow_dispatch:
@@ -43,15 +43,14 @@ jobs:
         run: |
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
           PR_BODY=$(gh pr view $PR_NUMBER --json body -q '.body')
-          echo $PR_BODY
-          echo "pr_body=$PR_BODY" >> $GITHUB_OUTPUT
+          echo "pr_body=$(echo $PR_BODY | sed 's/\\n/\\\\n/g')" >> $GITHUB_OUTPUT
       - if: ${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}
         name: Step 3 - Check PR mergeable state
         id: check_pr_mergeable_state_step
         run: |
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
           PR_DATA=$(gh api repos/:owner/:repo/pulls/$PR_NUMBER)
-          PR_MERGEABLE_STATE=$(echo "$PR_DATA" | jq -r '.pr_mergeable_state')
+          PR_MERGEABLE_STATE=$(echo "$PR_DATA" | jq -r '.mergeable_state')
           echo "pr_mergeable_state=$PR_MERGEABLE_STATE" >> $GITHUB_OUTPUT
 
     outputs:
@@ -73,20 +72,34 @@ jobs:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
           NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
-          NOTIFICATION_MESSAGE+="> *Repository:* $GITHUB_REPOSITORY"$'\n'
+          NOTIFICATION_MESSAGE+="> *Repository:* <https://github.com/$GITHUB_REPOSITORY|$GITHUB_REPOSITORY>"$'\n'
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n\n'
           PR_NUMBER=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_number")
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_body")
           PR_MERGEABLE_STATE=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_mergeable_state")
-          PR_LINK="https://github.com/DailyBotHQ/universal-emoji-parser/pull/$PR_NUMBER"
+          PR_MERGEABLE_STATE_MESSAGE=""
+          if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="✅ Clean"
+          elif [ "$PR_MERGEABLE_STATE" == "dirty" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="🗑️ Dirty"
+          elif [ "$PR_MERGEABLE_STATE" == "blocked" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="🚫 Blocked"
+          elif [ "$PR_MERGEABLE_STATE" == "unknown" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="❓ Unknown"
+          elif [ "$PR_MERGEABLE_STATE" == "unstable" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="⚠️ Unstable"
+          elif [ "$PR_MERGEABLE_STATE" == "behind" ]; then
+            PR_MERGEABLE_STATE_MESSAGE="🔁 Behind"
+          fi
+          PR_LINK="https://github.com/$GITHUB_REPOSITORY/pull/$PR_NUMBER"
           NOTIFICATION_MESSAGE+="> *Pull request: <$PR_LINK|$PR_NUMBER>*"$'\n'
-          NOTIFICATION_MESSAGE+="> *Pull request mergeable state:* $PR_MERGEABLE_STATE"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request mergeable state:* $PR_MERGEABLE_STATE_MESSAGE"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
           NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
           if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
             NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 PACKAGES UPGRADES PULL REQUEST MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           else
-            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here ⚠️ PACKAGES UPGRADES PULL REQUEST CANNOT BE MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - ⚠️ PACKAGES UPGRADES PULL REQUEST CANNOT BE MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           fi
 
           JSON_DATA=$(jq -n \
