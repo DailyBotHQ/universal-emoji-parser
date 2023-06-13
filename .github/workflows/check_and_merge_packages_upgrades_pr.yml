@@ -51,6 +51,10 @@ jobs:
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
           PR_DATA=$(gh api repos/:owner/:repo/pulls/$PR_NUMBER)
           PR_MERGEABLE_STATE=$(echo "$PR_DATA" | jq -r '.mergeable_state')
+          if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
+            PR_MERGE_RESULT=$(gh pr merge $PR_NUMBER --merge)
+            echo $PR_MERGE_RESULT
+          fi
           echo "pr_mergeable_state=$PR_MERGEABLE_STATE" >> $GITHUB_OUTPUT
 
     outputs:
@@ -99,7 +103,7 @@ jobs:
           if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
             NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 PACKAGES UPGRADES PULL REQUEST MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           else
-            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - ⚠️ PACKAGES UPGRADES PULL REQUEST CANNOT BE MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here ⚠️ PACKAGES UPGRADES PULL REQUEST CANNOT BE MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           fi
 
           JSON_DATA=$(jq -n \
