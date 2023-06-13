@@ -1,4 +1,4 @@
-name: Check and Merge Packages Upgrades PR
+name: Check & Merge Packages Upgrades PR
 
 on:
   workflow_dispatch:
