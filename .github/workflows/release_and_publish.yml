@@ -12,6 +12,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  notify_on_channel_start:
+    name: 'Notify on channel - Start'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - 🔔 Send notification on channel
+        run: |
+          NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
+          NOTIFICATION_MESSAGE+="> *Repository:* <https://github.com/$GITHUB_REPOSITORY|$GITHUB_REPOSITORY>"$'\n'
+          NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request:* <https://github.com/$GITHUB_REPOSITORY/pull/${{ github.event.pull_request.number }}|#${{github.event.pull_request.number}}>"$'\n'
+          NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🏁 DEPLOYMENT STARTED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          JSON_DATA=$(jq -n \
+                        --arg msg "$NOTIFICATION_MESSAGE" \
+                        --arg channel "${{ vars.DAILYBOT_NOTIFICATION_LIVE_CHANNEL }}" \
+                        '{message: $msg, target_channels: [$channel]}')
+          curl --location 'https://api.dailybot.com/v1/send-message/' \
+            --header "X-API-KEY: ${{ secrets.DAILYBOT_API_KEY }}" \
+            --header 'Content-Type: application/json' \
+            --data "$JSON_DATA"
+
   deploy_setup:
     if: github.event.pull_request.merged == true
     name: 'Deploy - Setup Application'
@@ -238,10 +258,10 @@ jobs:
                 "client_payload": {}
             }'
 
-  notify_on_channel:
+  notify_on_channel_end:
     needs:
       [deploy_setup, deploy_validate_linters_and_code_format, deploy_tests, build, release_and_publish, cleanup_caches]
-    name: 'Notify on channel'
+    name: 'Notify on channel - End'
     if: always() && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
