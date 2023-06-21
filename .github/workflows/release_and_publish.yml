@@ -13,6 +13,7 @@ concurrency:
 
 jobs:
   get_pr_body_content:
+    if: github.event.pull_request.merged == true
     name: 'Get PR body content'
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +32,8 @@ jobs:
       pr_body: ${{ steps.get_pr_body_content_step.outputs.pr_body }}
 
   notify_on_channel_start:
-    needs: [get_pr_body_content]
+    if: github.event.pull_request.merged == true
+    needs: get_pr_body_content
     name: 'Notify on channel - Start'
     runs-on: ubuntu-latest
     steps:
@@ -61,6 +63,7 @@ jobs:
 
   deploy_setup:
     if: github.event.pull_request.merged == true
+    needs: notify_on_channel_start
     name: 'Deploy - Setup Application'
     runs-on: ubuntu-latest
     strategy:
