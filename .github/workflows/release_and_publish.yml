@@ -50,7 +50,7 @@ jobs:
           NOTIFICATION_MESSAGE+="> *Pull request:* <https://github.com/$GITHUB_REPOSITORY/pull/${{ github.event.pull_request.number }}|#${{github.event.pull_request.number}}>"$'\n'
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".get_pr_body_content.outputs.pr_body")
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
-          NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/↳/\n↳/g')\`\`\`"
+          NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/↳/\n↳/g')\`\`\`"
           NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🏁 DEPLOYMENT STARTED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
