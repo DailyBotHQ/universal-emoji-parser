@@ -12,17 +12,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  get_pr_body_content:
+    name: 'Get PR body content'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Step 1 - ⚙️ Setup GitHub Config
+        run: |
+          gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
+      - name: Step 1 - Get PR body content
+        id: get_pr_body_content_step
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PR_BODY=$(gh pr view $PR_NUMBER --json body -q '.body')
+          echo "pr_body=$(echo $PR_BODY | sed 's/\\n/↳/g')" >> $GITHUB_OUTPUT
+
+    outputs:
+      pr_body: ${{ steps.get_pr_body_content_step.outputs.pr_body }}
+
   notify_on_channel_start:
+    needs: [get_pr_body_content]
     name: 'Notify on channel - Start'
     runs-on: ubuntu-latest
     steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Step 1 - 🔔 Send notification on channel
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
           NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Repository:* <https://github.com/$GITHUB_REPOSITORY|$GITHUB_REPOSITORY>"$'\n'
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request:* <https://github.com/$GITHUB_REPOSITORY/pull/${{ github.event.pull_request.number }}|#${{github.event.pull_request.number}}>"$'\n'
-          NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🏁 DEPLOYMENT STARTED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".get_pr_body_content.outputs.pr_body")
+          NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
+          NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
+          NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🏁 DEPLOYMENT STARTED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
                         --arg channel "${{ vars.DAILYBOT_NOTIFICATION_LIVE_CHANNEL }}" \
@@ -260,7 +287,15 @@ jobs:
 
   notify_on_channel_end:
     needs:
-      [deploy_setup, deploy_validate_linters_and_code_format, deploy_tests, build, release_and_publish, cleanup_caches]
+      [
+        get_pr_body_content,
+        deploy_setup,
+        deploy_validate_linters_and_code_format,
+        deploy_tests,
+        build,
+        release_and_publish,
+        cleanup_caches,
+      ]
     name: 'Notify on channel - End'
     if: always() && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
@@ -280,6 +315,9 @@ jobs:
             NOTIFICATION_MESSAGE+="> *New Version:* $PACKAGE_VERSION"$'\n'
           fi
           NOTIFICATION_MESSAGE+="> *Pull request:* <https://github.com/$GITHUB_REPOSITORY/pull/${{ github.event.pull_request.number }}|#${{github.event.pull_request.number}}>"$'\n'
+          PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".get_pr_body_content.outputs.pr_body")
+          NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
+          NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/↳/\n↳/g')\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="*Jobs:*"$'\n'
           INDEX=1
           NEEDS_ORDER=("deploy_setup" "deploy_validate_linters_and_code_format" "deploy_tests" "build" "release_and_publish" "cleanup_caches")
@@ -304,9 +342,9 @@ jobs:
           done
 
           if [ "$DEPLOYMENT_SUCCESS" == "true" ]; then
-            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 DEPLOYMENT SUCCESS:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 DEPLOYMENT SUCCESS*"$'\n\n'"$NOTIFICATION_MESSAGE"
           else
-            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here ⚠️ DEPLOYMENT FAILED:*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here ⚠️ DEPLOYMENT FAILED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           fi
 
           JSON_DATA=$(jq -n \
