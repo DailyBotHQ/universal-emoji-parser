@@ -26,6 +26,8 @@ jobs:
         run: |
           PR_NUMBER="${{ github.event.pull_request.number }}"
           PR_BODY=$(gh pr view $PR_NUMBER --json body -q '.body')
+          echo "PR_BODY"
+          echo $PR_BODY
           echo "pr_body=$(echo $PR_BODY | sed 's/\\n/↳/g')" >> $GITHUB_OUTPUT
 
     outputs:
