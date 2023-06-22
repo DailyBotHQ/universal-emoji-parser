@@ -42,7 +42,7 @@ jobs:
         id: get_pr_body_content_step
         run: |
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
-          PR_TITLE=$(gh pr view $PR_NUMBER --json body -q '.title')
+          PR_TITLE=$(gh pr view $PR_NUMBER --json title -q '.title')
           PR_BODY=$(gh pr view $PR_NUMBER --json body -q '.body')
           echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
           echo "pr_body=$(echo $PR_BODY | sed 's/\\n/\\\\n/g')" >> $GITHUB_OUTPUT
@@ -107,9 +107,9 @@ jobs:
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
           if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
-            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 PACKAGES UPGRADES PULL REQUEST MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="> *👉 #$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 PACKAGES UPGRADES PULL REQUEST MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           else
-            NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here ⚠️ PACKAGES UPGRADES PULL REQUEST CANNOT BE MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
+            NOTIFICATION_MESSAGE="> *👉 #$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here ⚠️ PACKAGES UPGRADES PULL REQUEST CANNOT BE MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           fi
 
           JSON_DATA=$(jq -n \
