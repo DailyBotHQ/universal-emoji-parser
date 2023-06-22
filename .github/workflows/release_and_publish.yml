@@ -329,8 +329,10 @@ jobs:
           fi
           NOTIFICATION_MESSAGE+="> *Pull request:* <https://github.com/$GITHUB_REPOSITORY/pull/${{ github.event.pull_request.number }}|#${{github.event.pull_request.number}}>"$'\n'
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".get_pr_body_content.outputs.pr_body")
+          PR_BODY=$(echo $PR_BODY | sed 's/↳/\n/g')
+          PR_BODY=$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
-          NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/↳/\n↳/g')\`\`\`"$'\n'
+          NOTIFICATION_MESSAGE+="> \`\`\`$PR_BODY\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="*Jobs:*"$'\n'
           INDEX=1
           NEEDS_ORDER=("deploy_setup" "deploy_validate_linters_and_code_format" "deploy_tests" "build" "release_and_publish" "cleanup_caches")
