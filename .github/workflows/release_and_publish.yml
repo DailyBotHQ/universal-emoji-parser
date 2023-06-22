@@ -333,8 +333,8 @@ jobs:
           NOTIFICATION_MESSAGE+="> *Pull request:* <https://github.com/$GITHUB_REPOSITORY/pull/${{ github.event.pull_request.number }}|#${{github.event.pull_request.number}}>"$'\n'
           PR_TITLE=$(echo "${NEEDS_JSON}" | jq -r ".get_pr_body_content.outputs.pr_title")
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".get_pr_body_content.outputs.pr_body")
-          PR_BODY=$(echo $PR_BODY | sed 's ?/↳/\n/g')
-          PR_BODY=$(echo $PR_BODY | sed 's ?/⬆️/\n⬆️/g')
+          PR_BODY=$(echo $PR_BODY | sed 's/↳ ?/\n/g')
+          PR_BODY=$(echo $PR_BODY | sed 's/⬆️ ?/\n⬆️/g')
           NOTIFICATION_MESSAGE+="> *Pull request title:* $PR_TITLE"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`$PR_BODY\`\`\`"$'\n'
