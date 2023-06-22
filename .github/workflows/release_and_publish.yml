@@ -306,8 +306,8 @@ jobs:
           NOTIFICATION_MESSAGE+="> *Pull request title:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`🚩 $PR_TITLE\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
-          NOTIFICATION_MESSAGE+="> \`\`\`$PR_BODY\`\`\`"$'\n'
-          NOTIFICATION_MESSAGE+="*Jobs:*"$'\n'
+          NOTIFICATION_MESSAGE+="> \`\`\`$PR_BODY\`\`\`"$'\n\n'
+          NOTIFICATION_MESSAGE+="> *Jobs:*"$'\n'
           INDEX=1
           NEEDS_ORDER=("deploy_setup" "deploy_validate_linters_and_code_format" "deploy_tests" "build" "release_and_publish" "cleanup_caches")
           DEPLOYMENT_SUCCESS="true"
@@ -326,7 +326,7 @@ jobs:
               DEPLOYMENT_SUCCESS="false"
               EMOJI="❓"
             fi
-            NOTIFICATION_MESSAGE+="• *Job $INDEX:* $key $EMOJI"$'\n'
+            NOTIFICATION_MESSAGE+="> • *Job $INDEX:* $key $EMOJI"$'\n'
             INDEX=$((INDEX+1))
           done
 
