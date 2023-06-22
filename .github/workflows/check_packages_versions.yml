@@ -99,7 +99,7 @@ jobs:
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n\n'
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions.outputs.pr_body")
           PR_LINK=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions.outputs.pr_link")
-          PR_NUMBER=$(echo "$PR_LINK" | sed 's/https:\/\/github.com\/DailyBotHQ\/universal-emoji-parser\/pull\//#/g')
+          PR_NUMBER=$(echo "$PR_LINK" | sed -n 's/.*\/pull\/\([0-9]*\)$/\1/p')
           NOTIFICATION_MESSAGE+="> *Pull request: <$PR_LINK|$PR_NUMBER>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
           NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"

@@ -99,7 +99,7 @@ jobs:
           NOTIFICATION_MESSAGE+="> *Pull request: <$PR_LINK|$PR_NUMBER>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request mergeable state:* $PR_MERGEABLE_STATE_MESSAGE"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
-          NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
+          NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
           if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
             NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🚀 PACKAGES UPGRADES PULL REQUEST MERGED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           else
@@ -108,7 +108,7 @@ jobs:
 
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
-                        --arg channel "${{ vars.DAILYBOT_NOTIFICATION_DEV_CHANNEL }}" \
+                        --arg channel "${{ vars.DAILYBOT_NOTIFICATION_LIVE_CHANNEL }}" \
                         '{message: $msg, target_channels: [$channel]}')
 
           curl --location 'https://api.dailybot.com/v1/send-message/' \
