@@ -42,7 +42,9 @@ jobs:
         id: get_pr_body_content_step
         run: |
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
+          PR_TITLE=$(gh pr view $PR_NUMBER --json body -q '.title')
           PR_BODY=$(gh pr view $PR_NUMBER --json body -q '.body')
+          echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
           echo "pr_body=$(echo $PR_BODY | sed 's/\\n/\\\\n/g')" >> $GITHUB_OUTPUT
       - if: ${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}
         name: Step 3 - Check PR mergeable state
@@ -59,6 +61,7 @@ jobs:
 
     outputs:
       pr_number: ${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}
+      pr_title: ${{ steps.get_pr_body_content_step.outputs.pr_title }}
       pr_body: ${{ steps.get_pr_body_content_step.outputs.pr_body }}
       pr_mergeable_state: ${{ steps.check_pr_mergeable_state_step.outputs.pr_mergeable_state }}
 
@@ -79,6 +82,7 @@ jobs:
           NOTIFICATION_MESSAGE+="> *Repository:* <https://github.com/$GITHUB_REPOSITORY|$GITHUB_REPOSITORY>"$'\n'
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n\n'
           PR_NUMBER=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_number")
+          PR_TITLE=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_title")
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_body")
           PR_MERGEABLE_STATE=$(echo "${NEEDS_JSON}" | jq -r ".check_packages_versions_upgrades_pr.outputs.pr_mergeable_state")
           PR_MERGEABLE_STATE_MESSAGE=""
@@ -98,6 +102,7 @@ jobs:
           PR_LINK="https://github.com/$GITHUB_REPOSITORY/pull/$PR_NUMBER"
           NOTIFICATION_MESSAGE+="> *Pull request: <$PR_LINK|$PR_NUMBER>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request mergeable state:* $PR_MERGEABLE_STATE_MESSAGE"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request title:* $PR_TITLE"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
           if [ "$PR_MERGEABLE_STATE" == "clean" ]; then

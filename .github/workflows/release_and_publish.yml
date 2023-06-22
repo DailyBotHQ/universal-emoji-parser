@@ -25,14 +25,15 @@ jobs:
         id: get_pr_body_content_step
         run: |
           PR_NUMBER="${{ github.event.pull_request.number }}"
+          PR_TITLE=$(gh pr view $PR_NUMBER --json body -q '.title')
           PR_BODY=$(gh pr view $PR_NUMBER --json body -q '.body')
           PR_BODY=$(echo $PR_BODY | sed 's/\n ?/↳/g')
           PR_BODY=$(echo $PR_BODY | sed 's/\r ?/↳/g')
-          echo "PR_BODY"
-          echo $PR_BODY
+          echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
           echo "pr_body=$PR_BODY" >> $GITHUB_OUTPUT
 
     outputs:
+      pr_title: ${{ steps.get_pr_body_content_step.outputs.pr_title }}
       pr_body: ${{ steps.get_pr_body_content_step.outputs.pr_body }}
 
   notify_on_channel_start:
@@ -328,10 +329,12 @@ jobs:
             NOTIFICATION_MESSAGE+="> *New Version:* $PACKAGE_VERSION"$'\n'
           fi
           NOTIFICATION_MESSAGE+="> *Pull request:* <https://github.com/$GITHUB_REPOSITORY/pull/${{ github.event.pull_request.number }}|#${{github.event.pull_request.number}}>"$'\n'
+          PR_TITLE=$(echo "${NEEDS_JSON}" | jq -r ".get_pr_body_content.outputs.pr_title")
           PR_BODY=$(echo "${NEEDS_JSON}" | jq -r ".get_pr_body_content.outputs.pr_body")
           PR_BODY=$(echo $PR_BODY | sed 's ?/↳/\n/g')
           PR_BODY=$(echo $PR_BODY | sed 's ?/⬆️/\n⬆️/g')
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request title:* $PR_TITLE"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`$PR_BODY\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="*Jobs:*"$'\n'
           INDEX=1
