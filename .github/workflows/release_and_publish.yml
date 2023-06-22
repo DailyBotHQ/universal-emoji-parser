@@ -273,6 +273,12 @@ jobs:
           echo "package_version=$(npm pkg get version)" >> $GITHUB_OUTPUT
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Step 8 - 🗑️ Deleting source branch
+        run: |
+          PR_MERGED=$(jq --raw-output .pull_request.merged "$GITHUB_EVENT_PATH")
+          if [ "$PR_MERGED" = "true" ]; then
+            git push origin --delete "${{ github.event.pull_request.head.ref }}"
+          fi
 
     outputs:
       package_version: ${{ steps.publish_npm_package.outputs.package_version }}
