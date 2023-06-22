@@ -31,6 +31,7 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BODY="${{ github.event.pull_request.body }}"
           PR_BODY=$(echo $PR_BODY | sed 's/\r/\n/g')
+          PR_BODY=$(echo $PR_BODY | sed 's/\n /\n/g')
           NOTIFICATION_MESSAGE+="> *Pull request title:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`🚩 $PR_TITLE\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
@@ -303,6 +304,8 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BODY="${{ github.event.pull_request.body }}"
           PR_BODY=$(echo $PR_BODY | sed 's/\r/\n/g')
+          PR_BODY=$(echo $PR_BODY | sed 's/\n /\n/g')
+          PR_BODY=$(echo $PR_BODY | sed 's/\n /\n/g')
           NOTIFICATION_MESSAGE+="> *Pull request title:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`🚩 $PR_TITLE\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
