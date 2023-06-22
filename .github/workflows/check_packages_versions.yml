@@ -107,7 +107,7 @@ jobs:
           NOTIFICATION_MESSAGE+="> *Pull request title:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`🚩 $PR_TITLE\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
-          NOTIFICATION_MESSAGE+="\`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
+          NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
           NOTIFICATION_MESSAGE="> *#$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 @here NEW PACKAGES UPGRADES AVAILABLE*"$'\n\n'"$NOTIFICATION_MESSAGE"
 
           JSON_DATA=$(jq -n \
