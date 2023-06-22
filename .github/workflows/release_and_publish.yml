@@ -302,9 +302,7 @@ jobs:
           PR_BODY="${{ github.event.pull_request.body }}"
           echo "--- PR_BODY ---"
           echo "$PR_BODY"
-          PR_BODY=$(echo $PR_BODY | sed 's/\r/\n/g')
-          PR_BODY=$(echo $PR_BODY | sed 's/↳ ?/\n/g')
-          PR_BODY=$(echo $PR_BODY | sed 's/⬆️ ?/\n⬆️/g')
+          PR_BODY=$(echo $PR_BODY | sed 's/[\r|↳ ?|⬆️ ?]/\n/g')
           NOTIFICATION_MESSAGE+="> *Pull request title:* 🚩 $PR_TITLE"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`$PR_BODY\`\`\`"$'\n'
