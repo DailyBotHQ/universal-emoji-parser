@@ -102,7 +102,8 @@ jobs:
           PR_LINK="https://github.com/$GITHUB_REPOSITORY/pull/$PR_NUMBER"
           NOTIFICATION_MESSAGE+="> *Pull request: <$PR_LINK|$PR_NUMBER>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request mergeable state:* $PR_MERGEABLE_STATE_MESSAGE"$'\n'
-          NOTIFICATION_MESSAGE+="> *Pull request title:* 🚩 $PR_TITLE"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request title:*"$'\n'
+          NOTIFICATION_MESSAGE+="> \`\`\`🚩 $PR_TITLE\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
           if [ "$PR_MERGEABLE_STATE" == "clean" ]; then
