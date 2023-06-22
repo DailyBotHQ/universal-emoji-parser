@@ -42,7 +42,7 @@ jobs:
         id: get_pr_body_content_step
         run: |
           PR_NUMBER="${{ steps.check_upgrades_available_pr_step.outputs.pr_number }}"
-          PR_TITLE=$(gh pr view $PR_NUMBER --json body -q '.title')
+          PR_TITLE=$(gh pr view $PR_NUMBER --json title -q '.title')
           PR_BODY=$(gh pr view $PR_NUMBER --json body -q '.body')
           echo "pr_title=$PR_TITLE" >> $GITHUB_OUTPUT
           echo "pr_body=$(echo $PR_BODY | sed 's/\\n/\\\\n/g')" >> $GITHUB_OUTPUT
