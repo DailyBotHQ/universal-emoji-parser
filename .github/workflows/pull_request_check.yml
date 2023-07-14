@@ -1,0 +1,40 @@
+name: Pull Request Check
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types:
+      - opened
+      - reopened
+      - edited
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pull_request_check:
+    if: github.event.pull_request.merged != true
+    name: 'Pull request check'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - 🧪 Check "TITLE" length
+        run: |
+          MIN_TITLE_LENGTH=10
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          TITLE_LENGTH=$(echo -n "$PR_TITLE" | wc -c)
+          if [ "$TITLE_LENGTH" -lt "$MIN_TITLE_LENGTH" ]; then
+            echo "Pull request title is too short. It must have at least $MIN_TITLE_LENGTH characters."
+            exit 1
+          fi
+
+      - name: Step 2 - 🧪🧪 Check "BODY" length
+        run: |
+          MIN_BODY_LENGTH=30
+          PR_BODY="${{ github.event.pull_request.body }}"
+          BODY_LENGTH=$(echo -n "$PR_BODY" | wc -c)
+          if [ "$BODY_LENGTH" -lt "$MIN_BODY_LENGTH" ]; then
+            echo "Pull request body is too short. It must have at least $MIN_BODY_LENGTH characters."
+            exit 1
+          fi
