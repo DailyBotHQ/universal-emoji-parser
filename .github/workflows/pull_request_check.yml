@@ -3,7 +3,7 @@ name: Pull Request Check
 on:
   pull_request:
     branches:
-      - 'main_test'
+      - 'main'
     types:
       - opened
       - reopened
@@ -31,7 +31,7 @@ jobs:
 
       - name: Step 2 - 🧪🧪 Check "BODY" length
         run: |
-          MIN_BODY_LENGTH=40
+          MIN_BODY_LENGTH=30
           PR_BODY="${{ github.event.pull_request.body }}"
           BODY_LENGTH=$(echo -n "$PR_BODY" | wc -c)
           if [ "$BODY_LENGTH" -lt "$MIN_BODY_LENGTH" ]; then
