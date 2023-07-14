@@ -3,7 +3,7 @@ name: Check Packages Versions
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 10 * * 1'
+    - cron: '0 10 * * 2'
 
 env:
   GIT_BRANCH_FOR_PACKAGES_UPGRADES: feature__packages_versions_update
