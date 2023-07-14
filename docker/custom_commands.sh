@@ -12,12 +12,35 @@ function print.error {
   echo -e "${RED}$1${RESET}"
 }
 
-# greet the user
-function codecheck() {
-	print.success "Running eslint checks..."
+function fix() {
+	print.success "Running eslint checks && apply automatic fixes..."
 	npm run eslint:fix
-  print.success "Running prettier checks..."
+	if [ $? != 0 ]; then
+    echo ''
+		print.error "⚠️ Eslint checks failed, skipping prettier checks..."
+		return 1
+	fi
+
+	print.success "Running prettier checks && apply automatic fixes..."
 	npm run prettier:fix
+}
+
+function test() {
   print.success "Running mocha tests..."
 	npm run test
+}
+
+function codecheck() {
+	fix
+	if [ $? != 0 ]; then
+    echo ''
+		print.error "⚠️ Prettier checks failed, skipping mocha tests..."
+		return 1
+	fi
+  test
+}
+
+function install() {
+  print.success "Running npm install..."
+	npm install
 }
