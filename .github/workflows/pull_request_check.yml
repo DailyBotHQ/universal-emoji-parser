@@ -108,7 +108,5 @@ jobs:
           echo "Labels:"
           echo "Repository: ${{ github.repository }}"
           echo "PR number: ${{ github.event.pull_request.number }}"
-          RESPONSE=$(curl --silent -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/labels)
-          echo "Response: $RESPONSE"
-          LABELS=$(echo $RESPONSE | jq -r '.[].name')
+          LABELS=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} --jq '.labels.[].name')
           echo $LABELS
