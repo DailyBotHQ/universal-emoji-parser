@@ -90,14 +90,25 @@ jobs:
             echo "Warning: Large PR detected!"
           fi
 
-          echo "Current Size: $CURRENT_SIZE"
-          echo "New Size: $SIZE"
+          echo "Current Size: '$CURRENT_SIZE'"
+          echo "New Size: '$SIZE'"
 
           if [ "$SIZE" == "$CURRENT_SIZE" ]; then
             echo "No size change detected."
             exit 0
           fi
 
+          if [ -n "$CURRENT_SIZE" ]; then
+            echo "Removing current size label..."
+            CURRENT_SIZE_ENCODED=$(jq -rn --arg str "$CURRENT_SIZE" '$str|@uri')
+            curl \
+              -X DELETE \
+              -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels/$CURRENT_SIZE_ENCODED
+          fi
+
+          echo "Adding new size label..."
           curl \
             -X POST \
             -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" \
