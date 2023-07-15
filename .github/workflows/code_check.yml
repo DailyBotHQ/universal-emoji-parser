@@ -33,8 +33,9 @@ jobs:
         run: |
           git fetch origin ${{ github.event.pull_request.base.ref }}
           git fetch origin ${{ github.event.pull_request.head.ref }}
-          echo $(git diff --shortstat origin/${{ github.event.pull_request.base.ref }}..origin/${{ github.event.pull_request.head.ref }})
-          LINES_CHANGED=$(git diff --shortstat origin/${{ github.event.pull_request.base.ref }}..origin/${{ github.event.pull_request.head.ref }} | awk '{print $2+$4}')
+          CHANGES_STATS=$(git diff --shortstat origin/${{ github.event.pull_request.base.ref }}..origin/${{ github.event.pull_request.head.ref }}')
+          echo $CHANGES_STATS
+          LINES_CHANGED=$(echo $CHANGES_STATS | awk '{print $4+$6}')
           echo "Lines changed: $LINES_CHANGED"
 
           if [ -z "$LINES_CHANGED" ]; then
