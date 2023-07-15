@@ -13,7 +13,7 @@ on:
 
 env:
   SIZE_LABELS: >-
-    "Size - XS","Size - S","Size - M","Size - L","Size - XL"
+    "Size - XS","Size - S","Size - M","Size - L","Size - XL","Size - XXL"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -74,16 +74,18 @@ jobs:
             exit 1
           fi
 
-          if [ $LINES_CHANGED -le 10 ]; then
+          if [ $LINES_CHANGED -le 50 ]; then
             SIZE="Size - XS"
           elif [ $LINES_CHANGED -le 100 ]; then
             SIZE="Size - S"
           elif [ $LINES_CHANGED -le 500 ]; then
             SIZE="Size - M"
-          elif [ $LINES_CHANGED -le 1000 ]; then
+          elif [ $LINES_CHANGED -le 800 ]; then
             SIZE="Size - L"
-          else
+          elif [ $LINES_CHANGED -le 1500 ]; then
             SIZE="Size - XL"
+          else
+            SIZE="Size - XXL"
           fi
 
           if [ $SIZE == "Size - XL" ]; then
