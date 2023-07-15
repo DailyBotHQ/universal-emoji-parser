@@ -40,17 +40,14 @@ jobs:
         env:
           ENV_LABELS: ${{ toJSON(github.event.pull_request.labels) }}
         run: |
-          set -e
           IFS=',' read -ra SIZE_LABELS_ARR <<< "$SIZE_LABELS"
           # Remove the quotes from SIZE_LABELS_ARR
           SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
 
           # Get PR Labels
-          echo "Here 1..."
           FOUND_LABELS_JSON=$(echo "$ENV_LABELS" | jq -r '.[] | .name')
-          echo "$FOUND_LABELS_JSON"
-          IFS=$'\n' read -rd '' -a FOUND_LABELS <<< "$FOUND_LABELS_JSON"
-          echo "Here 2..."
+
+          readarray -t FOUND_LABELS <<<"$FOUND_LABELS_JSON"
 
           echo "FOUND LABELS:"
           printf '%s\n' "${FOUND_LABELS[@]}"
