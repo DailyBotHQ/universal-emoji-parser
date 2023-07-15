@@ -16,9 +16,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pull_request_size_check:
+  pull_request_content_and_size_check:
     if: github.event.pull_request.merged != true
-    name: 'Pull Request Size Check and Labeler'
+    name: 'Pull Request Content and Size Check'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,7 +31,15 @@ jobs:
           git config user.email "ops@dailybot.com"
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
 
-      - name: Step 2 - Calculate PR Size and Label
+      - name: Step 2 - 🧪 Check pr "LABELS"
+        run: |
+          echo "Labels:"
+          echo "Repository: ${{ github.repository }}"
+          echo "PR number: ${{ github.event.pull_request.number }}"
+          LABELS=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} --jq '.labels.[].name')
+          echo $LABELS
+
+      - name: Step 3 - 🧪🧪 Calculate PR Size and Label
         run: |
           PR_BASE_REF=${{ github.event.pull_request.base.ref }}
           PR_HEAD_REF=${{ github.event.pull_request.head.ref }}
@@ -74,16 +82,7 @@ jobs:
                 "labels": ["'$SIZE'"]
               }'
 
-  pull_request_content_check:
-    if: github.event.pull_request.merged != true
-    needs: [pull_request_size_check]
-    name: 'Pull request content check'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup 1 - Setup job installing jq
-        run: sudo apt-get update && sudo apt-get install -y jq
-
-      - name: Step 2 - 🧪 Check "TITLE" length
+      - name: Step 4 - 🧪🧪🧪 Check "TITLE" length
         run: |
           MIN_TITLE_LENGTH=10
           PR_TITLE="${{ github.event.pull_request.title }}"
@@ -93,7 +92,7 @@ jobs:
             exit 1
           fi
 
-      - name: Step 3 - 🧪🧪 Check "BODY" length
+      - name: Step 5 - 🧪🧪🧪🧪 Check "BODY" length
         run: |
           MIN_BODY_LENGTH=30
           PR_BODY="${{ github.event.pull_request.body }}"
@@ -102,11 +101,3 @@ jobs:
             echo "Pull request body is too short. It must have at least $MIN_BODY_LENGTH characters."
             exit 1
           fi
-
-      - name: Step 3 - 🧪🧪🧪 Check "LABELS"
-        run: |
-          echo "Labels:"
-          echo "Repository: ${{ github.repository }}"
-          echo "PR number: ${{ github.event.pull_request.number }}"
-          LABELS=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} --jq '.labels.[].name')
-          echo $LABELS
