@@ -33,12 +33,9 @@ jobs:
 
       - name: Step 2 - 🧪 Check pr "LABELS"
         run: |
-          echo "Repository: ${{ github.repository }}"
-          echo "PR number: ${{ github.event.pull_request.number }}"
           gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} > labels.json
           LABELS=$(jq -r '.labels | map(.name) | join("\n")' labels.json)
           echo 'Labels:'
-          IFS=$'\n'
           for label in $LABELS; do
             echo "⸱ $label"
           done
