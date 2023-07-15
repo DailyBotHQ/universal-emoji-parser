@@ -59,7 +59,7 @@ jobs:
 
       - name: Step 3 - 🧪🧪 Calculate PR Size and Label
         run: |
-          CURRENT_SIZE=${{ steps.check_pr_size_label.outputs.size_label_found }}
+          CURRENT_SIZE="${{ steps.check_pr_size_label.outputs.size_label_found }}"
           PR_BASE_REF=${{ github.event.pull_request.base.ref }}
           PR_HEAD_REF=${{ github.event.pull_request.head.ref }}
           git fetch origin $PR_BASE_REF
