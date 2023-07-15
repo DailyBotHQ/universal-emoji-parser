@@ -1,9 +1,10 @@
-name: Pull Request Check
+name: Pull Request Content Check
 
 on:
   pull_request:
     branches:
       - 'main'
+      - 'main_test'
     types:
       - opened
       - reopened
@@ -14,9 +15,66 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  pull_request_check:
+  pull_request_size_check:
+    name: 'Pull Request Size Check and Labeler'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+          fetch-depth: 2
+      - name: Step 1 - ⚙️ Setup GitHub Config
+        run: |
+          git config user.name "🤖 DailyBot"
+          git config user.email "ops@dailybot.com"
+          gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
+
+      - name: Step 2 - Calculate PR Size and Label
+        run: |
+          PR_BASE_REF=${{ github.event.pull_request.base.ref }}
+          PR_HEAD_REF=${{ github.event.pull_request.head.ref }}
+          git fetch origin $PR_BASE_REF
+          git fetch origin $PR_HEAD_REF
+          CHANGES_STATS=$(git diff --shortstat origin/$PR_BASE_REF..origin/$PR_HEAD_REF)
+          echo $CHANGES_STATS
+          LINES_CHANGED=$(echo $CHANGES_STATS | awk '{print $4+$6}')
+          echo "Lines changed: $LINES_CHANGED"
+
+          if [ -z "$LINES_CHANGED" ]; then
+            echo "No lines changed or diff failed."
+            exit 1
+          fi
+
+          if [ $LINES_CHANGED -le 10 ]; then
+            SIZE="XS"
+          elif [ $LINES_CHANGED -le 100 ]; then
+            SIZE="S"
+          elif [ $LINES_CHANGED -le 500 ]; then
+            SIZE="M"
+          elif [ $LINES_CHANGED -le 1000 ]; then
+            SIZE="L"
+          else
+            SIZE="XL"
+          fi
+
+          echo "Size: $SIZE"
+
+          if [ $SIZE == "XL" ]; then
+            echo "Warning: Large PR detected!"
+          fi
+
+          curl \
+            -X POST \
+            -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels \
+            -d '{
+                "labels": ["'$SIZE'"]
+              }'
+
+  pull_request_content_check:
     if: github.event.pull_request.merged != true
-    name: 'Pull request check'
+    name: 'Pull request content check'
     runs-on: ubuntu-latest
     steps:
       - name: Step 1 - 🧪 Check "TITLE" length
