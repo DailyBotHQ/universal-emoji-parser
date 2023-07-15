@@ -93,7 +93,7 @@ jobs:
           echo "Current Size: $CURRENT_SIZE"
           echo "New Size: $SIZE"
 
-          if [ $SIZE == $CURRENT_SIZE ]; then
+          if [ "$SIZE" == "$CURRENT_SIZE" ]; then
             echo "No size change detected."
             exit 0
           fi
