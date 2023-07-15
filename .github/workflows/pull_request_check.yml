@@ -80,7 +80,10 @@ jobs:
     name: 'Pull request content check'
     runs-on: ubuntu-latest
     steps:
-      - name: Step 1 - 🧪 Check "TITLE" length
+      - name: Setup 1 - Setup job installing jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Step 2 - 🧪 Check "TITLE" length
         run: |
           MIN_TITLE_LENGTH=10
           PR_TITLE="${{ github.event.pull_request.title }}"
@@ -90,7 +93,7 @@ jobs:
             exit 1
           fi
 
-      - name: Step 2 - 🧪🧪 Check "BODY" length
+      - name: Step 3 - 🧪🧪 Check "BODY" length
         run: |
           MIN_BODY_LENGTH=30
           PR_BODY="${{ github.event.pull_request.body }}"
@@ -100,7 +103,8 @@ jobs:
             exit 1
           fi
 
-      - name: Step 3 - 🧪🧪🧪 Check "LABELS"
+      - name: Step 4 - 🧪🧪🧪 Check "LABELS"
         run: |
           echo "Labels:"
-          echo ${{github.event.pull_request.labels}}
+          LABELS=$(curl --silent -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/labels | jq -r '.[].name')
+          echo $LABELS
