@@ -37,18 +37,20 @@ jobs:
 
       - name: Step 2 - 🧪 Check pr "LABELS"
         run: |
-          echo 'PR Labels:'
-          IFS=',' read -ra LABELS <<< "$SIZE_LABELS"
-          for label in "${LABELS[@]}"; do
+          gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} > labels.json
+          FOUND_LABELS=$(jq -r '.labels | map(.name) | join("\n")' labels.json)
+          echo 'Found Labels in PR:'
+          IFS=$'\n'
+          for label in $FOUND_LABELS; do
             echo "⸱ $label"
           done
-          echo '---'
-          gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} > labels.json
-          LABELS=$(jq -r '.labels | map(.name) | join("\n")' labels.json)
-          echo 'Labels:'
-          IFS=$'\n'
-          for label in $LABELS; do
-            echo "⸱ $label"
+          echo 'Checking if any found label exists in SIZE_LABELS...'
+          for found_label in $FOUND_LABELS; do
+            for size_label in "${SIZE_LABELS_ARR[@]}"; do
+              if [[ "$found_label" == "$size_label" ]]; then
+                echo "Label $found_label found in SIZE_LABELS"
+              fi
+            done
           done
 
       - name: Step 3 - 🧪🧪 Calculate PR Size and Label
