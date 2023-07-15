@@ -45,13 +45,14 @@ jobs:
           SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
 
           # Get PR Labels
-          FOUND_LABELS=$(echo "$ENV_LABELS" | jq -r '.[].name' | tr '\n' '\0')
+          FOUND_LABELS_JSON=$(echo "$ENV_LABELS" | jq -r '.[] | .name')
+          IFS=$'\n' read -rd '' -a FOUND_LABELS <<< "$FOUND_LABELS_JSON"
 
           echo "FOUND LABELS:"
-          echo $FOUND_LABELS
+          printf '%s\n' "${FOUND_LABELS[@]}"
 
           # Check if any of the labels in FOUND_LABELS is in SIZE_LABELS_ARR
-          for found_label in $FOUND_LABELS; do
+          for found_label in "${FOUND_LABELS[@]}"; do
             for size_label in "${SIZE_LABELS_ARR[@]}"; do
               if [[ "$found_label" == "$size_label" ]]; then
                 echo "Label '$found_label' found in SIZE_LABELS"
