@@ -23,6 +23,7 @@ jobs:
       - name: Step 1 - 🔔 Send notification on channel
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
+          LABELS: ${{ toJSON(github.event.pull_request.labels) }}
         run: |
           NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Repository:* <https://github.com/$GITHUB_REPOSITORY|$GITHUB_REPOSITORY>"$'\n'

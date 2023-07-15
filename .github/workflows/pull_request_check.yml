@@ -37,7 +37,11 @@ jobs:
 
       - name: Step 2 - 🧪 Check pr size label
         id: check_pr_size_label
+        env:
+          ENV_LABELS: ${{ toJSON(github.event.pull_request.labels) }}
         run: |
+          echo "LABELS:"
+          echo "$ENV_LABELS"
           IFS=',' read -ra SIZE_LABELS_ARR <<< "$SIZE_LABELS"
           # Remove the quotes from SIZE_LABELS_ARR
           SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
