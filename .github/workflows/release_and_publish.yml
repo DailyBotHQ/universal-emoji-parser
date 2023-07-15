@@ -12,7 +12,45 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check_pr_size_label:
+    if: github.event.pull_request.merged == true
+    name: 'Check PR Size Label'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - Check pr size label
+        id: check_pr_size_label_step
+        env:
+          ENV_LABELS: ${{ toJSON(github.event.pull_request.labels) }}
+        run: |
+          IFS=',' read -ra SIZE_LABELS_ARR <<< "$SIZE_LABELS"
+          # Remove the quotes from SIZE_LABELS_ARR
+          SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
+
+          # Get PR Labels
+          FOUND_LABELS_JSON=$(echo "$ENV_LABELS" | jq -r '.[] | .name')
+
+          readarray -t FOUND_LABELS <<<"$FOUND_LABELS_JSON"
+
+          echo "FOUND LABELS:"
+          printf '%s\n' "${FOUND_LABELS[@]}"
+
+          # Check if any of the labels in FOUND_LABELS is in SIZE_LABELS_ARR
+          SIZE_LABEL_FOUND=''
+          for found_label in "${FOUND_LABELS[@]}"; do
+            for size_label in "${SIZE_LABELS_ARR[@]}"; do
+              if [[ "$found_label" == "$size_label" ]]; then
+                SIZE_LABEL_FOUND=$found_label
+                echo "Label 'SIZE_LABEL_FOUND' found in SIZE_LABELS"
+              fi
+            done
+          done
+          echo "size_label_found=SIZE_LABEL_FOUND" >> $GITHUB_OUTPUT
+
+    outputs:
+      size_label_found: ${{ steps.check_pr_size_label_step.outputs.size_label_found }}
+
   notify_on_channel_start:
+    needs: check_pr_size_label
     if: github.event.pull_request.merged == true
     name: 'Notify on channel - Start'
     runs-on: ubuntu-latest
@@ -24,6 +62,7 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: |
+          SIZE_LABEL_FOUND="${{ needs.check_pr_size_label.outputs.size_label_found }}"
           NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Repository:* <https://github.com/$GITHUB_REPOSITORY|$GITHUB_REPOSITORY>"$'\n'
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n\n'
@@ -34,7 +73,8 @@ jobs:
           NOTIFICATION_MESSAGE+="> *Pull request title:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`🚩 $PR_TITLE\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
-          NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"$'\n\n'
+          NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"$'\n'
+          NOTIFICATION_MESSAGE+="> *Pull request size label:* $SIZE_LABEL_FOUND"$'\n\n'
           NOTIFICATION_MESSAGE="> *👉 #$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🏁 DEPLOYMENT STARTED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \

@@ -36,19 +36,24 @@ jobs:
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
 
       - name: Step 2 - 🧪 Check pr size label
-        id: check_pr_size_label
+        id: check_pr_size_label_step
+        env:
+          ENV_LABELS: ${{ toJSON(github.event.pull_request.labels) }}
         run: |
           IFS=',' read -ra SIZE_LABELS_ARR <<< "$SIZE_LABELS"
           # Remove the quotes from SIZE_LABELS_ARR
           SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
 
           # Get PR Labels
-          gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} > labels.json
-          FOUND_LABELS=$(jq -r '.labels | map(.name) | join("\n")' labels.json)
+          FOUND_LABELS_JSON=$(echo "$ENV_LABELS" | jq -r '.[] | .name')
+
+          readarray -t FOUND_LABELS <<<"$FOUND_LABELS_JSON"
+
+          echo "FOUND LABELS:"
+          printf '%s\n' "${FOUND_LABELS[@]}"
 
           # Check if any of the labels in FOUND_LABELS is in SIZE_LABELS_ARR
-          IFS=$'\n'
-          for found_label in $FOUND_LABELS; do
+          for found_label in "${FOUND_LABELS[@]}"; do
             for size_label in "${SIZE_LABELS_ARR[@]}"; do
               if [[ "$found_label" == "$size_label" ]]; then
                 echo "Label '$found_label' found in SIZE_LABELS"
@@ -59,7 +64,7 @@ jobs:
 
       - name: Step 3 - 🧪🧪 Calculate PR Size and Label
         run: |
-          CURRENT_SIZE="${{ steps.check_pr_size_label.outputs.size_label_found }}"
+          CURRENT_SIZE="${{ steps.check_pr_size_label_step.outputs.size_label_found }}"
           PR_BASE_REF=${{ github.event.pull_request.base.ref }}
           PR_HEAD_REF=${{ github.event.pull_request.head.ref }}
           git fetch origin $PR_BASE_REF
