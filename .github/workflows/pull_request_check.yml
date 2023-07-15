@@ -48,11 +48,9 @@ jobs:
           # Check if any of the labels in FOUND_LABELS is in SIZE_LABELS_ARR
           IFS=$'\n'
           for found_label in $FOUND_LABELS; do
-            echo $found_label
             for size_label in "${SIZE_LABELS_ARR[@]}"; do
-              echo $size_label
               if [[ "$found_label" == "$size_label" ]]; then
-                echo "Label $found_label found in SIZE_LABELS"
+                echo "Label '$found_label' found in SIZE_LABELS"
               fi
             done
           done
