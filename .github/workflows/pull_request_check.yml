@@ -102,7 +102,7 @@ jobs:
           fi
 
           # Get current labels
-          labels=$(gh pr view $PR_NUMBER --repo $REPO --json labels -q '.labels[].name' | jq -r 'join(",")')
+          labels=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json labels -q '.labels[].name' | jq -r 'join(",")')
 
           # Remove CURRENT_SIZE label from the list
           new_labels=${labels//$CURRENT_SIZE/}
