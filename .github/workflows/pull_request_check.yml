@@ -88,10 +88,6 @@ jobs:
             SIZE="Size - XXL"
           fi
 
-          if [ $SIZE == "Size - XL" ]; then
-            echo "Warning: Large PR detected!"
-          fi
-
           echo "Current Size: '$CURRENT_SIZE'"
           echo "New Size: '$SIZE'"
 
