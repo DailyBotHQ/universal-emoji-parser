@@ -37,7 +37,9 @@ jobs:
           echo "Repository: ${{ github.repository }}"
           echo "PR number: ${{ github.event.pull_request.number }}"
           LABELS=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} --jq '.labels.[].name')
-          echo $LABELS
+          for label in $LABELS; do
+            echo $label
+          done
 
       - name: Step 3 - 🧪🧪 Calculate PR Size and Label
         run: |
