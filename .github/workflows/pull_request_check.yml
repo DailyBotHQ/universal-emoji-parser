@@ -57,7 +57,7 @@ jobs:
             for size_label in "${SIZE_LABELS_ARR[@]}"; do
               if [[ "$found_label" == "$size_label" ]]; then
                 echo "Label '$found_label' found in SIZE_LABELS"
-                echo "size_label_found=$found_label" >> $GITHUB_ENV
+                echo "size_label_found=$found_label" >> $GITHUB_OUTPUT
               fi
             done
           done
