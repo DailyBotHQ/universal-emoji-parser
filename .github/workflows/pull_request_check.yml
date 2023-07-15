@@ -48,6 +48,7 @@ jobs:
           # Get PR Labels
           echo "Here 1..."
           FOUND_LABELS_JSON=$(echo "$ENV_LABELS" | jq -r '.[] | .name')
+          echo "$FOUND_LABELS_JSON"
           IFS=$'\n' read -rd '' -a FOUND_LABELS <<< "$FOUND_LABELS_JSON"
           echo "Here 2..."
 
