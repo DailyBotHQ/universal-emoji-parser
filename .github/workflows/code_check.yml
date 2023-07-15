@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - 'main'
+      - 'main_test'
     types:
       - opened
       - synchronize
@@ -14,6 +15,45 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  pull_request_size:
+    name: 'Pull Request Size Labeler'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+          fetch-depth: 0
+      - name: Step 1 - ⚙️ Setup GitHub Config
+        run: |
+          git config user.name "🤖 DailyBot"
+          git config user.email "ops@dailybot.com"
+          gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
+
+      - name: Step 2 - Calculate PR Size and Label
+        run: |
+          LINES_CHANGED=$(git diff --shortstat origin/${{ github.base_ref }}..${{ github.head_ref }} | awk '{print $1+$3}')
+          echo "Lines changed: $LINES_CHANGED"
+
+          if [ $LINES_CHANGED -le 10 ]; then
+            SIZE="XS"
+          elif [ $LINES_CHANGED -le 100 ]; then
+            SIZE="S"
+          elif [ $LINES_CHANGED -le 500 ]; then
+            SIZE="M"
+          elif [ $LINES_CHANGED -le 1000 ]; then
+            SIZE="L"
+          else
+            SIZE="XL"
+          fi
+
+          echo "Size: $SIZE"
+
+          if [ $SIZE == "XL" ]; then
+            echo "Warning: Large PR detected!"
+          fi
+
+          gh pr update ${{ github.event.pull_request.number }} --add-label $SIZE
+
   setup:
     name: 'Setup Application'
     runs-on: ubuntu-latest
