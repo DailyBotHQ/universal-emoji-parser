@@ -47,6 +47,9 @@ jobs:
           # Get PR Labels
           FOUND_LABELS=$(echo '${{ toJSON(github.event.pull_request.labels) }}' | jq -r '.[].name')
 
+          echo "FOUND LABELS:"
+          echo $FOUND_LABELS
+
           # Check if any of the labels in FOUND_LABELS is in SIZE_LABELS_ARR
           for found_label in $FOUND_LABELS; do
             for size_label in "${SIZE_LABELS_ARR[@]}"; do
