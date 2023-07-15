@@ -35,7 +35,8 @@ jobs:
           git config user.email "ops@dailybot.com"
           gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
 
-      - name: Step 2 - 🧪 Check pr "LABELS"
+      - name: Step 2 - 🧪 Check pr size label
+        id: check_pr_size_label
         run: |
           IFS=',' read -ra SIZE_LABELS_ARR <<< "$SIZE_LABELS"
           # Remove the quotes from SIZE_LABELS_ARR
@@ -51,6 +52,7 @@ jobs:
             for size_label in "${SIZE_LABELS_ARR[@]}"; do
               if [[ "$found_label" == "$size_label" ]]; then
                 echo "Label '$found_label' found in SIZE_LABELS"
+                echo "size_label_found=$found_label" >> $GITHUB_OUTPUT
               fi
             done
           done
@@ -83,7 +85,8 @@ jobs:
             SIZE="Size - XL"
           fi
 
-          echo "Size: $SIZE"
+          echo "Current Size: ${{ steps.check_pr_size_label.outputs.size_label_found }}"
+          echo "New Size: $SIZE"
 
           if [ $SIZE == "Size - XL" ]; then
             echo "Warning: Large PR detected!"
