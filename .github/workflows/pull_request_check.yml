@@ -103,8 +103,10 @@ jobs:
             exit 1
           fi
 
-      - name: Step 4 - 🧪🧪🧪 Check "LABELS"
+      - name: Step 3 - 🧪🧪🧪 Check "LABELS"
         run: |
           echo "Labels:"
-          LABELS=$(curl --silent -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/labels | jq -r '.[].name')
+          RESPONSE=$(curl --silent -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/labels)
+          echo "Response: $RESPONSE"
+          LABELS=$(echo $RESPONSE | jq -r '.[].name')
           echo $LABELS
