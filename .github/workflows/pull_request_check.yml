@@ -85,6 +85,7 @@ jobs:
           else
             SIZE="Size - XL"
           fi
+          SIZE="Size - XL"
 
           if [ $SIZE == "Size - XL" ]; then
             echo "Warning: Large PR detected!"
