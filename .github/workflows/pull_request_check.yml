@@ -45,6 +45,7 @@ jobs:
           SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
 
           # Get PR Labels
+          echo "Here..."
           FOUND_LABELS_JSON=$(echo "$ENV_LABELS" | jq -r '.[] | .name')
           IFS=$'\n' read -rd '' -a FOUND_LABELS <<< "$FOUND_LABELS_JSON"
 
