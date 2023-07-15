@@ -59,6 +59,7 @@ jobs:
 
       - name: Step 3 - 🧪🧪 Calculate PR Size and Label
         run: |
+          CURRENT_SIZE=${{ steps.check_pr_size_label.outputs.size_label_found }}
           PR_BASE_REF=${{ github.event.pull_request.base.ref }}
           PR_HEAD_REF=${{ github.event.pull_request.head.ref }}
           git fetch origin $PR_BASE_REF
@@ -85,11 +86,16 @@ jobs:
             SIZE="Size - XL"
           fi
 
-          echo "Current Size: ${{ steps.check_pr_size_label.outputs.size_label_found }}"
-          echo "New Size: $SIZE"
-
           if [ $SIZE == "Size - XL" ]; then
             echo "Warning: Large PR detected!"
+          fi
+
+          echo "Current Size: $CURRENT_SIZE"
+          echo "New Size: $SIZE"
+
+          if [ $SIZE == $CURRENT_SIZE ]; then
+            echo "No size change detected."
+            exit 0
           fi
 
           curl \
