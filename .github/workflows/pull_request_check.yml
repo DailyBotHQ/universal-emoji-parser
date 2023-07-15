@@ -1,25 +1,120 @@
-name: Pull Request Check
+name: Pull Request Content Check
 
 on:
   pull_request:
     branches:
       - 'main'
+      - 'main_test'
     types:
       - opened
       - reopened
+      - synchronize
       - edited
+
+env:
+  SIZE_LABELS: >-
+    "Size - XS","Size - S","Size - M","Size - L","Size - XL","Size - XXL"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  pull_request_check:
+  pull_request_content_and_size_check:
     if: github.event.pull_request.merged != true
-    name: 'Pull request check'
+    name: 'Pull Request Content and Size Check'
     runs-on: ubuntu-latest
     steps:
-      - name: Step 1 - 🧪 Check "TITLE" length
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+          fetch-depth: 2
+      - name: Step 1 - ⚙️ Setup GitHub Config
+        run: |
+          git config user.name "🤖 DailyBot"
+          git config user.email "ops@dailybot.com"
+          gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
+
+      - name: Step 2 - 🧪 Check pr size label
+        id: check_pr_size_label
+        run: |
+          IFS=',' read -ra SIZE_LABELS_ARR <<< "$SIZE_LABELS"
+          # Remove the quotes from SIZE_LABELS_ARR
+          SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
+
+          # Get PR Labels
+          gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} > labels.json
+          FOUND_LABELS=$(jq -r '.labels | map(.name) | join("\n")' labels.json)
+
+          # Check if any of the labels in FOUND_LABELS is in SIZE_LABELS_ARR
+          IFS=$'\n'
+          for found_label in $FOUND_LABELS; do
+            for size_label in "${SIZE_LABELS_ARR[@]}"; do
+              if [[ "$found_label" == "$size_label" ]]; then
+                echo "Label '$found_label' found in SIZE_LABELS"
+                echo "size_label_found=$found_label" >> $GITHUB_OUTPUT
+              fi
+            done
+          done
+
+      - name: Step 3 - 🧪🧪 Calculate PR Size and Label
+        run: |
+          CURRENT_SIZE="${{ steps.check_pr_size_label.outputs.size_label_found }}"
+          PR_BASE_REF=${{ github.event.pull_request.base.ref }}
+          PR_HEAD_REF=${{ github.event.pull_request.head.ref }}
+          git fetch origin $PR_BASE_REF
+          git fetch origin $PR_HEAD_REF
+          CHANGES_STATS=$(git diff --shortstat origin/$PR_BASE_REF..origin/$PR_HEAD_REF)
+          echo $CHANGES_STATS
+          LINES_CHANGED=$(echo $CHANGES_STATS | awk '{print $4+$6}')
+          echo "Lines changed: $LINES_CHANGED"
+
+          if [ -z "$LINES_CHANGED" ]; then
+            echo "No lines changed or diff failed."
+            exit 1
+          fi
+
+          if [ $LINES_CHANGED -le 50 ]; then
+            SIZE="Size - XS"
+          elif [ $LINES_CHANGED -le 100 ]; then
+            SIZE="Size - S"
+          elif [ $LINES_CHANGED -le 500 ]; then
+            SIZE="Size - M"
+          elif [ $LINES_CHANGED -le 800 ]; then
+            SIZE="Size - L"
+          elif [ $LINES_CHANGED -le 1500 ]; then
+            SIZE="Size - XL"
+          else
+            SIZE="Size - XXL"
+          fi
+
+          echo "Current Size: '$CURRENT_SIZE'"
+          echo "New Size: '$SIZE'"
+
+          if [ "$SIZE" == "$CURRENT_SIZE" ]; then
+            echo "No size change detected."
+            exit 0
+          fi
+
+          if [ -n "$CURRENT_SIZE" ]; then
+            echo "Removing current size label..."
+            CURRENT_SIZE_ENCODED=$(jq -rn --arg str "$CURRENT_SIZE" '$str|@uri')
+            curl \
+              -X DELETE \
+              -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels/$CURRENT_SIZE_ENCODED
+          fi
+
+          echo "Adding new size label..."
+          curl \
+            -X POST \
+            -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels \
+            -d "{\"labels\": [\"${SIZE}\"]}"
+
+      - name: Step 4 - 🧪🧪🧪 Check "TITLE" length
         run: |
           MIN_TITLE_LENGTH=10
           PR_TITLE="${{ github.event.pull_request.title }}"
@@ -29,7 +124,7 @@ jobs:
             exit 1
           fi
 
-      - name: Step 2 - 🧪🧪 Check "BODY" length
+      - name: Step 5 - 🧪🧪🧪🧪 Check "BODY" length
         run: |
           MIN_BODY_LENGTH=30
           PR_BODY="${{ github.event.pull_request.body }}"
