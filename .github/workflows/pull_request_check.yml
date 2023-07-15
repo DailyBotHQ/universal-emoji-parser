@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   pull_request_size_check:
+    if: github.event.pull_request.merged != true
     name: 'Pull Request Size Check and Labeler'
     runs-on: ubuntu-latest
     steps:
@@ -75,6 +76,7 @@ jobs:
 
   pull_request_content_check:
     if: github.event.pull_request.merged != true
+    needs: [pull_request_size_check]
     name: 'Pull request content check'
     runs-on: ubuntu-latest
     steps:
@@ -97,3 +99,8 @@ jobs:
             echo "Pull request body is too short. It must have at least $MIN_BODY_LENGTH characters."
             exit 1
           fi
+
+      - name: Step 3 - 🧪🧪🧪 Check "LABELS"
+        run: |
+          echo "Labels:"
+          echo ${{github.event.pull_request.labels}}
