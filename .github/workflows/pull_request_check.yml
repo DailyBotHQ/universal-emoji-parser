@@ -46,6 +46,7 @@ jobs:
           FOUND_LABELS=$(jq -r '.labels | map(.name) | join("\n")' labels.json)
 
           # Check if any of the labels in FOUND_LABELS is in SIZE_LABELS_ARR
+          IFS=$'\n'
           for found_label in $FOUND_LABELS; do
             echo $found_label
             for size_label in "${SIZE_LABELS_ARR[@]}"; do
