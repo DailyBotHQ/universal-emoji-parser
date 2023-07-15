@@ -45,7 +45,7 @@ jobs:
           SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
 
           # Get PR Labels
-          FOUND_LABELS=$(echo '${{ toJSON(github.event.pull_request.labels) }}' | jq -r '.[].name')
+          FOUND_LABELS=$(echo "$ENV_LABELS" | jq -r '.[].name' | tr '\n' '\0')
 
           echo "FOUND LABELS:"
           echo $FOUND_LABELS
