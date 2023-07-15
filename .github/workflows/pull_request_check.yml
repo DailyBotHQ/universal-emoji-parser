@@ -56,20 +56,20 @@ jobs:
           fi
 
           if [ $LINES_CHANGED -le 10 ]; then
-            SIZE="XS"
+            SIZE="Size - XS"
           elif [ $LINES_CHANGED -le 100 ]; then
-            SIZE="S"
+            SIZE="Size - S"
           elif [ $LINES_CHANGED -le 500 ]; then
-            SIZE="M"
+            SIZE="Size - M"
           elif [ $LINES_CHANGED -le 1000 ]; then
-            SIZE="L"
+            SIZE="Size - L"
           else
-            SIZE="XL"
+            SIZE="Size - XL"
           fi
 
           echo "Size: $SIZE"
 
-          if [ $SIZE == "XL" ]; then
+          if [ $SIZE == "Size - XL" ]; then
             echo "Warning: Large PR detected!"
           fi
 
