@@ -12,7 +12,8 @@ on:
       - edited
 
 env:
-  SIZE_LABELS: ("Size - XS" "Size - S" "Size - M" "Size - L" "Size - XL)
+  SIZE_LABELS: >-
+    "Size - XS","Size - S","Size - M","Size - L","Size - XL"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -36,16 +37,16 @@ jobs:
 
       - name: Step 2 - 🧪 Check pr "LABELS"
         run: |
-          IFS=$'\n'
           echo 'PR Labels:'
-          echo "$SIZE_LABELS"
-          for label in $SIZE_LABELS; do
+          IFS=',' read -ra LABELS <<< "$SIZE_LABELS"
+          for label in "${LABELS[@]}"; do
             echo "⸱ $label"
           done
           echo '---'
           gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} > labels.json
           LABELS=$(jq -r '.labels | map(.name) | join("\n")' labels.json)
           echo 'Labels:'
+          IFS=$'\n'
           for label in $LABELS; do
             echo "⸱ $label"
           done
