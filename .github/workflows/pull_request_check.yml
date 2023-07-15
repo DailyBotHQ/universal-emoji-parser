@@ -40,6 +40,7 @@ jobs:
         env:
           ENV_LABELS: ${{ toJSON(github.event.pull_request.labels) }}
         run: |
+          set -e
           IFS=',' read -ra SIZE_LABELS_ARR <<< "$SIZE_LABELS"
           # Remove the quotes from SIZE_LABELS_ARR
           SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
