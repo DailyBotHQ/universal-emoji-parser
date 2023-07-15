@@ -31,9 +31,11 @@ jobs:
 
       - name: Step 2 - Calculate PR Size and Label
         run: |
-          git fetch origin ${{ github.event.pull_request.base.ref }}
-          git fetch origin ${{ github.event.pull_request.head.ref }}
-          CHANGES_STATS=$(git diff --shortstat origin/${{ github.event.pull_request.base.ref }}..origin/${{ github.event.pull_request.head.ref }}')
+          PR_BASE_REF=${{ github.event.pull_request.base.ref }}
+          PR_HEAD_REF=${{ github.event.pull_request.head.ref }}
+          git fetch origin $PR_BASE_REF
+          git fetch origin $PR_HEAD_REF
+          CHANGES_STATS=$(git diff --shortstat origin/$PR_BASE_REF..origin/$PR_HEAD_REF)
           echo $CHANGES_STATS
           LINES_CHANGED=$(echo $CHANGES_STATS | awk '{print $4+$6}')
           echo "Lines changed: $LINES_CHANGED"
