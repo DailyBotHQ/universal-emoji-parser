@@ -40,23 +40,19 @@ jobs:
         env:
           ENV_LABELS: ${{ toJSON(github.event.pull_request.labels) }}
         run: |
-          echo "LABELS..."
-          echo "$ENV_LABELS"
           IFS=',' read -ra SIZE_LABELS_ARR <<< "$SIZE_LABELS"
           # Remove the quotes from SIZE_LABELS_ARR
           SIZE_LABELS_ARR=("${SIZE_LABELS_ARR[@]//\"}")
 
           # Get PR Labels
-          gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} > labels.json
-          FOUND_LABELS=$(jq -r '.labels | map(.name) | join("\n")' labels.json)
+          FOUND_LABELS=$(echo '${{ toJSON(github.event.pull_request.labels) }}' | jq -r '.[].name')
 
           # Check if any of the labels in FOUND_LABELS is in SIZE_LABELS_ARR
-          IFS=$'\n'
           for found_label in $FOUND_LABELS; do
             for size_label in "${SIZE_LABELS_ARR[@]}"; do
               if [[ "$found_label" == "$size_label" ]]; then
                 echo "Label '$found_label' found in SIZE_LABELS"
-                echo "size_label_found=$found_label" >> $GITHUB_OUTPUT
+                echo "size_label_found=$found_label" >> $GITHUB_ENV
               fi
             done
           done
