@@ -93,12 +93,24 @@ jobs:
             SIZE="Size - XXL"
           fi
 
+          SIZE="Size - XXL"
           echo "Current Size: '$CURRENT_SIZE'"
           echo "New Size: '$SIZE'"
 
           if [ "$SIZE" == "$CURRENT_SIZE" ]; then
             echo "No size change detected."
             exit 0
+          fi
+
+          if [ "$SIZE" == "Size - XXL" ]; then
+            WARNING_MESSAGE="⚠️ WARNING: This PR is too large. Consider breaking it down into smaller ones for faster and easier review."
+            echo "Adding warning comment..."
+            curl \
+              -X POST \
+              -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+              -d "{\"body\": \"$WARNING_MESSAGE\"}"
           fi
 
           if [ -n "$CURRENT_SIZE" ]; then
