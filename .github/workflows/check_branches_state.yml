@@ -21,18 +21,17 @@ jobs:
           echo "${{ secrets.AUTOMATION_GITHUB_TOKEN }}" | gh auth login --with-token
       - name: Step 2 - Get all branches of the repository and check if they are up to date
         run: |
-          branches=$(gh branch list | cut -f1)
-          echo 'Branches...'
-          echo "$branches"
-
+          branches=$(git branch -r)
           for branch in $branches
           do
-            author=$(git show --no-patch --format='%an' "$branch")
+            author=$(git show --no-patch --format='%an (%ae)' "$branch")
             last_commit_date=$(git show --no-patch --format='%ci' "$branch")
             days_since_last_commit=$(( ( $(date +%s) - $(date -d "$last_commit_date" +%s) ) / 86400 ))
 
-            if (( days_since_last_commit > 15 ))
+            echo "$branch by $author_email is older than 0 days"
+            DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
+            if (( days_since_last_commit > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ))
             then
-              echo "$branch by $author is older than 15 days"
+              echo "$branch by $author is older than $DAYS_FROM_LAST_COMMIT_TO_NOTIFY days"
             fi
           done
