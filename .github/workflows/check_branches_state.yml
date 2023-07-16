@@ -35,8 +35,9 @@ jobs:
             last_commit_date=$(git show --no-patch --format='%ci' "$branch")
             days_since_last_commit=$(( ( $(date +%s) - $(date -d "$last_commit_date" +%s) ) / 86400 ))
 
-            if (( days_since_last_commit > 0 ))
-            then
-              echo "$branch by $author is older than 0 days"
-            fi
+            echo "$branch by $author is older than 0 days"
+            # if (( days_since_last_commit > 0 ))
+            # then
+            #   echo "$branch by $author is older than 0 days"
+            # fi
           done
