@@ -28,7 +28,7 @@ jobs:
             last_commit_date=$(git show --no-patch --format='%ci' "$branch")
             days_since_last_commit=$(( ( $(date +%s) - $(date -d "$last_commit_date" +%s) ) / 86400 ))
 
-            echo "$branch by $author_email is older than 0 days"
+            echo "$branch by $author is older than 0 days"
             DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
             if (( days_since_last_commit > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ))
             then
