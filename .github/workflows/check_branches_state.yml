@@ -21,9 +21,9 @@ jobs:
           echo "${{ secrets.AUTOMATION_GITHUB_TOKEN }}" | gh auth login --with-token
       - name: Step 2 - Get all branches of the repository and check if they are up to date
         run: |
-          branches=$(gh branch list | cut -f1)
-          echo 'Branches...'
-          echo "$branches"
+          branches=$(git branch -r | cut -f2 -d' ')
+          echo "Checking branches state..."
+          echo "Branches: $branches"
 
           for branch in $branches
           do
