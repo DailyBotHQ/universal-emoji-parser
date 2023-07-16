@@ -33,6 +33,6 @@ jobs:
 
             if (( days_since_last_commit >= 0 ))
             then
-              echo "$branch by $author is older than 0 days"
+              echo "'$branch' by '$author' is older than 0 days"
             fi
           done
