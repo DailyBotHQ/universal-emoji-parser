@@ -93,7 +93,7 @@ jobs:
             SIZE="Size - XXL"
           fi
 
-          SIZE="Size - L"
+          SIZE="Size - XL"
           echo "Current Size: '$CURRENT_SIZE'"
           echo "New Size: '$SIZE'"
 
@@ -121,7 +121,11 @@ jobs:
             -d "{\"labels\": [\"${SIZE}\"]}"
 
           if [ "$SIZE" == "Size - L" ] || [ "$SIZE" == "Size - XL" ] || [ "$SIZE" == "Size - XXL" ]; then
-            WARNING_MESSAGE="⚠️ WARNING: This PR is too large.\nConsider breaking it down into smaller ones for faster and easier review next time.\nMake sure your code has tests and you have done the necessary QA."
+            WARNING_MESSAGE="⚠️ WARNING: This PR is large.\n"
+            if [ "$SIZE" == "Size - XL" ] || [ "$SIZE" == "Size - XXL" ]; then
+              WARNING_MESSAGE="⚠️ 🔴 WARNING: This PR is too large.\nConsider breaking it down into smaller ones for faster and easier review next time.\n"
+            fi
+            WARNING_MESSAGE+="Make sure your code has tests and you have done the necessary QA."
             echo "Adding warning comment..."
             curl \
               -X POST \
