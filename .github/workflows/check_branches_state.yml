@@ -1,24 +1,38 @@
-name: check-branches-state
+name: Check Branches State
 
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: [check_branches_state]
+  schedule:
+    - cron: '0 9 * * 2'
 
 jobs:
-  build:
+  check_branches_state:
+    name: 'Check Branches State'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['18']
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
-      - name: Step 1 - Check branches state
-        uses: DailyBotHQ/action-check-branches-state@v0.0.4
-        with:
-          daysOld: 90
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+          fetch-depth: 0
+      - name: Step 1 - ⚙️ Setup GitHub Config
+        run: |
+          git config user.name "🤖 DailyBot"
+          git config user.email "ops@dailybot.com"
+          echo "${{ secrets.AUTOMATION_GITHUB_TOKEN }}" | gh auth login --with-token
+      - name: Step 2 - Get all branches of the repository and check if they are up to date
+        run: |
+          branches=$(gh branch list | cut -f1)
+          echo 'Branches...'
+          echo "$branches"
+
+          for branch in $branches
+          do
+            author=$(git show --no-patch --format='%an' "$branch")
+            last_commit_date=$(git show --no-patch --format='%ci' "$branch")
+            days_since_last_commit=$(( ( $(date +%s) - $(date -d "$last_commit_date" +%s) ) / 86400 ))
+
+            if (( days_since_last_commit > 15 ))
+            then
+              echo "$branch by $author is older than 15 days"
+            fi
+          done
