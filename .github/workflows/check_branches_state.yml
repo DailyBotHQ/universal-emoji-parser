@@ -22,10 +22,10 @@ jobs:
       - name: Step 2 - Get all branches of the repository and check if they are up to date
         run: |
           BRANCHES=$(git branch -r)
-          NOTIFICATION_MESSAGE="*👉 #$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here Please check open branches that haven't been updated for 5+ days.*"$'\n'
+          NOTIFICATION_MESSAGE="*👉 #$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - @here Please check open branches that haven't been updated for more than 5 days.*"$'\n'
           for BRANCH in $BRANCHES
           do
-            AUTHOR=$(git show --no-patch --format='%an (%ae)' "$BRANCH")
+            AUTHOR=$(git show --no-patch --format='%an' "$BRANCH" | awk '{print $1, $2}')
             LAST_COMMIT_DATE=$(git show --no-patch --format='%ci' "$BRANCH")
             DAYS_SINCE_LAST_COMMIT=$(( ( $(date +%s) - $(date -d "$LAST_COMMIT_DATE" +%s) ) / 86400 ))
 
