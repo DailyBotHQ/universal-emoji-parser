@@ -93,7 +93,6 @@ jobs:
             SIZE="Size - XXL"
           fi
 
-          SIZE="Size - XXL"
           echo "Current Size: '$CURRENT_SIZE'"
           echo "New Size: '$SIZE'"
 
