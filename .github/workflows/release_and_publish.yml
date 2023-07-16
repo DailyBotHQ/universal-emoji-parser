@@ -21,6 +21,8 @@ jobs:
         id: check_pr_size_label_step
         env:
           ENV_LABELS: ${{ toJSON(github.event.pull_request.labels) }}
+          SIZE_LABELS: >-
+            "Size - XS","Size - S","Size - M","Size - L","Size - XL","Size - XXL"
         run: |
           IFS=',' read -ra SIZE_LABELS_ARR <<< "$SIZE_LABELS"
           # Remove the quotes from SIZE_LABELS_ARR
