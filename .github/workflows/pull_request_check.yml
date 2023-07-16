@@ -147,7 +147,7 @@ jobs:
       - name: Step 5 - 🧪🧪🧪🧪 Check "BODY" length
         run: |
           MIN_BODY_LENGTH=30
-          PR_BODY="${{ github.event.pull_request.body }}"
+          PR_BODY='${{ github.event.pull_request.body }}'
           BODY_LENGTH=$(echo -n "$PR_BODY" | wc -c)
           if [ "$BODY_LENGTH" -lt "$MIN_BODY_LENGTH" ]; then
             echo "Pull request body is too short. It must have at least $MIN_BODY_LENGTH characters."
