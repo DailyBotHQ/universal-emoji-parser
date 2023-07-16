@@ -61,8 +61,8 @@ jobs:
       - name: Step 1 - 🔔 Send notification on channel
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
+          SIZE_LABEL_FOUND: ${{ needs.check_pr_size_label.outputs.size_label_found }}
         run: |
-          SIZE_LABEL_FOUND="${{ needs.check_pr_size_label.outputs.size_label_found }}"
           NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Repository:* <https://github.com/$GITHUB_REPOSITORY|$GITHUB_REPOSITORY>"$'\n'
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n\n'
@@ -339,8 +339,8 @@ jobs:
       - name: Step 1 - 🔔 Send notification on channel
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
+          SIZE_LABEL_FOUND: ${{ needs.check_pr_size_label.outputs.size_label_found }}
         run: |
-          SIZE_LABEL_FOUND="${{ needs.check_pr_size_label.outputs.size_label_found }}"
           NOTIFICATION_MESSAGE="> *WorkFlow: <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|$GITHUB_WORKFLOW>*"$'\n'
           NOTIFICATION_MESSAGE+="> *Repository:* <https://github.com/$GITHUB_REPOSITORY|$GITHUB_REPOSITORY>"$'\n'
           NOTIFICATION_MESSAGE+="> *User Actor:* $GITHUB_ACTOR"$'\n'
