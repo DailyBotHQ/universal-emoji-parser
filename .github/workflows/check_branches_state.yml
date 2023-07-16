@@ -18,7 +18,7 @@ jobs:
         run: |
           git config user.name "🤖 DailyBot"
           git config user.email "ops@dailybot.com"
-          echo "${{ secrets.AUTOMATION_GITHUB_TOKEN }}" | gh auth login --with-token
+          gh auth login --with-token <<< "${{ secrets.AUTOMATION_GITHUB_TOKEN }}"
       - name: Step 2 - Get all branches of the repository and check if they are up to date
         run: |
           branches=$(git branch -r)
@@ -27,10 +27,9 @@ jobs:
             author=$(git show --no-patch --format='%an (%ae)' "$branch")
             last_commit_date=$(git show --no-patch --format='%ci' "$branch")
             days_since_last_commit=$(( ( $(date +%s) - $(date -d "$last_commit_date" +%s) ) / 86400 ))
-            branch_creation_date=$(git reflog show --date=iso | tail -1 | awk '{print $2" "$3}')
-            days_since_branch_creation=$(( ( $(date +%s) - $(date -d "$branch_creation_date" +%s) ) / 86400 ))
 
-            echo "$branch by $author is older than $DAYS_FROM_LAST_COMMIT_TO_NOTIFY days, and it has been $days_since_branch_creation days since it was created"
+            branch_creation_date=$(git log --reverse --format='%ci' "$branch" | head -1)
+            days_since_branch_creation=$(( ( $(date +%s) - $(date -d "$branch_creation_date" +%s) ) / 86400 ))
 
             DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
             if (( days_since_last_commit > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ))
