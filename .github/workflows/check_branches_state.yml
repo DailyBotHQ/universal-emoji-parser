@@ -14,8 +14,6 @@ jobs:
         with:
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
           fetch-depth: 0
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
       - name: Step 1 - ⚙️ Setup GitHub Config
         run: |
           git config user.name "🤖 DailyBot"
@@ -30,12 +28,11 @@ jobs:
           for branch in $branches
           do
             author_email=$(git show --no-patch --format='%ae' "$branch")
-            author=$(curl -s -H "Authorization: token ${{ secrets.AUTOMATION_GITHUB_TOKEN }}" "https://api.github.com/search/users?q=$author_email+in:email&type=Users" | jq -r '.items[0].login')
 
             last_commit_date=$(git show --no-patch --format='%ci' "$branch")
             days_since_last_commit=$(( ( $(date +%s) - $(date -d "$last_commit_date" +%s) ) / 86400 ))
 
-            echo "$branch by $author is older than 0 days"
+            echo "$branch by $author_email is older than 0 days"
             # if (( days_since_last_commit > 0 ))
             # then
             #   echo "$branch by $author is older than 0 days"
