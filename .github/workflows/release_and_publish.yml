@@ -44,7 +44,7 @@ jobs:
               fi
             done
           done
-          echo "size_label_found=SIZE_LABEL_FOUND" >> $GITHUB_OUTPUT
+          echo "size_label_found=$SIZE_LABEL_FOUND" >> $GITHUB_OUTPUT
 
     outputs:
       size_label_found: ${{ steps.check_pr_size_label_step.outputs.size_label_found }}
@@ -70,11 +70,11 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BODY="${{ github.event.pull_request.body }}"
           PR_BODY=$(echo $PR_BODY | sed 's/\r/\n/g')
+          NOTIFICATION_MESSAGE+="> *Pull request size label:* $SIZE_LABEL_FOUND"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request title:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`🚩 $PR_TITLE\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
-          NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"$'\n'
-          NOTIFICATION_MESSAGE+="> *Pull request size label:* $SIZE_LABEL_FOUND"$'\n\n'
+          NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"$'\n\n'
           NOTIFICATION_MESSAGE="> *👉 #$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🏁 DEPLOYMENT STARTED*"$'\n\n'"$NOTIFICATION_MESSAGE"
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
@@ -353,11 +353,11 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           PR_BODY="${{ github.event.pull_request.body }}"
           PR_BODY=$(echo $PR_BODY | sed 's/\r/\n/g')
+          NOTIFICATION_MESSAGE+="> *Pull request size label:* $SIZE_LABEL_FOUND"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request title:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`🚩 $PR_TITLE\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
-          NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"$'\n'
-          NOTIFICATION_MESSAGE+="> *Pull request size label:* $SIZE_LABEL_FOUND"$'\n\n'
+          NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"$'\n\n'
           NOTIFICATION_MESSAGE+="> *Jobs:*"$'\n'
           INDEX=1
           NEEDS_ORDER=("check_pr_size_label" "deploy_setup" "deploy_validate_linters_and_code_format" "deploy_tests" "build" "release_and_publish" "cleanup_caches")
