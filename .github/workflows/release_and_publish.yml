@@ -65,7 +65,6 @@ jobs:
           NEEDS_JSON: ${{ toJSON(needs) }}
           SIZE_LABEL_FOUND: ${{ needs.check_pr_size_label.outputs.size_label_found }}
         run: |
-          echo "$SIZE_LABEL_FOUND"
           SIZE_LABEL_FOUND_EMOJI="❓"
           if [ "$SIZE_LABEL_FOUND" == "Size - XS" ]; then
             SIZE_LABEL_FOUND_EMOJI="🟢"
