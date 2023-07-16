@@ -27,11 +27,14 @@ jobs:
             author=$(git show --no-patch --format='%an (%ae)' "$branch")
             last_commit_date=$(git show --no-patch --format='%ci' "$branch")
             days_since_last_commit=$(( ( $(date +%s) - $(date -d "$last_commit_date" +%s) ) / 86400 ))
+            branch_creation_date=$(git reflog show --date=iso | tail -1 | awk '{print $2" "$3}')
+            days_since_branch_creation=$(( ( $(date +%s) - $(date -d "$branch_creation_date" +%s) ) / 86400 ))
 
-            echo "$branch by $author is older than 0 days"
+            echo "$branch by $author is older than $DAYS_FROM_LAST_COMMIT_TO_NOTIFY days, and it has been $days_since_branch_creation days since it was created"
+
             DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
             if (( days_since_last_commit > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ))
             then
-              echo "$branch by $author is older than $DAYS_FROM_LAST_COMMIT_TO_NOTIFY days"
+              echo "$branch by $author is older than $DAYS_FROM_LAST_COMMIT_TO_NOTIFY days, and it has been $days_since_branch_creation days since it was created"
             fi
           done
