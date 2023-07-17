@@ -22,6 +22,7 @@ jobs:
       - name: Step 2 - Get all branches of the repository and check if they are up to date
         run: |
           BRANCHES=$(git branch -r)
+          BRANCHES_OUTDATED_FOUND=0
           NOTIFICATION_MESSAGE="*👉 <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|#$GITHUB_RUN_NUMBER> ($GITHUB_REF_NAME) - @here Check branches without updates for more than 5 days.*"$'\n'
           for BRANCH in $BRANCHES
           do
@@ -35,11 +36,17 @@ jobs:
 
             DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
             if [ "$BRANCH_NAME" != "dev" ] && [ "$BRANCH_NAME" != "staging" ] && [ "$BRANCH_NAME" != "main" ]; then
+              BRANCHES_OUTDATED_FOUND=1
               #if [ DAYS_SINCE_LAST_COMMIT > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ]; then
               NOTIFICATION_MESSAGE+="> • *\`$BRANCH_NAME\`* by *$AUTHOR*, created *$DAYS_SINCE_BRANCH_CREATION* days ago"$'\n'
               #fi
             fi
           done
+
+          if [ $BRANCHES_OUTDATED_FOUND -eq 0 ]; then
+            echo "No outdated branches found"
+            exit 0
+          fi
 
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
