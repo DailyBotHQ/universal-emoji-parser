@@ -31,14 +31,11 @@ jobs:
             LAST_COMMIT_DATE=$(git show --no-patch --format='%ci' "$BRANCH")
             DAYS_SINCE_LAST_COMMIT=$(( ( $(date +%s) - $(date -d "$LAST_COMMIT_DATE" +%s) ) / 86400 ))
 
-            BRANCH_CREATION_DATE=$(git log --reverse --format='%ci' "$BRANCH" | head -1)
-            DAYS_SINCE_BRANCH_CREATION=$(( ( $(date +%s) - $(date -d "$BRANCH_CREATION_DATE" +%s) ) / 86400 ))
-
             DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
             if [ "$BRANCH_NAME" != "dev" ] && [ "$BRANCH_NAME" != "staging" ] && [ "$BRANCH_NAME" != "main" ]; then
               BRANCHES_OUTDATED_FOUND=1
               #if [ DAYS_SINCE_LAST_COMMIT > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ]; then
-              NOTIFICATION_MESSAGE+="> • *\`$BRANCH_NAME\`* by *$AUTHOR*, created *$DAYS_SINCE_BRANCH_CREATION* days ago"$'\n'
+              NOTIFICATION_MESSAGE+="> • *\`$BRANCH_NAME\`* created by *$AUTHOR*"$'\n'
               #fi
             fi
           done
