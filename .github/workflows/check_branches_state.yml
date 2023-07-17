@@ -31,10 +31,10 @@ jobs:
             LAST_COMMIT_DATE=$(git show --no-patch --format='%ci' "$BRANCH")
             DAYS_SINCE_LAST_COMMIT=$(( ( $(date +%s) - $(date -d "$LAST_COMMIT_DATE" +%s) ) / 86400 ))
 
-            DAYS_FROM_LAST_COMMIT_TO_NOTIFY=0
+            DAYS_FROM_LAST_COMMIT_TO_NOTIFY=7
             echo "DAYS_SINCE_LAST_COMMIT: $DAYS_SINCE_LAST_COMMIT"
             echo "DAYS_FROM_LAST_COMMIT_TO_NOTIFY: $DAYS_FROM_LAST_COMMIT_TO_NOTIFY"
-            if [ $DAYS_SINCE_LAST_COMMIT -ge $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ] && [ "$BRANCH_NAME" != "dev" ] && [ "$BRANCH_NAME" != "staging" ] && [ "$BRANCH_NAME" != "main" ]; then
+            if [ $DAYS_SINCE_LAST_COMMIT -gt $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ] && [ "$BRANCH_NAME" != "dev" ] && [ "$BRANCH_NAME" != "staging" ] && [ "$BRANCH_NAME" != "main" ]; then
               BRANCHES_OUTDATED_FOUND=1
               NOTIFICATION_MESSAGE+="> • *\`$BRANCH_NAME\`* created by *$AUTHOR*"$'\n'
             fi
