@@ -36,7 +36,7 @@ jobs:
             DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
             #if [ DAYS_SINCE_LAST_COMMIT > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ]; then
             #then
-            NOTIFICATION_MESSAGE+="> `*$BRANCH_NAME*` by *$AUTHOR*, created *$DAYS_SINCE_BRANCH_CREATION* days ago"$'\n'
+            NOTIFICATION_MESSAGE+="> • \`*$BRANCH_NAME*\` by *$AUTHOR*, created *$DAYS_SINCE_BRANCH_CREATION* days ago"$'\n'
             #fi
           done
 
