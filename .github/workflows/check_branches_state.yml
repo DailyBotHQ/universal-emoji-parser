@@ -34,7 +34,7 @@ jobs:
             DAYS_SINCE_BRANCH_CREATION=$(( ( $(date +%s) - $(date -d "$BRANCH_CREATION_DATE" +%s) ) / 86400 ))
 
             DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
-            if [ "$BRANCH_NAME" != "dev" ]; then
+            if [ "$BRANCH_NAME" != "dev" ] and [ "$BRANCH_NAME" != "staging" ] and [ "$BRANCH_NAME" != "main" ]; then
               #if [ DAYS_SINCE_LAST_COMMIT > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ]; then
               NOTIFICATION_MESSAGE+="> • *\`$BRANCH_NAME\`* by *$AUTHOR*, created *$DAYS_SINCE_BRANCH_CREATION* days ago"$'\n'
               #fi
