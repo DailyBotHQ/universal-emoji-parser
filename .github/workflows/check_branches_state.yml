@@ -22,9 +22,10 @@ jobs:
       - name: Step 2 - Get all branches of the repository and check if they are up to date
         run: |
           BRANCHES=$(git branch -r)
-          NOTIFICATION_MESSAGE="*👉 <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|#$GITHUB_RUN_NUMBER> ($GITHUB_REF_NAME) - @here Open branches without updates for more than 5 days.*"$'\n'
+          NOTIFICATION_MESSAGE="*👉 <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|#$GITHUB_RUN_NUMBER> ($GITHUB_REF_NAME) - @here Check branches without updates for more than 5 days.*"$'\n'
           for BRANCH in $BRANCHES
           do
+            BRANCH_NAME="${data//origin\//}"
             AUTHOR=$(git show --no-patch --format='%an' "$BRANCH" | awk '{print $1, $2}')
             LAST_COMMIT_DATE=$(git show --no-patch --format='%ci' "$BRANCH")
             DAYS_SINCE_LAST_COMMIT=$(( ( $(date +%s) - $(date -d "$LAST_COMMIT_DATE" +%s) ) / 86400 ))
@@ -33,9 +34,9 @@ jobs:
             DAYS_SINCE_BRANCH_CREATION=$(( ( $(date +%s) - $(date -d "$BRANCH_CREATION_DATE" +%s) ) / 86400 ))
 
             DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
-            #if (( DAYS_SINCE_LAST_COMMIT > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ))
+            #if [ DAYS_SINCE_LAST_COMMIT > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ]; then
             #then
-            NOTIFICATION_MESSAGE+="> *$BRANCH* by *$AUTHOR*, created *$DAYS_SINCE_BRANCH_CREATION* days ago"$'\n'
+            NOTIFICATION_MESSAGE+="> *$BRANCH_NAME* by *$AUTHOR*, created *$DAYS_SINCE_BRANCH_CREATION* days ago"$'\n'
             #fi
           done
 
