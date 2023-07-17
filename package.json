@@ -77,6 +77,6 @@
     "webpack": "5.88.1",
     "webpack-cli": "5.1.4",
     "prettier": "3.0.0",
-    "npm-check-updates": "16.10.15"
+    "npm-check-updates": "16.10.16"
   }
 }
