@@ -34,10 +34,11 @@ jobs:
             DAYS_SINCE_BRANCH_CREATION=$(( ( $(date +%s) - $(date -d "$BRANCH_CREATION_DATE" +%s) ) / 86400 ))
 
             DAYS_FROM_LAST_COMMIT_TO_NOTIFY=5
-            #if [ DAYS_SINCE_LAST_COMMIT > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ]; then
-            #then
-            NOTIFICATION_MESSAGE+="> • *\`$BRANCH_NAME\`* by *$AUTHOR*, created *$DAYS_SINCE_BRANCH_CREATION* days ago"$'\n'
-            #fi
+            if [ "$BRANCH_NAME" != "dev" ]; then
+              #if [ DAYS_SINCE_LAST_COMMIT > $DAYS_FROM_LAST_COMMIT_TO_NOTIFY ]; then
+              NOTIFICATION_MESSAGE+="> • *\`$BRANCH_NAME\`* by *$AUTHOR*, created *$DAYS_SINCE_BRANCH_CREATION* days ago"$'\n'
+              #fi
+            fi
           done
 
           JSON_DATA=$(jq -n \
