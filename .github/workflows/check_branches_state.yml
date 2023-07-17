@@ -25,7 +25,7 @@ jobs:
           NOTIFICATION_MESSAGE="*👉 <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|#$GITHUB_RUN_NUMBER> ($GITHUB_REF_NAME) - @here Check branches without updates for more than 5 days.*"$'\n'
           for BRANCH in $BRANCHES
           do
-            BRANCH_NAME="${data//origin\//}"
+            BRANCH_NAME="${BRANCH//origin\//}"
             AUTHOR=$(git show --no-patch --format='%an' "$BRANCH" | awk '{print $1, $2}')
             LAST_COMMIT_DATE=$(git show --no-patch --format='%ci' "$BRANCH")
             DAYS_SINCE_LAST_COMMIT=$(( ( $(date +%s) - $(date -d "$LAST_COMMIT_DATE" +%s) ) / 86400 ))
