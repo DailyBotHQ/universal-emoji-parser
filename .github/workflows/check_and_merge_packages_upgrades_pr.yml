@@ -114,7 +114,7 @@ jobs:
 
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
-                        --arg channel "${{ vars.DAILYBOT_NOTIFICATION_LIVE_CHANNEL }}" \
+                        --arg channel "${{ vars.DAILYBOT_WORKFLOWS_NOTIFICATION_CHANNEL }}" \
                         '{message: $msg, target_channels: [$channel]}')
 
           curl --location 'https://api.dailybot.com/v1/send-message/' \
