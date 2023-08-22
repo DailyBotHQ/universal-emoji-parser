@@ -23,7 +23,7 @@ jobs:
         run: |
           BRANCHES=$(git branch -r)
           BRANCHES_OUTDATED_FOUND=0
-          NOTIFICATION_MESSAGE="*👉 <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|#$GITHUB_RUN_NUMBER> ($GITHUB_REF_NAME) - @here Check branches without updates for more than 5 days.*"$'\n'
+          NOTIFICATION_MESSAGE="*👉 <https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID|#$GITHUB_RUN_NUMBER> ($GITHUB_REF_NAME) - ${{ vars.USERS_TO_NOTIFY }} Check branches without updates for more than 5 days.*"$'\n'
           NOTIFICATION_MESSAGE+="*Repository:* <https://github.com/$GITHUB_REPOSITORY|$GITHUB_REPOSITORY>"$'\n'
           for BRANCH in $BRANCHES
           do
