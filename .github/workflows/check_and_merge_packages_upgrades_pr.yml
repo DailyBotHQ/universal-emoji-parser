@@ -3,7 +3,7 @@ name: Check & Merge Packages Upgrades PR
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 15 * * 2'
+    - cron: '0 20 * * 2'
 
 env:
   GIT_BRANCH_FOR_PACKAGES_UPGRADES: feature__packages_versions_update
