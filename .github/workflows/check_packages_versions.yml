@@ -3,7 +3,7 @@ name: Check Packages Versions
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 10 * * 2'
+    - cron: '0 15 * * 2'
 
 env:
   GIT_BRANCH_FOR_PACKAGES_UPGRADES: feature__packages_versions_update
@@ -108,7 +108,7 @@ jobs:
           NOTIFICATION_MESSAGE+="> \`\`\`🚩 $PR_TITLE\`\`\`"$'\n'
           NOTIFICATION_MESSAGE+="> *Pull request body content:*"$'\n'
           NOTIFICATION_MESSAGE+="> \`\`\`$(echo $PR_BODY | sed 's/⬆️/\n⬆️/g')\`\`\`"
-          NOTIFICATION_MESSAGE="*👉 #$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 @here NEW PACKAGES UPGRADES AVAILABLE*"$'\n\n'"$NOTIFICATION_MESSAGE"
+          NOTIFICATION_MESSAGE="*👉 #$GITHUB_RUN_NUMBER ($GITHUB_REF_NAME) - 🔔 ${{ vars.USERS_TO_NOTIFY }} NEW PACKAGES UPGRADES AVAILABLE*"$'\n\n'"$NOTIFICATION_MESSAGE"
 
           JSON_DATA=$(jq -n \
                         --arg msg "$NOTIFICATION_MESSAGE" \
