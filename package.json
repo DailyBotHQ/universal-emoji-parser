@@ -55,28 +55,28 @@
     "twemoji": "14.0.2"
   },
   "devDependencies": {
-    "@types/chai": "4.3.6",
+    "@types/chai": "4.3.7",
     "@types/mocha": "10.0.2",
-    "@types/node": "20.8.2",
-    "@typescript-eslint/eslint-plugin": "6.7.4",
-    "@typescript-eslint/parser": "6.7.4",
+    "@types/node": "20.8.4",
+    "@typescript-eslint/eslint-plugin": "6.7.5",
+    "@typescript-eslint/parser": "6.7.5",
     "chai": "4.3.10",
     "clean-webpack-plugin": "4.0.0",
     "emojilib": "3.0.11",
-    "eslint": "8.50.0",
+    "eslint": "8.51.0",
     "eslint-plugin-import": "2.28.1",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-webpack-plugin": "4.0.1",
     "mocha": "10.2.0",
     "nodemon": "3.0.1",
-    "ts-loader": "9.4.4",
+    "ts-loader": "9.5.0",
     "ts-node": "10.9.1",
     "typescript": "5.2.2",
     "unicode-emoji-json": "0.4.0",
     "webpack": "5.88.2",
     "webpack-cli": "5.1.4",
     "prettier": "3.0.3",
-    "npm-check-updates": "16.14.4"
+    "npm-check-updates": "16.14.5"
   }
 }
