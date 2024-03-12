@@ -60,7 +60,7 @@
     "@types/node": "20.11.26",
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",
-    "chai": "5.1.0",
+    "chai": "4.4.1",
     "clean-webpack-plugin": "4.0.0",
     "emojilib": "3.0.11",
     "eslint": "8.57.0",
