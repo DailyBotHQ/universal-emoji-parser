@@ -10,6 +10,7 @@
     },
     "vscode": {
       "extensions": [
+        "eamodio.gitlens",
         "VisualStudioExptTeam.vscodeintellicode",
         "swyphcosmo.spellchecker",
         "streetsidesoftware.code-spell-checker",
@@ -21,9 +22,8 @@
         "compulim.vscode-mocha",
         "hbenl.vscode-mocha-test-adapter",
         "dbaeumer.vscode-eslint",
-        "GitHub.copilot",
-        "GitHub.vscode-github-actions",
-        "EditorConfig.EditorConfig"
+        "EditorConfig.EditorConfig",
+        "AmazonWebServices.aws-toolkit-vscode"
       ]
     }
   }
