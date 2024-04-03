@@ -6,6 +6,7 @@ import emojiLibJson from './lib/emoji-lib.json'
  * Constances
  */
 export const DEFAULT_EMOJI_CDN: string = 'https://twemoji.maxcdn.com/v'
+export const TEMPORARY_NEW_EMOJI_CDN: string = 'https://cdnjs.cloudflare.com/ajax/libs/twemoji'
 export const emojiLibJsonData: EmojiLibJsonType = emojiLibJson
 
 /**
@@ -34,7 +35,9 @@ const uEmojiParser: UEmojiParserType = {
   getDefaultOptions(options?: EmojiParseOptionsType): EmojiParseOptionsType {
     options = {
       emojiCDN:
-        options && Object.getOwnPropertyDescriptor(options, 'emojiCDN') ? String(options.emojiCDN) : DEFAULT_EMOJI_CDN,
+        options && Object.getOwnPropertyDescriptor(options, 'emojiCDN')
+          ? String(options.emojiCDN)
+          : TEMPORARY_NEW_EMOJI_CDN,
       parseToHtml:
         options && Object.getOwnPropertyDescriptor(options, 'parseToHtml') ? Boolean(options.parseToHtml) : true,
       parseToUnicode: options ? Boolean(options.parseToUnicode) : false,
@@ -45,6 +48,10 @@ const uEmojiParser: UEmojiParserType = {
   __parseEmojiToHtml(text: string, emojiCDN?: string): string {
     text = twemoji.parse(text)
     text = text.replace(/ draggable="false" /g, ' ')
+    // @TODO: This is a temporary solution to solve the issue with the official CDN.
+    if (!emojiCDN) {
+      emojiCDN = TEMPORARY_NEW_EMOJI_CDN
+    }
     if (emojiCDN) {
       const cdnRegex: RegExp = new RegExp(DEFAULT_EMOJI_CDN, 'gi')
       text = text.replace(cdnRegex, emojiCDN)
