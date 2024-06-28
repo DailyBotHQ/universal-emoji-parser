@@ -5,6 +5,15 @@ import unicodeEmojiJson from 'unicode-emoji-json'
 import * as fs from 'fs'
 
 describe('Prepare emoji parser assets', () => {
+  const EMOJIS_SPECIAL_CASES: ObjectType = {
+    '☕': {
+      include: ['coffee'],
+    },
+    '🤎': {
+      exclude: ['coffee'],
+    },
+  }
+
   /**
    * This test allows you to recreate the emoji-lib.json file,
    * which contains the definition of all unicode emojis with their respective aliases.
@@ -12,17 +21,41 @@ describe('Prepare emoji parser assets', () => {
    * Note: By default this test is disabled, reactivate it only if you need to regenerate the file.
    ***/
   it.skip('create emojis lib json file', () => {
+    // Initialize the data structure for storing emoji data from unicodeEmojiJson
     const unicodeEmojiJsonData: ObjectType = unicodeEmojiJson
+    // Retrieve the set of keywords from emojilib
     const keywordSet: ObjectType = emojilib
+    // Iterate over each emoji in the unicodeEmojiJsonData
     for (const emoji in unicodeEmojiJsonData) {
+      // Assign the emoji character itself to the 'char' property
       unicodeEmojiJsonData[emoji].char = emoji
+      // If the emoji has predefined keywords in emojilib, use them
       if (keywordSet[emoji]) {
         unicodeEmojiJsonData[emoji].keywords = keywordSet[emoji]
       } else {
+        // Otherwise, use the slug as the keyword
         unicodeEmojiJsonData[emoji].keywords = [unicodeEmojiJsonData[emoji].slug]
       }
+      // Ensure the slug is included in the keywords list
       if (!unicodeEmojiJsonData[emoji].keywords.includes(unicodeEmojiJsonData[emoji].slug)) {
         unicodeEmojiJsonData[emoji].keywords.unshift(unicodeEmojiJsonData[emoji].slug)
+      }
+      // Handle special cases for specific emojis
+      if (EMOJIS_SPECIAL_CASES[emoji]) {
+        // Include additional keywords if specified
+        if (EMOJIS_SPECIAL_CASES[emoji].include) {
+          EMOJIS_SPECIAL_CASES[emoji].include.forEach((keyword: string) => {
+            if (!unicodeEmojiJsonData[emoji].keywords.includes(keyword)) {
+              unicodeEmojiJsonData[emoji].keywords.unshift(keyword)
+            }
+          })
+        }
+        // Exclude certain keywords if specified
+        if (EMOJIS_SPECIAL_CASES[emoji].exclude) {
+          unicodeEmojiJsonData[emoji].keywords = unicodeEmojiJsonData[emoji].keywords.filter(
+            (keywordInternal: string) => !EMOJIS_SPECIAL_CASES[emoji].exclude.includes(keywordInternal)
+          )
+        }
       }
     }
 

@@ -260,6 +260,24 @@ describe('Test emoji parser', () => {
     })
   })
 
+  describe('Coffee Tests', () => {
+    it('should parse emojis about coffee', () => {
+      // (1) Coffee ☕
+      let text: string = '☕'
+      let result: string = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        '<img class="emoji" alt="☕" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/2615.png"/>'
+      )
+
+      // (2) Brown Coffee 🤎
+      text = '🤎'
+      result = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        '<img class="emoji" alt="🤎" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f90e.png"/>'
+      )
+    })
+  })
+
   describe('Readme tests', () => {
     it('should parse tests with default options', () => {
       // (1) Test with default options

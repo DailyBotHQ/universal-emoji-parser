@@ -8,7 +8,8 @@ describe('Test emoji lib json data', () => {
       // (1) Check emojiLibJsonData keys
       const emojiLibJsonDataKeys: Array<string> = Object.keys(emojiLibJsonData)
       expect(emojiLibJsonDataKeys).to.be.an('array')
-      expect(emojiLibJsonDataKeys.length).to.be.equal(1870)
+      const TOTAL_EMOJIS: number = 1898
+      expect(emojiLibJsonDataKeys.length).to.be.equal(TOTAL_EMOJIS)
 
       // (2) Check emojiLibJsonData values
       let emojiObjectValue: EmojiType = emojiLibJsonData['🤣']
