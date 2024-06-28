@@ -109,12 +109,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['18']
+        node: ['20']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 20.x
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
         id: cache-npm
@@ -137,12 +137,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['18']
+        node: ['20']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 20.x
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
         id: cache-npm
@@ -166,12 +166,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['18']
+        node: ['20']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 20.x
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
         id: cache-npm
@@ -193,12 +193,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['18']
+        node: ['20']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 20.x
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
         id: cache-npm
@@ -234,7 +234,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['18']
+        node: ['20']
     steps:
       - uses: actions/checkout@v3
         with:
@@ -242,7 +242,7 @@ jobs:
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 20.x
           registry-url: https://registry.npmjs.org/
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v3
