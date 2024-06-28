@@ -1,4 +1,7 @@
 {
   "upgrade": true,
-  "reject": ["chai"]
+  "reject": [
+    "chai",
+    "eslint"
+  ]
 }
