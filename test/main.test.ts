@@ -307,6 +307,53 @@ describe('Test emoji parser', () => {
     })
   })
 
+  describe('Heart Tests', () => {
+    it('should parse emojis about heart', () => {
+      // (1) Heart ❤️
+      let text: string = '❤️'
+      let result: string = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        '<img class="emoji" alt="❤️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/2764.svg"/>'
+      )
+
+      // (2) Heart ❤️
+      text = ':heart:'
+      result = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        '<img class="emoji" alt="❤️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/2764.svg"/>'
+      )
+
+      // (3) Heart with Arrow 💘
+      text = '💘'
+      result = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        '<img class="emoji" alt="💘" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f498.svg"/>'
+      )
+
+      // (4) Heart with Arrow 💘
+      text = ':heart_with_arrow:'
+      result = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        '<img class="emoji" alt="💘" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f498.svg"/>'
+      )
+
+      // (5) Multiple emojis
+      text = 'Heart emojis: ❤️ 💘 :heart: :heart_with_arrow:'
+      result = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        'Heart emojis: <img class="emoji" alt="❤️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/2764.svg"/> <img class="emoji" alt="💘" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f498.svg"/> <img class="emoji" alt="❤️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/2764.svg"/> <img class="emoji" alt="💘" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f498.svg"/>'
+      )
+
+      // (6) Multiple emojis, parse to unicode
+      text = 'Heart emojis: ❤️ 💘 :heart: :heart_with_arrow:'
+      result = uEmojiParser.parse(text, {
+        parseToHtml: false,
+        parseToUnicode: true,
+      })
+      expect(result).to.be.equal('Heart emojis: ❤️ 💘 ❤️ 💘')
+    })
+  })
+
   describe('Readme tests', () => {
     it('should parse tests with default options', () => {
       // (1) Test with default options
