@@ -38,3 +38,10 @@ export interface EmojiParseOptionsType {
   parseToUnicode?: boolean
   parseToShortcode?: boolean
 }
+
+export interface TwemojiEntity {
+  url: string
+  indices: Array<number>
+  text: string
+  type: string
+}

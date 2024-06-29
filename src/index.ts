@@ -1,12 +1,11 @@
-import twemoji from 'twemoji'
-import { EmojiLibJsonType, EmojiParseOptionsType, EmojiType, UEmojiParserType } from './lib/type'
+import { EmojiLibJsonType, EmojiParseOptionsType, EmojiType, TwemojiEntity, UEmojiParserType } from './lib/type'
 import emojiLibJson from './lib/emoji-lib.json'
+import { parse } from '@twemoji/parser'
 
 /**
  * Constances
  */
-export const DEFAULT_EMOJI_CDN: string = 'https://twemoji.maxcdn.com/v'
-export const TEMPORARY_NEW_EMOJI_CDN: string = 'https://cdnjs.cloudflare.com/ajax/libs/twemoji'
+export const DEFAULT_EMOJI_CDN: string = 'https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/'
 export const emojiLibJsonData: EmojiLibJsonType = emojiLibJson
 
 /**
@@ -34,10 +33,7 @@ const uEmojiParser: UEmojiParserType = {
   },
   getDefaultOptions(options?: EmojiParseOptionsType): EmojiParseOptionsType {
     options = {
-      emojiCDN:
-        options && Object.getOwnPropertyDescriptor(options, 'emojiCDN')
-          ? String(options.emojiCDN)
-          : TEMPORARY_NEW_EMOJI_CDN,
+      emojiCDN: options && Object.getOwnPropertyDescriptor(options, 'emojiCDN') ? String(options.emojiCDN) : undefined,
       parseToHtml:
         options && Object.getOwnPropertyDescriptor(options, 'parseToHtml') ? Boolean(options.parseToHtml) : true,
       parseToUnicode: options ? Boolean(options.parseToUnicode) : false,
@@ -46,16 +42,24 @@ const uEmojiParser: UEmojiParserType = {
     return options
   },
   __parseEmojiToHtml(text: string, emojiCDN?: string): string {
-    text = twemoji.parse(text)
-    text = text.replace(/ draggable="false" /g, ' ')
-    // @TODO: This is a temporary solution to solve the issue with the official CDN.
-    if (!emojiCDN) {
-      emojiCDN = TEMPORARY_NEW_EMOJI_CDN
-    }
-    if (emojiCDN) {
-      const cdnRegex: RegExp = new RegExp(DEFAULT_EMOJI_CDN, 'gi')
-      text = text.replace(cdnRegex, emojiCDN)
-    }
+    // Parse text to identify Twemoji entities
+    const entities: Array<TwemojiEntity> = parse(text)
+    // Track processed entities to avoid duplicates
+    const entitiesFound: Array<string> = []
+    entities.forEach((entity: TwemojiEntity) => {
+      if (!entitiesFound.includes(entity.text)) {
+        entitiesFound.push(entity.text)
+        let emojiUrl: string = entity.url
+        // Replace default CDN URL with custom CDN if provided
+        if (emojiCDN) {
+          const cdnRegex: RegExp = new RegExp(DEFAULT_EMOJI_CDN, 'gi')
+          emojiUrl = emojiUrl.replace(cdnRegex, emojiCDN)
+        }
+        // Insert emoji image tag into text
+        const regex = new RegExp(entity.text, 'g')
+        text = text.replace(regex, `<img class="emoji" alt="${entity.text}" src="${emojiUrl}"/>`)
+      }
+    })
     return text
   },
   parseToHtml(text: string, emojiCDN?: string): string {
