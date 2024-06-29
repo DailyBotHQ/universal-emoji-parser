@@ -12,6 +12,12 @@ describe('Prepare emoji parser assets', () => {
     '🤎': {
       exclude: ['coffee'],
     },
+    '❤️': {
+      include: ['heart'],
+    },
+    '💘': {
+      exclude: ['heart'],
+    },
   }
 
   /**

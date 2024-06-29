@@ -1317,7 +1317,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "💘",
-    "keywords": ["heart_with_arrow", "heart"]
+    "keywords": ["heart_with_arrow"]
   },
   "💝": {
     "name": "heart with ribbon",
@@ -1437,7 +1437,7 @@
     "unicode_version": "0.6",
     "skin_tone_support": false,
     "char": "❤️",
-    "keywords": ["red_heart"]
+    "keywords": ["heart", "red_heart"]
   },
   "🩷": {
     "name": "pink heart",
