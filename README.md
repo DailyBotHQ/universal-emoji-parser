@@ -1,6 +1,6 @@
 # Universal Emoji Parser
 
-This tool allow parse emojis **char unicodes** and **shortcodes** to html images using [emojilib](https://github.com/muan/emojilib) && [Twemoji](https://github.com/twitter/twemoji).
+This tool allow parse emojis **char unicodes** and **shortcodes** to html images using [emojilib](https://github.com/muan/emojilib) && [Twemoji](https://github.com/jdecked/twemoji-parser).
 This allows emojis to be standard across browsers, and avoid compatibility issues.
 
 Emojis Support:
@@ -45,32 +45,32 @@ or
 
 ```
 → uEmojiParser.parse('😎')
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.svg"/>
 ```
 
 ```
 → uEmojiParser.parse(':smiling_face_with_sunglasses:')
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.svg"/>
 ```
 
 ```
 → uEmojiParser.parse('🚀')
-<img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
+<img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.svg"/>
 ```
 
 ```
 → uEmojiParser.parse(':rocket:')
-<img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.png"/>
+<img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/12.1.2/72x72/1f680.svg"/>
 ```
 
 ```
 → uEmojiParser.parse('Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:')
-Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
+Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.svg"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.svg"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.svg"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.svg"/>
 ```
 
 ### Using method options:
 
-- DEFAULT EMOJI CDN => `https://twemoji.maxcdn.com/v`
+- DEFAULT EMOJI CDN => `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/`
 
 | Option Name      | Type    | Default             | Description                                                                                                           |
 | :--------------- | :------ | :------------------ | :-------------------------------------------------------------------------------------------------------------------- |
@@ -83,12 +83,12 @@ Using different values for options:
 
 ```
 → uEmojiParser.parse('😎', {})
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.svg"/>
 ```
 
 ```
 → uEmojiParser.parse(':smiling_face_with_sunglasses:', { parseToHtml: true })
-<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/>
+<img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.svg"/>
 ```
 
 ```
@@ -104,17 +104,17 @@ Hello world! :smiling_face_with_sunglasses: :rocket:
 Using custom CDN
 
 ```
-→ uEmojiParser.parse('Hello world! 😎 🚀', { emojiCDN: https://custom.emoji.cdn })
-Hello world! <img class="emoji" alt="😎" src="https://custom.emoji.cdn/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://custom.emoji.cdn/14.0.2/72x72/1f680.png"/>
+→ uEmojiParser.parse('Hello world! 😎 🚀', { emojiCDN: "https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/" })
+Hello world! <img class="emoji" alt="😎" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f60e.svg"/> <img class="emoji" alt="🚀" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f680.svg"/>
 ```
 
 ```
-→ uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: true, emojiCDN: https://custom.emoji.cdn })
-Hello world! <img class="emoji" alt="😎" src="https://custom.emoji.cdn/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://custom.emoji.cdn/14.0.2/72x72/1f680.png"/>
+→ uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: true, emojiCDN: https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/ })
+Hello world! <img class="emoji" alt="😎" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f60e.svg"/> <img class="emoji" alt="🚀" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f680.svg"/>
 ```
 
 ```
-→ uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: false, emojiCDN: https://custom.emoji.cdn })
+→ uEmojiParser.parse('Hello world! 😎 🚀', { parseToHtml: false, emojiCDN: "https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/" })
 Hello world! 😎 🚀
 ```
 
@@ -122,7 +122,7 @@ Hello world! 😎 🚀
 
 ```
 → uEmojiParser.parseToHtml('Hello world! 😎 :smiling_face_with_sunglasses: 🚀 :rocket:')
-Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.png"/>
+Hello world! <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.svg"/> <img class="emoji" alt="😎" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f60e.svg"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.svg"/> <img class="emoji" alt="🚀" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/1f680.svg"/>
 ```
 
 ```
@@ -153,7 +153,7 @@ const { emojiLibJsonData } = uEmojiParser
 ```
 
 → Object.keys(emojiLibJsonData).length
-1870
+1898
 
 → emojiLibJsonData[🤣]
 {
