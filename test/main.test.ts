@@ -269,12 +269,41 @@ describe('Test emoji parser', () => {
         '<img class="emoji" alt="☕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/2615.svg"/>'
       )
 
-      // (2) Brown Coffee 🤎
+      // (2) Coffee ☕
+      text = ':coffee:'
+      result = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        '<img class="emoji" alt="☕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/2615.svg"/>'
+      )
+
+      // (3) Brown Coffee 🤎
       text = '🤎'
       result = uEmojiParser.parse(text)
       expect(result).to.be.equal(
         '<img class="emoji" alt="🤎" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f90e.svg"/>'
       )
+
+      // (4) Brown Coffee 🤎
+      text = ':brown_heart:'
+      result = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        '<img class="emoji" alt="🤎" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f90e.svg"/>'
+      )
+
+      // (5) Multiple emojis
+      text = 'Coffee emojis: ☕ 🤎 :coffee: :brown_heart:'
+      result = uEmojiParser.parse(text)
+      expect(result).to.be.equal(
+        'Coffee emojis: <img class="emoji" alt="☕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/2615.svg"/> <img class="emoji" alt="🤎" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f90e.svg"/> <img class="emoji" alt="☕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/2615.svg"/> <img class="emoji" alt="🤎" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f90e.svg"/>'
+      )
+
+      // (6) Multiple emojis, parse to unicode
+      text = 'Coffee emojis: ☕ 🤎 :coffee: :brown_heart:'
+      result = uEmojiParser.parse(text, {
+        parseToHtml: false,
+        parseToUnicode: true,
+      })
+      expect(result).to.be.equal('Coffee emojis: ☕ 🤎 ☕ 🤎')
     })
   })
 
