@@ -18,6 +18,10 @@ describe('Prepare emoji parser assets', () => {
     '💘': {
       exclude: ['heart'],
     },
+    '👮‍♀️': {
+      include: ['policewoman', 'female-police-officer'],
+      exclude: ['legal', 'arrest'],
+    },
   }
 
   /**

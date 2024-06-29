@@ -3534,7 +3534,7 @@
     "skin_tone_support": true,
     "skin_tone_support_unicode_version": "4.0",
     "char": "👮‍♂️",
-    "keywords": ["man_police_officer", "police", "enforcement"]
+    "keywords": ["man_police_officer", "police", "legal"]
   },
   "👮‍♀️": {
     "name": "woman police officer",
@@ -3545,7 +3545,7 @@
     "skin_tone_support": true,
     "skin_tone_support_unicode_version": "4.0",
     "char": "👮‍♀️",
-    "keywords": ["woman_police_officer", "legal", "arrest"]
+    "keywords": ["female-police-officer", "policewoman", "woman_police_officer"]
   },
   "🕵️": {
     "name": "detective",
@@ -9600,7 +9600,7 @@
     "unicode_version": "0.7",
     "skin_tone_support": false,
     "char": "🚔",
-    "keywords": ["oncoming_police_car"]
+    "keywords": ["oncoming_police_car", "enforcement"]
   },
   "🚕": {
     "name": "taxi",
@@ -13870,7 +13870,7 @@
     "unicode_version": "0.7",
     "skin_tone_support": false,
     "char": "⛓️",
-    "keywords": ["chains"]
+    "keywords": ["chains", "arrest"]
   },
   "🪝": {
     "name": "hook",
