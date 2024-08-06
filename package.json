@@ -55,11 +55,11 @@
     "@twemoji/parser": "15.1.1"
   },
   "devDependencies": {
-    "@types/chai": "4.3.16",
+    "@types/chai": "4.3.17",
     "@types/mocha": "10.0.7",
-    "@types/node": "22.0.0",
-    "@typescript-eslint/eslint-plugin": "7.18.0",
-    "@typescript-eslint/parser": "7.18.0",
+    "@types/node": "22.1.0",
+    "@typescript-eslint/eslint-plugin": "8.0.1",
+    "@typescript-eslint/parser": "8.0.1",
     "chai": "4.4.1",
     "clean-webpack-plugin": "4.0.0",
     "emojilib": "3.0.12",
@@ -77,6 +77,6 @@
     "webpack": "5.93.0",
     "webpack-cli": "5.1.4",
     "prettier": "3.3.3",
-    "npm-check-updates": "16.14.20"
+    "npm-check-updates": "17.0.3"
   }
 }
