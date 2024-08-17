@@ -112,6 +112,7 @@ describe('Prepare emoji parser assets', () => {
      */
     const filePath: string = 'src/lib/emoji-lib-output.json'
     fs.writeFileSync(filePath, JSON.stringify(emojiLibJson, null, 2))
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(fs.existsSync(filePath)).to.be.true
   })
 })

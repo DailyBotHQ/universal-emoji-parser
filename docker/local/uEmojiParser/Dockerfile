@@ -1,4 +1,4 @@
-FROM node:20.15.0-buster-slim
+FROM node:20.16.0-bullseye
 LABEL maintainer="developers@dailybot.com"
 
 RUN apt-get update -y && \
