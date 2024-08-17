@@ -12,9 +12,6 @@ jobs:
   check_packages_versions:
     name: 'Check Packages Versions'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
         with:

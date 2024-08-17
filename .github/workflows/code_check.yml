@@ -17,9 +17,6 @@ jobs:
   setup:
     name: 'Setup Application'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -45,9 +42,6 @@ jobs:
     needs: setup
     name: 'Validate Linters and Code Format'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -74,9 +68,6 @@ jobs:
     needs: validate_linters_and_code_format
     name: 'Run tests'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
