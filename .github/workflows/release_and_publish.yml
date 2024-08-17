@@ -107,14 +107,11 @@ jobs:
     needs: notify_on_channel_start
     name: 'Deploy - Setup Application'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: '20.16.0'
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v4
         id: cache-npm
@@ -135,14 +132,11 @@ jobs:
     needs: deploy_setup
     name: 'Deploy - Validate Linters and Code Format'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: '20.16.0'
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v4
         id: cache-npm
@@ -164,14 +158,11 @@ jobs:
     needs: deploy_validate_linters_and_code_format
     name: 'Run tests'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: '20.16.0'
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v4
         id: cache-npm
@@ -191,14 +182,11 @@ jobs:
     needs: deploy_tests
     name: 'Build application bundle'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: '20.16.0'
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v4
         id: cache-npm
@@ -232,9 +220,6 @@ jobs:
     needs: build
     name: 'Release and Publish'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
         with:
@@ -242,7 +227,7 @@ jobs:
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: '20.16.0'
           registry-url: https://registry.npmjs.org/
       - name: Step 0 - 📁 Cache node modules
         uses: actions/cache@v4

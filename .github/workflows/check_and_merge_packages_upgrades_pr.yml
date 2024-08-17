@@ -12,16 +12,13 @@ jobs:
   check_packages_versions_upgrades_pr:
     name: 'Check Packages Versions'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['20']
     steps:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: '20.16.0'
           registry-url: https://registry.npmjs.org/
       - name: Step 1 - ⚙️ Setup GitHub Config
         run: |
