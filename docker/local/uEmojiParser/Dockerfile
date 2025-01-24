@@ -1,4 +1,4 @@
-FROM node:20.16.0-bullseye
+FROM node:22.13.1-bullseye
 LABEL maintainer="developers@dailybot.com"
 
 RUN apt-get update -y && \
