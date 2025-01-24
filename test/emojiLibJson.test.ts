@@ -8,7 +8,7 @@ describe('Test emoji lib json data', () => {
       // (1) Check emojiLibJsonData keys
       const emojiLibJsonDataKeys: Array<string> = Object.keys(emojiLibJsonData)
       expect(emojiLibJsonDataKeys).to.be.an('array')
-      const TOTAL_EMOJIS: number = 1898
+      const TOTAL_EMOJIS: number = 1906
       expect(emojiLibJsonDataKeys.length).to.be.equal(TOTAL_EMOJIS)
 
       // (2) Check emojiLibJsonData values
@@ -22,7 +22,7 @@ describe('Test emoji lib json data', () => {
         unicode_version: '3.0',
         skin_tone_support: false,
         char: '🤣',
-        keywords: ['rolling_on_the_floor_laughing', 'rolling', 'floor', 'laughing', 'rofl'],
+        keywords: ['rolling_on_the_floor_laughing', 'rolling', 'floor', 'laughing', 'rofl', 'rotfl'],
       })
 
       // (3) Check emojiLibJsonData values
@@ -36,7 +36,7 @@ describe('Test emoji lib json data', () => {
         unicode_version: '1.0',
         skin_tone_support: false,
         char: '😎',
-        keywords: ['smiling_face_with_sunglasses', 'cool', 'summer', 'beach', 'sunglass'],
+        keywords: ['smiling_face_with_sunglasses', 'cool', 'summer', 'sunglass', 'best', 'friends'],
       })
     })
   })

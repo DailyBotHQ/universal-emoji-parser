@@ -22,6 +22,12 @@ describe('Prepare emoji parser assets', () => {
       include: ['policewoman', 'female-police-officer'],
       exclude: ['legal', 'arrest'],
     },
+    '✅': {
+      include: ['white_check_mark'],
+    },
+    '⏸️': {
+      include: ['double_vertical_bar'],
+    },
   }
 
   /**
