@@ -80,6 +80,6 @@
     "npm-check-updates": "17.1.14"
   },
   "engines": {
-    "node": "20.16.0"
+    "node": ">=20.16.0"
   }
 }
