@@ -52,32 +52,32 @@
   },
   "homepage": "https://github.com/DailyBotHQ/universal-emoji-parser#readme",
   "dependencies": {
-    "@twemoji/parser": "15.1.1"
+    "@twemoji/parser": "16.0.0"
   },
   "devDependencies": {
     "@types/chai": "5.2.1",
     "@types/mocha": "10.0.10",
-    "@types/node": "22.14.0",
-    "@typescript-eslint/eslint-plugin": "8.29.1",
-    "@typescript-eslint/parser": "8.29.1",
+    "@types/node": "22.14.1",
+    "@typescript-eslint/eslint-plugin": "8.30.1",
+    "@typescript-eslint/parser": "8.30.1",
     "chai": "4.4.1",
     "clean-webpack-plugin": "4.0.0",
     "emojilib": "4.0.1",
     "eslint": "8.57.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "5.2.6",
-    "eslint-config-prettier": "10.1.1",
-    "eslint-webpack-plugin": "5.0.0",
+    "eslint-config-prettier": "10.1.2",
+    "eslint-webpack-plugin": "5.0.1",
     "mocha": "11.1.0",
     "nodemon": "3.1.9",
     "ts-loader": "9.5.2",
     "ts-node": "10.9.2",
     "typescript": "5.8.3",
     "unicode-emoji-json": "0.8.0",
-    "webpack": "5.99.3",
+    "webpack": "5.99.5",
     "webpack-cli": "6.0.1",
     "prettier": "3.5.3",
-    "npm-check-updates": "17.1.16"
+    "npm-check-updates": "17.1.18"
   },
   "engines": {
     "node": ">=20.16.0"
