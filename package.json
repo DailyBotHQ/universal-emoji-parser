@@ -57,9 +57,9 @@
   "devDependencies": {
     "@types/chai": "5.2.2",
     "@types/mocha": "10.0.10",
-    "@types/node": "24.7.0",
-    "@typescript-eslint/eslint-plugin": "8.46.0",
-    "@typescript-eslint/parser": "8.46.0",
+    "@types/node": "24.7.2",
+    "@typescript-eslint/eslint-plugin": "8.46.1",
+    "@typescript-eslint/parser": "8.46.1",
     "chai": "4.4.1",
     "clean-webpack-plugin": "4.0.0",
     "emojilib": "4.0.2",
@@ -74,10 +74,10 @@
     "ts-node": "10.9.2",
     "typescript": "5.9.3",
     "unicode-emoji-json": "0.8.0",
-    "webpack": "5.102.0",
+    "webpack": "5.102.1",
     "webpack-cli": "6.0.1",
     "prettier": "3.6.2",
-    "npm-check-updates": "19.0.0"
+    "npm-check-updates": "19.1.0"
   },
   "engines": {
     "node": ">=20.16.0"
